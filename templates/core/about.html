@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - {{ site_settings.site_name|default:"Mediwell Care" }}{% endblock %}
+{% block description %}Learn about Mediwell Care's mission to empower doctors digitally. Our team of experts is dedicated to providing comprehensive digital solutions for healthcare professionals.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 bg-gradient-to-r from-medical-blue to-medical-aqua text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 font-poppins" data-aos="fade-up">
+                About Mediwell Care
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Empowering doctors with cutting-edge digital solutions
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-poppins">
+                    Our Mission
+                </h2>
+                <p class="text-lg text-gray-600 mb-6">
+                    At Mediwell Care, we believe that every doctor deserves access to world-class digital solutions. Our mission is to bridge the gap between traditional healthcare practices and modern digital technology.
+                </p>
+                <p class="text-lg text-gray-600 mb-8">
+                    We understand the unique challenges that doctors face in today's digital landscape. From managing patient relationships to building an online presence, we provide comprehensive solutions that help healthcare professionals focus on what they do best - caring for patients.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-heart text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Patient-Focused</h3>
+                            <p class="text-gray-600 text-sm">Solutions that improve patient care</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Secure & Compliant</h3>
+                            <p class="text-gray-600 text-sm">HIPAA compliant solutions</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-rocket text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Growth-Oriented</h3>
+                            <p class="text-gray-600 text-sm">Scalable digital strategies</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Community-Driven</h3>
+                            <p class="text-gray-600 text-sm">Built by doctors, for doctors</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-aos="fade-left">
+                <div class="relative">
+                    <img src="{% static 'images/about-mission.jpg' %}" alt="Our Mission" class="rounded-xl shadow-2xl">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-medical-blue">500+</div>
+                            <div class="text-gray-600">Doctors Served</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up">
+                Our Core Values
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                The principles that guide everything we do
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl p-8 shadow-lg text-center hover-lift" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-handshake text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Trust & Transparency</h3>
+                <p class="text-gray-600">We believe in building long-term relationships based on trust, transparency, and mutual respect with our clients.</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg text-center hover-lift" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-lightbulb text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Innovation</h3>
+                <p class="text-gray-600">We continuously explore new technologies and methodologies to provide cutting-edge solutions for our clients.</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg text-center hover-lift" data-aos="fade-up" data-aos-delay="600">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-star text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Excellence</h3>
+                <p class="text-gray-600">We strive for excellence in every project, ensuring the highest quality standards and client satisfaction.</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg text-center hover-lift" data-aos="fade-up" data-aos-delay="800">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-heart text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Empathy</h3>
+                <p class="text-gray-600">We understand the challenges doctors face and approach every solution with empathy and care.</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg text-center hover-lift" data-aos="fade-up" data-aos-delay="1000">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-cogs text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Customization</h3>
+                <p class="text-gray-600">Every doctor's practice is unique, and we tailor our solutions to meet specific needs and requirements.</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg text-center hover-lift" data-aos="fade-up" data-aos-delay="1200">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Continuous Learning</h3>
+                <p class="text-gray-600">We stay updated with the latest trends and technologies to provide the best solutions for our clients.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+{% if team_members %}
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up">
+                Meet Our Team
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                The experts behind Mediwell Care's success
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for member in team_members %}
+            <div class="bg-white border border-gray-200 rounded-xl p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <div class="mb-6">
+                    {% if member.image %}
+                        <img src="{{ member.image.url }}" alt="{{ member.name }}" class="w-24 h-24 rounded-full mx-auto object-cover">
+                    {% else %}
+                        <div class="w-24 h-24 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto">
+                            <i class="fas fa-user text-white text-2xl"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ member.name }}</h3>
+                <p class="text-medical-blue font-medium mb-2">{{ member.position }}</p>
+                {% if member.specialization %}
+                    <p class="text-gray-600 text-sm mb-4">{{ member.specialization }}</p>
+                {% endif %}
+                <p class="text-gray-600 text-sm mb-4">{{ member.bio|truncatewords:20 }}</p>
+                <div class="flex justify-center space-x-4">
+                    {% if member.email %}
+                        <a href="mailto:{{ member.email }}" class="text-gray-400 hover:text-medical-blue transition-colors duration-200">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    {% endif %}
+                    {% if member.linkedin_url %}
+                        <a href="{{ member.linkedin_url }}" target="_blank" class="text-gray-400 hover:text-medical-blue transition-colors duration-200">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Statistics Section -->
+{% if counters %}
+<section class="py-20 bg-gradient-to-r from-medical-blue to-medical-aqua text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 font-poppins" data-aos="fade-up">
+                Our Impact
+            </h2>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Numbers that speak for our commitment to excellence
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {% for counter in counters %}
+            <div class="text-center" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="{{ counter.number }}">
+                    {{ counter.number }}{{ counter.suffix }}
+                </div>
+                <div class="text-lg text-white/90">{{ counter.title }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Testimonials Section -->
+{% if testimonials %}
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up">
+                What Our Clients Say
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Don't just take our word for it. Here's what doctors say about working with us.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for testimonial in testimonials %}
+            <div class="bg-white rounded-xl p-6 shadow-lg" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <div class="flex items-center mb-4">
+                    {% if testimonial.image %}
+                        <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="w-12 h-12 rounded-full mr-4">
+                    {% else %}
+                        <div class="w-12 h-12 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h4 class="font-semibold text-gray-900">{{ testimonial.name }}</h4>
+                        <p class="text-medical-blue text-sm">{{ testimonial.title }}</p>
+                        {% if testimonial.clinic_name %}
+                            <p class="text-gray-600 text-sm">{{ testimonial.clinic_name }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="flex mb-4">
+                    {% for i in "12345"|make_list %}
+                        {% if forloop.counter <= testimonial.rating %}
+                            <i class="fas fa-star text-yellow-400"></i>
+                        {% else %}
+                            <i class="far fa-star text-gray-300"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="text-gray-600 italic">"{{ testimonial.content }}"</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-poppins" data-aos="fade-up">
+            Ready to Work With Us?
+        </h2>
+        <p class="text-xl text-gray-600 mb-8" data-aos="fade-up" data-aos-delay="200">
+            Let's discuss how we can help transform your practice with our digital solutions.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'contact' %}" class="bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105">
+                <i class="fas fa-phone mr-2"></i>
+                Get Free Consultation
+            </a>
+            <a href="{% url 'portfolio' %}" class="border-2 border-medical-blue text-medical-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-medical-blue hover:text-white transition-all duration-300 hover:shadow-lg hover:scale-105">
+                <i class="fas fa-eye mr-2"></i>
+                View Our Work
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Counter animation
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '') + (counter.textContent.includes('K') ? 'K' : '');
+            }, 16);
+        });
+    }
+    
+    // Trigger counter animation when section is in view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    
+    const statsSection = document.querySelector('.bg-gradient-to-r.from-medical-blue');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,527 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% block subtitle %}CRM Dashboard{% endblock %} - {{ site_settings.site_name|default:"Mediwell Care" }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    .crm-sidebar {
+        background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #06B6D4 100%);
+        min-height: calc(100vh - 64px);
+        position: relative;
+        overflow: hidden;
+    }
+    .crm-sidebar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+    }
+    .crm-content {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        min-height: calc(100vh - 64px);
+        position: relative;
+    }
+    .crm-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(59,130,246,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)"/></svg>');
+        pointer-events: none;
+    }
+    .crm-card {
+        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    .crm-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #1E40AF 0%, #3B82F6 50%, #06B6D4 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .crm-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-color: rgba(59, 130, 246, 0.3);
+    }
+    .crm-card:hover::before {
+        opacity: 1;
+    }
+    .crm-nav-item {
+        color: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    .crm-nav-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.5s;
+    }
+    .crm-nav-item:hover {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateX(4px);
+    }
+    .crm-nav-item:hover::before {
+        left: 100%;
+    }
+    .crm-nav-item.active {
+        color: white;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+        box-shadow: inset 4px 0 0 rgba(255, 255, 255, 0.5);
+    }
+    .stat-card {
+        background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        transition: transform 0.3s ease;
+    }
+    .stat-card:hover::before {
+        transform: scale(1.1);
+    }
+    .stat-card.success {
+        background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+    }
+    .stat-card.warning {
+        background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+    }
+    .stat-card.info {
+        background: linear-gradient(135deg, #06B6D4 0%, #67E8F9 100%);
+    }
+    .stat-card.danger {
+        background: linear-gradient(135deg, #EF4444 0%, #F87171 100%);
+    }
+    .crm-table {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .crm-table th {
+        background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+        color: white;
+        font-weight: 600;
+        padding: 1rem;
+        border: none;
+    }
+    .crm-table td {
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        transition: background-color 0.2s ease;
+    }
+    .crm-table tr:hover td {
+        background-color: #f8fafc;
+    }
+    .crm-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .crm-badge.success {
+        background-color: #D1FAE5;
+        color: #065F46;
+    }
+    .crm-badge.warning {
+        background-color: #FEF3C7;
+        color: #92400E;
+    }
+    .crm-badge.danger {
+        background-color: #FEE2E2;
+        color: #991B1B;
+    }
+    .crm-badge.info {
+        background-color: #DBEAFE;
+        color: #1E40AF;
+    }
+    .crm-button {
+        background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .crm-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+    .crm-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(30, 64, 175, 0.3);
+    }
+    .crm-button:hover::before {
+        left: 100%;
+    }
+    .crm-form-input {
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+    .crm-form-input:focus {
+        border-color: #3B82F6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        outline: none;
+    }
+    .crm-form-input.error {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+    .crm-form-input.success {
+        border-color: #10B981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    .crm-loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    .crm-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .crm-fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .crm-slide-in {
+        animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-64 crm-sidebar fixed left-0 top-16 h-full z-40" x-data="{ sidebarOpen: true }">
+        <div class="p-6 relative z-10">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 mb-8 group">
+                <div class="relative">
+                    <img src="{% static 'images/logo.png' %}" alt="Mediwell Care" class="h-10 w-auto transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute -inset-1 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                </div>
+                <div>
+                    <span class="text-white font-bold text-xl">CRM</span>
+                    <div class="text-white/70 text-xs">Patient Management</div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="space-y-1">
+                <a href="{% url 'crm:dashboard' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg crm-nav-item group {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
+                   data-tooltip="Dashboard Overview">
+                    <i class="fas fa-tachometer-alt w-5 transition-transform duration-300 group-hover:scale-110"></i>
+                    <span class="font-medium">Dashboard</span>
+                    <div class="ml-auto">
+                        <div class="w-2 h-2 bg-white/60 rounded-full crm-pulse"></div>
+                    </div>
+                </a>
+                
+                <a href="{% url 'crm:patient_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg crm-nav-item group {% if 'patient' in request.resolver_match.url_name %}active{% endif %}"
+                   data-tooltip="Patient Management">
+                    <i class="fas fa-users w-5 transition-transform duration-300 group-hover:scale-110"></i>
+                    <span class="font-medium">Patients</span>
+                    <div class="ml-auto">
+                        <span class="text-xs bg-white/20 px-2 py-1 rounded-full">{% if doctor %}{{ doctor.patients.count }}{% else %}0{% endif %}</span>
+                    </div>
+                </a>
+                
+                <a href="{% url 'crm:appointment_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg crm-nav-item group {% if 'appointment' in request.resolver_match.url_name %}active{% endif %}"
+                   data-tooltip="Appointment Scheduling">
+                    <i class="fas fa-calendar-alt w-5 transition-transform duration-300 group-hover:scale-110"></i>
+                    <span class="font-medium">Appointments</span>
+                    <div class="ml-auto">
+                        <span class="text-xs bg-white/20 px-2 py-1 rounded-full">Today</span>
+                    </div>
+                </a>
+                
+                <a href="{% url 'crm:treatment_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg crm-nav-item group {% if 'treatment' in request.resolver_match.url_name %}active{% endif %}"
+                   data-tooltip="Treatment Records">
+                    <i class="fas fa-stethoscope w-5 transition-transform duration-300 group-hover:scale-110"></i>
+                    <span class="font-medium">Treatments</span>
+                </a>
+                
+                <a href="{% url 'crm:prescription_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg crm-nav-item group {% if 'prescription' in request.resolver_match.url_name %}active{% endif %}"
+                   data-tooltip="Prescription Management">
+                    <i class="fas fa-prescription-bottle-alt w-5 transition-transform duration-300 group-hover:scale-110"></i>
+                    <span class="font-medium">Prescriptions</span>
+                </a>
+                
+                <a href="{% url 'crm:payment_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg crm-nav-item group {% if 'payment' in request.resolver_match.url_name %}active{% endif %}"
+                   data-tooltip="Payment Records">
+                    <i class="fas fa-credit-card w-5 transition-transform duration-300 group-hover:scale-110"></i>
+                    <span class="font-medium">Payments</span>
+                </a>
+                
+                <a href="{% url 'crm:medical_record_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg crm-nav-item group {% if 'medical_record' in request.resolver_match.url_name %}active{% endif %}"
+                   data-tooltip="Medical Records">
+                    <i class="fas fa-file-medical w-5 transition-transform duration-300 group-hover:scale-110"></i>
+                    <span class="font-medium">Medical Records</span>
+                </a>
+            </nav>
+            
+            <!-- Quick Actions -->
+            <div class="mt-8 pt-6 border-t border-white/20">
+                <h4 class="text-white/70 text-sm font-semibold mb-3 uppercase tracking-wider">Quick Actions</h4>
+                <div class="space-y-2">
+                    <a href="{% url 'crm:patient_create' %}" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 group">
+                        <i class="fas fa-plus w-4 text-white/80 group-hover:text-white"></i>
+                        <span class="text-white/80 text-sm group-hover:text-white">Add Patient</span>
+                    </a>
+                    <a href="{% url 'crm:appointment_create' %}" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 group">
+                        <i class="fas fa-calendar-plus w-4 text-white/80 group-hover:text-white"></i>
+                        <span class="text-white/80 text-sm group-hover:text-white">New Appointment</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- User Info -->
+        <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/20 bg-white/5 backdrop-blur-sm">
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <div class="w-12 h-12 bg-gradient-to-r from-white/20 to-white/10 rounded-full flex items-center justify-center group-hover:from-white/30 group-hover:to-white/20 transition-all duration-300">
+                    <i class="fas fa-user text-white text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-white font-semibold">
+                        {% if doctor %}{{ doctor.full_name }}{% else %}{{ user.get_full_name|default:user.username }}{% endif %}
+                    </div>
+                    <div class="text-white/70 text-sm">
+                        {% if doctor %}{{ doctor.specialization }}{% else %}Admin{% endif %}
+                    </div>
+                </div>
+                <div class="text-white/60 group-hover:text-white transition-colors duration-300">
+                    <i class="fas fa-chevron-down text-sm"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 crm-content">
+        <div class="p-6 relative z-10">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900 flex items-center space-x-3">
+                            <span class="text-gradient">{% block page_title %}CRM Dashboard{% endblock %}</span>
+                            <div class="w-2 h-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full crm-pulse"></div>
+                        </h1>
+                        <p class="text-gray-600 mt-2 flex items-center space-x-2">
+                            <i class="fas fa-info-circle text-medical-blue"></i>
+                            <span>{% block page_description %}Manage your clinic operations efficiently{% endblock %}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex space-x-3">
+                    <!-- Search Bar -->
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." 
+                               class="crm-form-input w-64 pl-10 pr-4 py-2 text-sm"
+                               x-data="{ search: '' }"
+                               x-model="search">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- Notifications -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" 
+                                class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 hover:scale-105 relative">
+                            <i class="fas fa-bell text-gray-600"></i>
+                            <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+                        </button>
+                        <div x-show="open" 
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 transform scale-95"
+                             x-transition:enter-end="opacity-100 transform scale-100"
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100 transform scale-100"
+                             x-transition:leave-end="opacity-0 transform scale-95"
+                             class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+                            <div class="p-4 border-b border-gray-200">
+                                <h3 class="font-semibold text-gray-900">Notifications</h3>
+                            </div>
+                            <div class="max-h-64 overflow-y-auto">
+                                <div class="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200">
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-2 h-2 bg-medical-blue rounded-full mt-2"></div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900">New appointment scheduled</p>
+                                            <p class="text-xs text-gray-500">2 minutes ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200">
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900">Payment received</p>
+                                            <p class="text-xs text-gray-500">1 hour ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Settings -->
+                    <button class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 hover:scale-105">
+                        <i class="fas fa-cog text-gray-600"></i>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" 
+                                class="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-8 h-8 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">{% if doctor %}{{ doctor.full_name }}{% else %}{{ user.get_full_name|default:user.username }}{% endif %}</span>
+                            <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                        </button>
+                        <div x-show="open" 
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 transform scale-95"
+                             x-transition:enter-end="opacity-100 transform scale-100"
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100 transform scale-100"
+                             x-transition:leave-end="opacity-0 transform scale-95"
+                             class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+                            <div class="py-2">
+                                <a href="#" class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                    <i class="fas fa-user w-4"></i>
+                                    <span>Profile</span>
+                                </a>
+                                <a href="#" class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                    <i class="fas fa-cog w-4"></i>
+                                    <span>Settings</span>
+                                </a>
+                                <a href="#" class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                    <i class="fas fa-sign-out-alt w-4"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Breadcrumb -->
+            <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-6">
+                <a href="{% url 'crm:dashboard' %}" class="hover:text-medical-blue transition-colors duration-200">Dashboard</a>
+                {% block breadcrumb %}{% endblock %}
+            </nav>
+            
+            <!-- Content -->
+            <div class="crm-fade-in">
+                {% block crm_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile Sidebar Toggle -->
+<div class="md:hidden fixed top-20 left-4 z-50">
+    <button @click="sidebarOpen = !sidebarOpen" class="bg-medical-blue text-white p-2 rounded-lg shadow-lg">
+        <i class="fas fa-bars"></i>
+    </button>
+</div>
+
+<!-- Mobile Sidebar Overlay -->
+<div x-show="sidebarOpen" x-transition class="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30" @click="sidebarOpen = false"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-refresh dashboard stats every 30 seconds
+    if (window.location.pathname === '/crm/') {
+        setInterval(function() {
+            fetch('/crm/api/dashboard/stats/')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.today_appointments !== undefined) {
+                        document.getElementById('today-appointments').textContent = data.today_appointments;
+                    }
+                    if (data.month_revenue !== undefined) {
+                        document.getElementById('month-revenue').textContent = '₹' + data.month_revenue.toLocaleString();
+                    }
+                    if (data.total_patients !== undefined) {
+                        document.getElementById('total-patients').textContent = data.total_patients;
+                    }
+                })
+                .catch(error => console.log('Error fetching stats:', error));
+        }, 30000);
+    }
+</script>
+{% endblock %}

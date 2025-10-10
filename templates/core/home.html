@@ -1,0 +1,1023 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ site_settings.site_name|default:"Mediwell Care" }} - Empowering Doctors Digitally{% endblock %}
+{% block description %}Transform your medical practice with our comprehensive digital solutions. Custom websites, CRM systems, SEO optimization, and social media management exclusively for doctors and healthcare professionals.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Beautiful Background with Medical Theme -->
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-700">
+        <!-- Medical Pattern Overlay -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"medical\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\"><path d=\"M20 0 L20 40 M0 20 L40 20\" stroke=\"white\" stroke-width=\"1\" fill=\"none\"/><circle cx=\"20\" cy=\"20\" r=\"3\" fill=\"white\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23medical)\"/></svg>');"></div>
+        </div>
+        
+        <!-- Floating Medical Icons -->
+        <div class="absolute inset-0">
+            <div class="floating-animation absolute top-20 left-10 w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
+                <i class="fas fa-stethoscope text-white/60 text-xl"></i>
+            </div>
+            <div class="floating-animation absolute top-40 right-20 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center" style="animation-delay: 2s;">
+                <i class="fas fa-heartbeat text-white/40 text-lg"></i>
+            </div>
+            <div class="floating-animation absolute bottom-40 left-20 w-14 h-14 bg-white/10 rounded-full flex items-center justify-center" style="animation-delay: 4s;">
+                <i class="fas fa-user-md text-white/60 text-lg"></i>
+            </div>
+            <div class="floating-animation absolute bottom-20 right-10 w-20 h-20 bg-white/5 rounded-full flex items-center justify-center" style="animation-delay: 6s;">
+                <i class="fas fa-laptop-medical text-white/40 text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Image -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-cyan-700/80"></div>
+        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><defs><linearGradient id='heroGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF;stop-opacity:0.9'/><stop offset='50%' style='stop-color:%233B82F6;stop-opacity:0.8'/><stop offset='100%' style='stop-color:%2306B6D4;stop-opacity:0.9'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23heroGrad)'/><text x='50%' y='50%' text-anchor='middle' fill='white' font-family='Arial' font-size='120' font-weight='bold' opacity='0.1'>MEDICAL CARE</text></svg>" 
+             alt="Medical Care Background" 
+             class="w-full h-full object-cover opacity-30">
+    </div>
+    
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Content -->
+            <div class="text-center lg:text-left">
+                <div class="mb-6" data-aos="fade-up">
+                    <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full text-sm font-medium mb-4 border border-white/30">
+                        <i class="fas fa-star mr-2 text-yellow-300"></i>
+                        Trusted by 500+ Doctors Across India
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-poppins typing-effect" data-aos="fade-up" data-aos-delay="200">
+                    <span class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                {{ hero.title|default:"Empowering Doctors Digitally" }}
+                    </span>
+            </h1>
+                <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl" data-aos="fade-up" data-aos-delay="400">
+                {{ hero.subtitle|default:"Your digital partner for websites, CRM, SEO & patient growth" }}
+            </p>
+                <p class="text-lg text-white/80 mb-12 max-w-2xl" data-aos="fade-up" data-aos-delay="600">
+                {{ hero.description|default:"We specialize in creating powerful digital solutions exclusively for doctors and healthcare professionals. From custom websites to comprehensive CRM systems, we help you grow your practice and serve more patients." }}
+            </p>
+            
+            <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="800">
+                    <a href="{% url 'contact' %}" 
+                       class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 group">
+                        <span class="relative z-10 flex items-center justify-center">
+                    <i class="fas fa-phone mr-2"></i>
+                    {{ hero.primary_cta_text|default:"Get Free Consultation" }}
+                        </span>
+                </a>
+                    <a href="{% url 'portfolio' %}" 
+                       class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+                        <span class="flex items-center justify-center">
+                    <i class="fas fa-eye mr-2"></i>
+                    {{ hero.secondary_cta_text|default:"View Our Work" }}
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="mt-16 flex flex-wrap justify-center lg:justify-start items-center gap-8 text-white/70" data-aos="fade-up" data-aos-delay="1000">
+                    <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                        <i class="fas fa-shield-alt text-green-400"></i>
+                        <span class="text-sm font-medium">HIPAA Compliant</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                        <i class="fas fa-lock text-blue-400"></i>
+                        <span class="text-sm font-medium">Secure & Private</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                        <i class="fas fa-clock text-yellow-400"></i>
+                        <span class="text-sm font-medium">24/7 Support</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Content - Hero Image/Illustration -->
+            <div class="relative" data-aos="fade-left" data-aos-delay="400">
+                <div class="relative">
+                    <!-- Main Hero Image -->
+                    <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-2xl">
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-gradient-to-r from-white/20 to-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-laptop-medical text-white text-5xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Digital Healthcare Solutions</h3>
+                            <p class="text-white/80 mb-6">Complete digital transformation for medical practices</p>
+                            
+                            <!-- Feature Icons -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white/10 rounded-lg p-4 text-center">
+                                    <i class="fas fa-globe text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">Websites</p>
+                                </div>
+                                <div class="bg-white/10 rounded-lg p-4 text-center">
+                                    <i class="fas fa-users-cog text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">CRM Systems</p>
+                                </div>
+                                <div class="bg-white/10 rounded-lg p-4 text-center">
+                                    <i class="fas fa-search text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">SEO Services</p>
+                                </div>
+                                <div class="bg-white/10 rounded-lg p-4 text-center">
+                                    <i class="fas fa-share-alt text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">Social Media</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center animate-pulse">
+                        <i class="fas fa-check text-white text-2xl"></i>
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce">
+                        <i class="fas fa-star text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div class="flex flex-col items-center space-y-2">
+            <span class="text-white/70 text-sm">Scroll to explore</span>
+        <i class="fas fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Cards Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden" id="features">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"dots\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\"><circle cx=\"10\" cy=\"10\" r=\"2\" fill=\"%231E40AF\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23dots)\"/></svg>');"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-heart mr-2"></i>
+                Why Choose Us
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
+                Why Choose Mediwell Care?
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                We understand the unique challenges doctors face in today's digital world. Our solutions are designed specifically for healthcare professionals.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for card in feature_cards %}
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <div class="p-8">
+                <div class="text-center">
+                        <div class="w-20 h-20 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 relative">
+                        <i class="{{ card.icon|default:'fas fa-stethoscope' }} text-white text-2xl"></i>
+                            <div class="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4 group-hover:text-medical-blue transition-colors duration-300">{{ card.title }}</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">{{ card.description }}</p>
+                    {% if card.cta_text and card.cta_url %}
+                            <a href="{{ card.cta_url }}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
+                                {{ card.cta_text }} 
+                                <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </a>
+                    {% endif %}
+                    </div>
+                </div>
+                <!-- Hover Effect -->
+                <div class="absolute inset-0 bg-gradient-to-r from-medical-blue/5 to-medical-aqua/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Additional Info -->
+        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="800">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-xl">
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                    <div class="text-left">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Ready to Get Started?</h3>
+                        <p class="text-gray-600">Join hundreds of doctors who trust us with their digital transformation.</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="{% url 'contact' %}" class="dynamic-button text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
+                            <span class="relative z-10">Get Started</span>
+                        </a>
+                        <a href="{% url 'portfolio' %}" class="border-2 border-medical-blue text-medical-blue px-6 py-3 rounded-lg font-semibold hover:bg-medical-blue hover:text-white transition-all duration-300">
+                            View Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="py-20 bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden" id="services">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"services\" width=\"30\" height=\"30\" patternUnits=\"userSpaceOnUse\"><circle cx=\"15\" cy=\"15\" r=\"2\" fill=\"%231E40AF\" opacity=\"0.3\"/><path d=\"M15 0 L15 30 M0 15 L30 15\" stroke=\"%231E40AF\" stroke-width=\"0.5\" opacity=\"0.2\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23services)\"/></svg>');"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-cogs mr-2"></i>
+                Our Services
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
+                Our Digital Solutions
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                Comprehensive digital services tailored for doctors and healthcare professionals
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Website Development Service -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-laptop-medical text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Website Development</h3>
+                    </div>
+                    <div class="mb-6">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='webGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%233B82F6'/><stop offset='100%' style='stop-color:%231E40AF'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23webGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
+                             alt="Website Development" 
+                             class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <p class="text-gray-600 mb-4">Professional, responsive websites designed specifically for medical practices with patient booking systems and online consultations.</p>
+                    <div class="text-medical-blue font-semibold mb-4">
+                        Starting from ₹25,000
+                    </div>
+                    <a href="{% url 'service_list' %}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
+                        Learn More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- CRM Systems Service -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                <div class="p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-users-cog text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">CRM Systems</h3>
+                    </div>
+                    <div class="mb-6">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='crmGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23crmGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='140' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='210' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='70' y='120' width='200' height='60' fill='%23F3F4F6' rx='4'/></svg>" 
+                             alt="CRM Systems" 
+                             class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <p class="text-gray-600 mb-4">Complete patient management systems with appointment scheduling, medical records, and billing integration.</p>
+                    <div class="text-medical-blue font-semibold mb-4">
+                        Starting from ₹15,000
+                    </div>
+                    <a href="{% url 'service_list' %}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
+                        Learn More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- SEO Services -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                <div class="p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-search text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">SEO Services</h3>
+                    </div>
+                    <div class="mb-6">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='seoGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23seoGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='260' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='200' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='180' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='220' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                             alt="SEO Services" 
+                             class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <p class="text-gray-600 mb-4">Medical SEO optimization to help your practice rank higher in search results and attract more patients.</p>
+                    <div class="text-medical-blue font-semibold mb-4">
+                        Starting from ₹8,000/month
+                    </div>
+                    <a href="{% url 'service_list' %}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
+                        Learn More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
+            <a href="{% url 'service_list' %}" class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
+                <span class="relative z-10 flex items-center">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    View All Services
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+{% if counters %}
+<section class="py-20 bg-gradient-to-br from-medical-blue via-blue-600 to-medical-aqua text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"grid\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\"><path d=\"M 20 0 L 0 0 0 20\" fill=\"none\" stroke=\"white\" stroke-width=\"1\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23grid)\"/></svg>');"></div>
+    </div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute inset-0">
+        <div class="floating-animation absolute top-20 left-10 w-16 h-16 bg-white/10 rounded-full"></div>
+        <div class="floating-animation absolute top-40 right-20 w-12 h-12 bg-white/5 rounded-full" style="animation-delay: 2s;"></div>
+        <div class="floating-animation absolute bottom-40 left-20 w-8 h-8 bg-white/10 rounded-full" style="animation-delay: 4s;"></div>
+        <div class="floating-animation absolute bottom-20 right-10 w-20 h-20 bg-white/5 rounded-full" style="animation-delay: 6s;"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-chart-line mr-2"></i>
+                Our Impact
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
+                Our Impact in Numbers
+            </h2>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                Trusted by doctors across India for their digital transformation
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {% for counter in counters %}
+            <div class="text-center group" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group-hover:scale-105">
+                    <div class="text-4xl md:text-5xl font-bold mb-2 stat-counter" data-target="{{ counter.number }}">
+                        <span class="counter-display">0</span>{{ counter.suffix }}
+                    </div>
+                    <div class="text-lg text-white/90 font-medium">{{ counter.title }}</div>
+                    {% if counter.description %}
+                        <div class="text-sm text-white/70 mt-2">{{ counter.description }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Additional Stats -->
+        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="800">
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold mb-2">99.9%</div>
+                        <div class="text-white/80">Uptime Guarantee</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold mb-2">24/7</div>
+                        <div class="text-white/80">Support Available</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold mb-2">100%</div>
+                        <div class="text-white/80">HIPAA Compliant</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Case Studies Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden" id="portfolio">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"portfolio\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M12.5 0 L12.5 25 M0 12.5 L25 12.5\" stroke=\"%231E40AF\" stroke-width=\"1\" opacity=\"0.3\"/><circle cx=\"12.5\" cy=\"12.5\" r=\"2\" fill=\"%231E40AF\" opacity=\"0.2\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23portfolio)\"/></svg>');"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-trophy mr-2"></i>
+                Success Stories
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
+                Success Stories
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                See how we've helped doctors transform their practices with our digital solutions
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Case Study 1: Dr. Sharma -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='case1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23case1)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
+                         alt="Dr. Sharma's Website" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-user-md text-white"></i>
+                            <span class="text-sm font-medium">Dr. Sharma</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Rajesh Sharma</h3>
+                    <p class="text-medical-blue font-medium mb-2">Cardiologist</p>
+                    <p class="text-gray-600 mb-4">Complete digital transformation with website, CRM, and SEO services. Increased patient bookings by 300%.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">Website + CRM</span>
+                        <a href="{% url 'portfolio' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Read More <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Case Study 2: Dr. Patel -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='case2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23case2)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='140' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='210' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='70' y='120' width='200' height='60' fill='%23F3F4F6' rx='4'/></svg>" 
+                         alt="Dr. Patel's CRM" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-user-md text-white"></i>
+                            <span class="text-sm font-medium">Dr. Patel</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Priya Patel</h3>
+                    <p class="text-medical-blue font-medium mb-2">Dermatologist</p>
+                    <p class="text-gray-600 mb-4">Advanced CRM system with telemedicine integration. Reduced appointment no-shows by 60%.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 bg-green-100 px-3 py-1 rounded-full">CRM System</span>
+                        <a href="{% url 'portfolio' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Read More <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Case Study 3: Dr. Kumar -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='case3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23case3)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='260' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='200' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='180' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='220' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                         alt="Dr. Kumar's SEO" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-user-md text-white"></i>
+                            <span class="text-sm font-medium">Dr. Kumar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Amit Kumar</h3>
+                    <p class="text-medical-blue font-medium mb-2">Orthopedic Surgeon</p>
+                    <p class="text-gray-600 mb-4">SEO optimization and social media management. Achieved #1 ranking for local orthopedic searches.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 bg-purple-100 px-3 py-1 rounded-full">SEO + Social</span>
+                        <a href="{% url 'portfolio' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Read More <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
+            <a href="{% url 'portfolio' %}" class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
+                <span class="relative z-10 flex items-center">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    View All Case Studies
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-gradient-to-br from-white via-gray-50 to-blue-50 relative overflow-hidden" id="testimonials">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"testimonials\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\"><circle cx=\"10\" cy=\"10\" r=\"1.5\" fill=\"%231E40AF\" opacity=\"0.3\"/><path d=\"M10 0 L10 20 M0 10 L20 10\" stroke=\"%231E40AF\" stroke-width=\"0.5\" opacity=\"0.2\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23testimonials)\"/></svg>');"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-quote-left mr-2"></i>
+                Client Testimonials
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
+                What Doctors Say About Us
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                Don't just take our word for it. Here's what our clients have to say about our services.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user-md text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 text-lg">Dr. Rajesh Sharma</h4>
+                            <p class="text-medical-blue text-sm font-medium">Cardiologist</p>
+                            <p class="text-gray-600 text-sm">Sharma Heart Clinic, Mumbai</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 italic text-lg leading-relaxed">"Mediwell Care transformed our practice completely. Our patient bookings increased by 300% within 6 months. The CRM system is incredibly user-friendly and the website looks professional."</p>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                <div class="p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user-md text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 text-lg">Dr. Priya Patel</h4>
+                            <p class="text-medical-blue text-sm font-medium">Dermatologist</p>
+                            <p class="text-gray-600 text-sm">Skin Care Center, Delhi</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 italic text-lg leading-relaxed">"The telemedicine integration in our CRM has been a game-changer. We reduced no-shows by 60% and our patients love the online consultation feature."</p>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                <div class="p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user-md text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 text-lg">Dr. Amit Kumar</h4>
+                            <p class="text-medical-blue text-sm font-medium">Orthopedic Surgeon</p>
+                            <p class="text-gray-600 text-sm">Bone & Joint Clinic, Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 italic text-lg leading-relaxed">"Their SEO services helped us achieve #1 ranking for orthopedic searches in our city. The social media management has brought in so many new patients."</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Testimonial Stats -->
+        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="800">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-medical-blue mb-2">4.9/5</div>
+                        <div class="text-gray-600">Average Rating</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-medical-blue mb-2">500+</div>
+                        <div class="text-gray-600">Happy Doctors</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-medical-blue mb-2">98%</div>
+                        <div class="text-gray-600">Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Doctor Websites Showcase -->
+<section class="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden" id="websites">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"websites\" width=\"30\" height=\"30\" patternUnits=\"userSpaceOnUse\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" fill=\"none\" stroke=\"%231E40AF\" stroke-width=\"0.5\" opacity=\"0.2\"/><circle cx=\"15\" cy=\"15\" r=\"2\" fill=\"%231E40AF\" opacity=\"0.3\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23websites)\"/></svg>');"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-globe mr-2"></i>
+                Featured Websites
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
+                Doctor Websites We've Built
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                Professional, modern websites designed specifically for healthcare professionals
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Website 1: Dr. Sharma's Heart Clinic -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='web1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23web1)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                         alt="Dr. Sharma's Website" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-heart text-red-400"></i>
+                            <span class="text-sm font-medium">Heart Clinic</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Rajesh Sharma</h3>
+                    <p class="text-medical-blue font-medium mb-2">Cardiologist</p>
+                    <p class="text-gray-600 mb-4">Professional website with online booking system and patient portal integration.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">Mumbai</span>
+                        <a href="#" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Visit Website <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Website 2: Dr. Patel's Skin Care -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='web2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23web2)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                         alt="Dr. Patel's Website" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-leaf text-green-400"></i>
+                            <span class="text-sm font-medium">Skin Care</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Priya Patel</h3>
+                    <p class="text-medical-blue font-medium mb-2">Dermatologist</p>
+                    <p class="text-gray-600 mb-4">Modern website with telemedicine features and online consultation booking.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 bg-green-100 px-3 py-1 rounded-full">Delhi</span>
+                        <a href="#" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Visit Website <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Website 3: Dr. Kumar's Orthopedic -->
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='web3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23web3)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                         alt="Dr. Kumar's Website" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-bone text-purple-400"></i>
+                            <span class="text-sm font-medium">Orthopedic</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Amit Kumar</h3>
+                    <p class="text-medical-blue font-medium mb-2">Orthopedic Surgeon</p>
+                    <p class="text-gray-600 mb-4">SEO-optimized website with appointment scheduling and patient testimonials.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 bg-purple-100 px-3 py-1 rounded-full">Bangalore</span>
+                        <a href="#" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Visit Website <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
+            <a href="{% url 'portfolio' %}" class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
+                <span class="relative z-10 flex items-center">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    View All Websites
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section class="py-20 bg-gradient-to-br from-white via-gray-50 to-blue-50 relative overflow-hidden" id="blog">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"blog\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M12.5 0 L12.5 25 M0 12.5 L25 12.5\" stroke=\"%231E40AF\" stroke-width=\"1\" opacity=\"0.3\"/><circle cx=\"12.5\" cy=\"12.5\" r=\"1.5\" fill=\"%231E40AF\" opacity=\"0.2\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23blog)\"/></svg>');"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-newspaper mr-2"></i>
+                Latest Insights
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
+                Latest Insights
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                Stay updated with the latest trends in healthcare digital marketing
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Blog Post 1: Digital Transformation -->
+            <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blog1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blog1)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                         alt="Digital Transformation Blog" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-laptop-medical text-blue-400"></i>
+                            <span class="text-sm font-medium">Digital Health</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="bg-medical-blue text-white px-3 py-1 rounded-full text-sm font-medium">Digital Health</span>
+                        <span class="text-gray-500 text-sm ml-3">Dec 15, 2024</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Digital Transformation in Healthcare: A Complete Guide</h3>
+                    <p class="text-gray-600 mb-4">Learn how digital transformation is revolutionizing healthcare practices and improving patient outcomes through technology integration.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-eye mr-1"></i>
+                            1,250 views
+                        </div>
+                        <a href="{% url 'blog_list' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Read More <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Blog Post 2: SEO for Doctors -->
+            <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blog2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blog2)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                         alt="SEO for Doctors Blog" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-search text-green-400"></i>
+                            <span class="text-sm font-medium">SEO & Marketing</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">SEO & Marketing</span>
+                        <span class="text-gray-500 text-sm ml-3">Dec 12, 2024</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">SEO Strategies for Medical Practices: Get Found Online</h3>
+                    <p class="text-gray-600 mb-4">Discover proven SEO techniques that help medical practices rank higher in search results and attract more patients.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-eye mr-1"></i>
+                            980 views
+                        </div>
+                        <a href="{% url 'blog_list' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Read More <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Blog Post 3: CRM Benefits -->
+            <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                <div class="relative">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blog3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blog3)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                         alt="CRM Benefits Blog" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-users-cog text-purple-400"></i>
+                            <span class="text-sm font-medium">CRM Systems</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium">CRM Systems</span>
+                        <span class="text-gray-500 text-sm ml-3">Dec 10, 2024</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Why Every Doctor Needs a CRM System</h3>
+                    <p class="text-gray-600 mb-4">Explore the benefits of CRM systems for medical practices and how they can streamline patient management and improve efficiency.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-eye mr-1"></i>
+                            1,450 views
+                        </div>
+                        <a href="{% url 'blog_list' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                            Read More <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
+            <a href="{% url 'blog_list' %}" class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
+                <span class="relative z-10 flex items-center">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    View All Articles
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-medical-blue to-medical-aqua text-white">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-poppins" data-aos="fade-up">
+            Ready to Transform Your Practice?
+        </h2>
+        <p class="text-xl text-white/90 mb-8" data-aos="fade-up" data-aos-delay="200">
+            Join hundreds of doctors who have already transformed their practices with our digital solutions. Get your free consultation today!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'contact' %}" class="bg-white text-medical-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:shadow-xl hover:scale-105">
+                <i class="fas fa-phone mr-2"></i>
+                Get Free Consultation
+            </a>
+            <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-xl hover:scale-105">
+                <i class="fas fa-calculator mr-2"></i>
+                Request Quote
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Enhanced counter animation with smooth transitions
+    function animateCounters() {
+        const counters = document.querySelectorAll('.stat-counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const display = counter.querySelector('.counter-display');
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                if (display) {
+                    display.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        });
+    }
+    
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in');
+                if (entry.target.classList.contains('stat-counter') || entry.target.querySelector('.stat-counter')) {
+                animateCounters();
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.dynamic-card, .stat-counter, .floating-animation');
+        animatedElements.forEach(el => observer.observe(el));
+        
+        // Trigger counter animation when stats section is in view
+        const statsSection = document.querySelector('.bg-gradient-to-br.from-medical-blue');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+    });
+    
+    // Parallax scrolling effect
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.floating-animation');
+        parallaxElements.forEach(element => {
+            const speed = 0.5;
+            element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+    
+    // Dynamic typing effect for hero title
+    function typeWriter(element, text, speed = 100) {
+        let i = 0;
+        element.innerHTML = '';
+        
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        
+        type();
+    }
+    
+    // Initialize typing effects
+    document.addEventListener('DOMContentLoaded', () => {
+        const typingElements = document.querySelectorAll('.typing-effect');
+        typingElements.forEach(element => {
+            const text = element.textContent;
+            typeWriter(element, text, 50);
+        });
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const offsetTop = target.offsetTop - 80; // Account for fixed header
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Dynamic loading states
+    function showLoading(element) {
+        element.classList.add('loading-skeleton');
+        element.style.pointerEvents = 'none';
+    }
+    
+    function hideLoading(element) {
+        element.classList.remove('loading-skeleton');
+        element.style.pointerEvents = 'auto';
+    }
+    
+    // Performance monitoring
+    window.addEventListener('load', () => {
+        const loadTime = performance.now();
+        console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.name }} - {{ site_settings.site_name|default:"Mediwell Care" }}{% endblock %}
+{% block description %}{{ service.meta_description|default:service.short_description }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 bg-gradient-to-r from-medical-blue to-medical-aqua text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-white/20 rounded-lg flex items-center justify-center mr-4">
+                        <i class="{{ service.icon|default:'fas fa-laptop-medical' }} text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-bold mb-2 font-poppins">{{ service.name }}</h1>
+                        <p class="text-xl text-white/90">{{ service.category.name }}</p>
+                    </div>
+                </div>
+                <p class="text-xl text-white/90 mb-8">{{ service.short_description }}</p>
+                {% if service.starting_price %}
+                <div class="text-2xl font-bold mb-8">
+                    {{ service.price_unit }} ₹{{ service.starting_price|floatformat:0 }}
+                </div>
+                {% endif %}
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'contact' %}" class="bg-white text-medical-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:shadow-xl hover:scale-105">
+                        <i class="fas fa-phone mr-2"></i>
+                        Get Free Consultation
+                    </a>
+                    <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-xl hover:scale-105">
+                        <i class="fas fa-calculator mr-2"></i>
+                        Request Quote
+                    </a>
+                </div>
+            </div>
+            <div data-aos="fade-left">
+                {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}" class="rounded-xl shadow-2xl">
+                {% else %}
+                <div class="w-full h-96 bg-white/10 rounded-xl flex items-center justify-center">
+                    <i class="{{ service.icon|default:'fas fa-laptop-medical' }} text-white text-6xl"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Description -->
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="prose prose-lg max-w-none" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">About This Service</h2>
+            <div class="text-gray-600 leading-relaxed">
+                {{ service.description|linebreaks }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+{% if service.features %}
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up">
+                What's Included
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Everything you need to succeed with this service
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for feature in service.features|linebreaksbr|split:"<br>" %}
+            {% if feature.strip %}
+            <div class="flex items-start" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <div class="w-6 h-6 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                    <i class="fas fa-check text-white text-sm"></i>
+                </div>
+                <p class="text-gray-700">{{ feature.strip }}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Service Packages -->
+{% if packages %}
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up">
+                Choose Your Package
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Select the package that best fits your needs and budget
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for package in packages %}
+            <div class="bg-white border border-gray-200 rounded-xl p-8 hover-lift {% if package.is_popular %}ring-2 ring-medical-blue{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                {% if package.is_popular %}
+                <div class="text-center mb-6">
+                    <span class="bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        Most Popular
+                    </span>
+                </div>
+                {% endif %}
+                
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ package.name }}</h3>
+                    <p class="text-gray-600 mb-4">{{ package.description }}</p>
+                    <div class="text-4xl font-bold text-medical-blue mb-2">₹{{ package.price|floatformat:0 }}</div>
+                    {% if package.duration %}
+                    <p class="text-gray-500">{{ package.duration }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="space-y-4 mb-8">
+                    {% for feature in package.features|linebreaksbr|split:"<br>" %}
+                    {% if feature.strip %}
+                    <div class="flex items-start">
+                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                            <i class="fas fa-check text-green-600 text-xs"></i>
+                        </div>
+                        <p class="text-gray-700 text-sm">{{ feature.strip }}</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <a href="{% url 'contact' %}" class="w-full bg-gradient-to-r from-medical-blue to-medical-aqua text-white py-3 px-6 rounded-lg font-semibold text-center block hover:shadow-lg transition-all duration-300 hover:scale-105">
+                    Get This Package
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- FAQ Section -->
+{% if faqs %}
+<section class="py-20 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up">
+                Frequently Asked Questions
+            </h2>
+            <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="200">
+                Common questions about {{ service.name }}
+            </p>
+        </div>
+        
+        <div class="space-y-6" x-data="{ openFaq: null }">
+            {% for faq in faqs %}
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <button @click="openFaq = openFaq === {{ forloop.counter }} ? null : {{ forloop.counter }}" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                    <span class="font-semibold text-gray-900">{{ faq.question }}</span>
+                    <i class="fas fa-chevron-down transition-transform duration-200" :class="{'rotate-180': openFaq === {{ forloop.counter }}}"></i>
+                </button>
+                <div x-show="openFaq === {{ forloop.counter }}" x-transition class="px-6 pb-4 text-gray-600">
+                    <p>{{ faq.answer|linebreaks }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Related Services -->
+{% if related_services %}
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up">
+                Related Services
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Other services that might interest you
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for related_service in related_services %}
+            <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden hover-lift" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                {% if related_service.image %}
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="{{ related_service.image.url }}" alt="{{ related_service.name }}" class="w-full h-48 object-cover">
+                </div>
+                {% endif %}
+                
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg flex items-center justify-center mr-3">
+                            <i class="{{ related_service.icon|default:'fas fa-laptop-medical' }} text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900">{{ related_service.name }}</h3>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-4">{{ related_service.short_description }}</p>
+                    
+                    {% if related_service.starting_price %}
+                    <div class="text-medical-blue font-semibold mb-4">
+                        {{ related_service.price_unit }} ₹{{ related_service.starting_price|floatformat:0 }}
+                    </div>
+                    {% endif %}
+                    
+                    <a href="{% url 'service_detail' related_service.slug %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                        Learn More <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-medical-blue to-medical-aqua text-white">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-poppins" data-aos="fade-up">
+            Ready to Get Started with {{ service.name }}?
+        </h2>
+        <p class="text-xl text-white/90 mb-8" data-aos="fade-up" data-aos-delay="200">
+            Contact us today for a free consultation and let's discuss how this service can benefit your practice.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'contact' %}" class="bg-white text-medical-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:shadow-xl hover:scale-105">
+                <i class="fas fa-phone mr-2"></i>
+                Get Free Consultation
+            </a>
+            <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-xl hover:scale-105">
+                <i class="fas fa-calculator mr-2"></i>
+                Request Quote
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

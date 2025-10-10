@@ -1,0 +1,455 @@
+{% extends 'crm/base.html' %}
+{% load static %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block page_description %}Overview of your clinic operations{% endblock %}
+
+{% block crm_content %}
+<!-- Header with Quick Actions -->
+<div class="mb-8">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+        <div>
+            <div class="flex items-center space-x-3 mb-2">
+                <h2 class="text-3xl font-bold text-gray-900">Dashboard</h2>
+                <div class="w-2 h-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full crm-pulse"></div>
+            </div>
+            <p class="text-gray-600 flex items-center space-x-2">
+                <i class="fas fa-user-md text-medical-blue"></i>
+                <span>Welcome back, Dr. {{ user.first_name|default:user.username }}</span>
+            </p>
+            <div class="mt-2 text-sm text-gray-500">
+                <i class="fas fa-clock mr-1"></i>
+                Last login: {{ user.last_login|date:"M d, Y H:i"|default:"First time" }}
+            </div>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4 sm:mt-0">
+            <a href="{% url 'crm:prescription_create' %}" class="crm-button bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center group">
+                <i class="fas fa-prescription-bottle-alt mr-2 group-hover:rotate-12 transition-transform duration-300"></i>
+                <span>Write Prescription</span>
+            </a>
+            <a href="{% url 'crm:patient_create' %}" class="crm-button text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center group">
+                <i class="fas fa-user-plus mr-2 group-hover:scale-110 transition-transform duration-300"></i>
+                <span>Add Patient</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Today's Appointments -->
+    <div class="crm-card p-6 stat-card group hover:scale-105 transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium flex items-center">
+                    <i class="fas fa-calendar-day mr-2"></i>
+                    Today's Appointments
+                </p>
+                <p class="text-3xl font-bold text-white stat-counter" data-target="{{ today_appointments.count }}">
+                    <span class="counter-display">0</span>
+                </p>
+                <div class="mt-2 text-xs text-white/70">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    +12% from yesterday
+                </div>
+            </div>
+            <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+                <i class="fas fa-calendar-day text-white text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Total Patients -->
+    <div class="crm-card p-6 stat-card success group hover:scale-105 transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium flex items-center">
+                    <i class="fas fa-users mr-2"></i>
+                    Total Patients
+                </p>
+                <p class="text-3xl font-bold text-white stat-counter" data-target="{{ total_patients }}">
+                    <span class="counter-display">0</span>
+                </p>
+                <div class="mt-2 text-xs text-white/70">
+                    <i class="fas fa-user-plus mr-1"></i>
+                    +5 this week
+                </div>
+            </div>
+            <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-users text-white text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- This Month's Revenue -->
+    <div class="crm-card p-6 stat-card warning group hover:scale-105 transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium flex items-center">
+                    <i class="fas fa-rupee-sign mr-2"></i>
+                    This Month's Revenue
+                </p>
+                <p class="text-3xl font-bold text-white stat-counter" data-target="{{ month_revenue|floatformat:0 }}">
+                    <span class="counter-display">0</span>
+                </p>
+                <div class="mt-2 text-xs text-white/70">
+                    <i class="fas fa-chart-line mr-1"></i>
+                    +18% from last month
+                </div>
+            </div>
+            <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+                <i class="fas fa-rupee-sign text-white text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- This Week's Appointments -->
+    <div class="crm-card p-6 stat-card info group hover:scale-105 transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium flex items-center">
+                    <i class="fas fa-calendar-week mr-2"></i>
+                    This Week's Appointments
+                </p>
+                <p class="text-3xl font-bold text-white stat-counter" data-target="{{ week_appointments }}">
+                    <span class="counter-display">0</span>
+                </p>
+                <div class="mt-2 text-xs text-white/70">
+                    <i class="fas fa-clock mr-1"></i>
+                    Average 2.5/day
+                </div>
+            </div>
+            <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-calendar-week text-white text-2xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Today's Appointments -->
+    <div class="crm-card">
+        <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Today's Appointments</h3>
+            <p class="text-sm text-gray-600">Scheduled appointments for today</p>
+        </div>
+        <div class="p-6">
+            {% if today_appointments %}
+                <div class="space-y-4">
+                    {% for appointment in today_appointments %}
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-medical-blue rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">{{ appointment.patient.full_name }}</p>
+                                <p class="text-sm text-gray-600">{{ appointment.scheduled_time|time:"H:i" }} - {{ appointment.reason|truncatewords:5 }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 text-xs font-medium rounded-full
+                                {% if appointment.status == 'scheduled' %}bg-blue-100 text-blue-800
+                                {% elif appointment.status == 'confirmed' %}bg-green-100 text-green-800
+                                {% elif appointment.status == 'in_progress' %}bg-yellow-100 text-yellow-800
+                                {% elif appointment.status == 'completed' %}bg-gray-100 text-gray-800
+                                {% else %}bg-red-100 text-red-800{% endif %}">
+                                {{ appointment.get_status_display }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-calendar-day text-gray-400 text-4xl mb-4"></i>
+                    <p class="text-gray-600">No appointments scheduled for today</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Recent Patients -->
+    <div class="crm-card">
+        <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Recent Patients</h3>
+            <p class="text-sm text-gray-600">Latest patient registrations</p>
+        </div>
+        <div class="p-6">
+            {% if recent_patients %}
+                <div class="space-y-4">
+                    {% for patient in recent_patients %}
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-medical-aqua rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">{{ patient.full_name }}</p>
+                                <p class="text-sm text-gray-600">{{ patient.phone }} • {{ patient.age }} years</p>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            {{ patient.created_at|date:"M d" }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-users text-gray-400 text-4xl mb-4"></i>
+                    <p class="text-gray-600">No patients found</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Upcoming Appointments -->
+<div class="mt-8">
+    <div class="crm-card">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Upcoming Appointments</h3>
+                    <p class="text-sm text-gray-600">Next scheduled appointments</p>
+                </div>
+                <a href="{% url 'crm:appointment_list' %}" class="text-medical-blue hover:text-medical-light-blue font-medium">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+        <div class="p-6">
+            {% if upcoming_appointments %}
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for appointment in upcoming_appointments %}
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-medical-blue rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-white text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-medium text-gray-900">{{ appointment.patient.full_name }}</div>
+                                            <div class="text-sm text-gray-500">{{ appointment.patient.phone }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ appointment.scheduled_date|date:"M d, Y" }}</div>
+                                    <div class="text-sm text-gray-500">{{ appointment.scheduled_time|time:"H:i" }}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ appointment.reason|truncatewords:8 }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full
+                                        {% if appointment.status == 'scheduled' %}bg-blue-100 text-blue-800
+                                        {% elif appointment.status == 'confirmed' %}bg-green-100 text-green-800
+                                        {% elif appointment.status == 'in_progress' %}bg-yellow-100 text-yellow-800
+                                        {% elif appointment.status == 'completed' %}bg-gray-100 text-gray-800
+                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                        {{ appointment.get_status_display }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-calendar-alt text-gray-400 text-4xl mb-4"></i>
+                    <p class="text-gray-600">No upcoming appointments</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="mt-8">
+    <div class="crm-card">
+        <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Quick Actions</h3>
+            <p class="text-sm text-gray-600">Common tasks and shortcuts</p>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="{% url 'crm:patient_create' %}" class="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-user-plus text-white"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900">Add Patient</p>
+                        <p class="text-sm text-gray-600">Register new patient</p>
+                    </div>
+                </a>
+                
+                <a href="{% url 'crm:appointment_create' %}" class="flex items-center space-x-3 p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                    <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calendar-plus text-white"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900">Schedule Appointment</p>
+                        <p class="text-sm text-gray-600">Book new appointment</p>
+                    </div>
+                </a>
+                
+                <a href="{% url 'crm:treatment_list' %}" class="flex items-center space-x-3 p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                    <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-stethoscope text-white"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900">Add Treatment</p>
+                        <p class="text-sm text-gray-600">Record treatment</p>
+                    </div>
+                </a>
+                
+                <a href="{% url 'crm:prescription_create' %}" class="flex items-center space-x-3 p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
+                    <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-prescription-bottle-alt text-white"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900">Write Prescription</p>
+                        <p class="text-sm text-gray-600">Create prescription</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Section -->
+<div class="mt-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Revenue Chart -->
+        <div class="crm-card">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Revenue Trend</h3>
+                <p class="text-sm text-gray-600">Monthly revenue over the last 6 months</p>
+            </div>
+            <div class="p-6">
+                <div class="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-600">Chart will be implemented with Chart.js</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Appointments Chart -->
+        <div class="crm-card">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Appointments Trend</h3>
+                <p class="text-sm text-gray-600">Weekly appointments over the last month</p>
+            </div>
+            <div class="p-6">
+                <div class="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+                    <div class="text-center">
+                        <i class="fas fa-chart-bar text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-600">Chart will be implemented with Chart.js</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Enhanced counter animation for dashboard
+    function animateCounters() {
+        const counters = document.querySelectorAll('.stat-counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const display = counter.querySelector('.counter-display');
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                if (display) {
+                    display.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        });
+    }
+    
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('crm-fade-in');
+                if (entry.target.classList.contains('stat-counter') || entry.target.querySelector('.stat-counter')) {
+                    animateCounters();
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.crm-card, .stat-counter');
+        animatedElements.forEach(el => observer.observe(el));
+        
+        // Initialize counter animation
+        animateCounters();
+    });
+    
+    // Real-time updates simulation
+    function updateDashboard() {
+        // Simulate real-time updates
+        const todayAppointments = document.getElementById('today-appointments');
+        if (todayAppointments) {
+            // Add subtle animation to indicate updates
+            todayAppointments.classList.add('crm-pulse');
+            setTimeout(() => {
+                todayAppointments.classList.remove('crm-pulse');
+            }, 1000);
+        }
+    }
+    
+    // Update dashboard every 30 seconds
+    setInterval(updateDashboard, 30000);
+    
+    // Dynamic loading states
+    function showLoading(element) {
+        element.classList.add('crm-loading');
+        element.style.pointerEvents = 'none';
+    }
+    
+    function hideLoading(element) {
+        element.classList.remove('crm-loading');
+        element.style.pointerEvents = 'auto';
+    }
+    
+    // Performance monitoring
+    window.addEventListener('load', () => {
+        const loadTime = performance.now();
+        console.log(`Dashboard loaded in ${loadTime.toFixed(2)}ms`);
+    });
+</script>
+{% endblock %}

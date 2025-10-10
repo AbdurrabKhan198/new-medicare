@@ -1,0 +1,314 @@
+{% extends 'crm/base.html' %}
+{% load static %}
+
+{% block page_title %}{{ patient.full_name }}{% endblock %}
+{% block page_description %}Patient details and medical history{% endblock %}
+
+{% block crm_content %}
+<!-- Patient Header -->
+<div class="crm-card mb-6">
+    <div class="p-6">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-medical-blue rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">{{ patient.full_name }}</h2>
+                    <p class="text-gray-600">Patient ID: {{ patient.patient_id }}</p>
+                    <div class="flex items-center space-x-4 mt-2">
+                        <span class="px-2 py-1 text-xs font-medium rounded-full
+                            {% if patient.is_active %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                            {% if patient.is_active %}Active{% else %}Inactive{% endif %}
+                        </span>
+                        <span class="text-sm text-gray-500">{{ patient.age }} years • {{ patient.gender|title }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4 lg:mt-0">
+                <a href="{% url 'crm:quick_appointment' patient.id %}" class="bg-medical-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                    <i class="fas fa-calendar-plus mr-2"></i>Schedule Appointment
+                </a>
+                <a href="{% url 'crm:quick_prescription' patient.id %}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                    <i class="fas fa-prescription-bottle-alt mr-2"></i>Write Prescription
+                </a>
+                <a href="{% url 'crm:patient_update' patient.id %}" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center">
+                    <i class="fas fa-edit mr-2"></i>Edit Patient
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Patient Information -->
+    <div class="lg:col-span-1">
+        <div class="crm-card">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Patient Information</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <!-- Quick Actions -->
+                <div class="mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                    <h4 class="font-semibold text-green-900 mb-3">Quick Actions</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="{% url 'crm:quick_prescription' patient.id %}" class="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm flex items-center">
+                            <i class="fas fa-prescription-bottle-alt mr-2"></i>Write Prescription
+                        </a>
+                        <a href="{% url 'crm:quick_appointment' patient.id %}" class="bg-medical-blue text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm flex items-center">
+                            <i class="fas fa-calendar-plus mr-2"></i>Schedule Appointment
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Full Name</label>
+                    <p class="text-gray-900">{{ patient.full_name }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Date of Birth</label>
+                    <p class="text-gray-900">{{ patient.date_of_birth|date:"F d, Y" }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Gender</label>
+                    <p class="text-gray-900">{{ patient.gender|title }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Age</label>
+                    <p class="text-gray-900">{{ patient.age }} years</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Blood Group</label>
+                    <p class="text-gray-900">{{ patient.blood_group|default:"Not specified" }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="crm-card mt-6">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Contact Information</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Phone</label>
+                    <p class="text-gray-900">{{ patient.phone }}</p>
+                </div>
+                {% if patient.email %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Email</label>
+                    <p class="text-gray-900">{{ patient.email }}</p>
+                </div>
+                {% endif %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Address</label>
+                    <p class="text-gray-900">{{ patient.address }}</p>
+                    <p class="text-gray-600">{{ patient.city }}, {{ patient.state }} - {{ patient.pincode }}</p>
+                </div>
+                {% if patient.emergency_contact_name %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Emergency Contact</label>
+                    <p class="text-gray-900">{{ patient.emergency_contact_name }}</p>
+                    <p class="text-gray-600">{{ patient.emergency_contact_phone }} ({{ patient.emergency_contact_relation }})</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Medical Information -->
+        <div class="crm-card mt-6">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Medical Information</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                {% if patient.height %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Height</label>
+                    <p class="text-gray-900">{{ patient.height }} cm</p>
+                </div>
+                {% endif %}
+                {% if patient.weight %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Weight</label>
+                    <p class="text-gray-900">{{ patient.weight }} kg</p>
+                </div>
+                {% endif %}
+                {% if patient.allergies %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Allergies</label>
+                    <p class="text-gray-900">{{ patient.allergies }}</p>
+                </div>
+                {% endif %}
+                {% if patient.medical_history %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Medical History</label>
+                    <p class="text-gray-900">{{ patient.medical_history }}</p>
+                </div>
+                {% endif %}
+                {% if patient.current_medications %}
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Current Medications</label>
+                    <p class="text-gray-900">{{ patient.current_medications }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Medical History Tabs -->
+    <div class="lg:col-span-2">
+        <div class="crm-card">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8 px-6" x-data="{ activeTab: 'appointments' }">
+                    <button @click="activeTab = 'appointments'" 
+                            :class="activeTab === 'appointments' ? 'border-medical-blue text-medical-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <i class="fas fa-calendar-alt mr-2"></i>Appointments ({{ appointments.count }})
+                    </button>
+                    <button @click="activeTab = 'treatments'" 
+                            :class="activeTab === 'treatments' ? 'border-medical-blue text-medical-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <i class="fas fa-stethoscope mr-2"></i>Treatments ({{ treatments.count }})
+                    </button>
+                    <button @click="activeTab = 'prescriptions'" 
+                            :class="activeTab === 'prescriptions' ? 'border-medical-blue text-medical-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <i class="fas fa-prescription-bottle-alt mr-2"></i>Prescriptions ({{ prescriptions.count }})
+                    </button>
+                    <button @click="activeTab = 'records'" 
+                            :class="activeTab === 'records' ? 'border-medical-blue text-medical-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <i class="fas fa-file-medical mr-2"></i>Medical Records ({{ medical_records.count }})
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="p-6">
+                <!-- Appointments Tab -->
+                <div x-show="activeTab === 'appointments'" x-transition>
+                    {% if appointments %}
+                        <div class="space-y-4">
+                            {% for appointment in appointments %}
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">{{ appointment.scheduled_date|date:"M d, Y" }} at {{ appointment.scheduled_time|time:"H:i" }}</h4>
+                                        <p class="text-sm text-gray-600">{{ appointment.doctor.full_name }} • {{ appointment.reason }}</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full
+                                        {% if appointment.status == 'scheduled' %}bg-blue-100 text-blue-800
+                                        {% elif appointment.status == 'confirmed' %}bg-green-100 text-green-800
+                                        {% elif appointment.status == 'in_progress' %}bg-yellow-100 text-yellow-800
+                                        {% elif appointment.status == 'completed' %}bg-gray-100 text-gray-800
+                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                        {{ appointment.get_status_display }}
+                                    </span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8">
+                            <i class="fas fa-calendar-alt text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-600">No appointments found</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Treatments Tab -->
+                <div x-show="activeTab === 'treatments'" x-transition>
+                    {% if treatments %}
+                        <div class="space-y-4">
+                            {% for treatment in treatments %}
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">{{ treatment.name }}</h4>
+                                        <p class="text-sm text-gray-600">{{ treatment.get_treatment_type_display }} • {{ treatment.treatment_date|date:"M d, Y" }}</p>
+                                        <p class="text-sm text-gray-500 mt-1">{{ treatment.diagnosis|truncatewords:10 }}</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full
+                                        {% if treatment.status == 'ongoing' %}bg-yellow-100 text-yellow-800
+                                        {% elif treatment.status == 'completed' %}bg-green-100 text-green-800
+                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                        {{ treatment.get_status_display }}
+                                    </span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8">
+                            <i class="fas fa-stethoscope text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-600">No treatments found</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Prescriptions Tab -->
+                <div x-show="activeTab === 'prescriptions'" x-transition>
+                    {% if prescriptions %}
+                        <div class="space-y-4">
+                            {% for prescription in prescriptions %}
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">Prescription #{{ prescription.prescription_id }}</h4>
+                                        <p class="text-sm text-gray-600">{{ prescription.doctor.full_name }} • {{ prescription.prescription_date|date:"M d, Y" }}</p>
+                                        <p class="text-sm text-gray-500 mt-1">{{ prescription.diagnosis|truncatewords:10 }}</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                                        {{ prescription.medicines.count }} medicines
+                                    </span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8">
+                            <i class="fas fa-prescription-bottle-alt text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-600">No prescriptions found</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Medical Records Tab -->
+                <div x-show="activeTab === 'records'" x-transition>
+                    {% if medical_records %}
+                        <div class="space-y-4">
+                            {% for record in medical_records %}
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">{{ record.title }}</h4>
+                                        <p class="text-sm text-gray-600">{{ record.get_record_type_display }} • {{ record.record_date|date:"M d, Y" }}</p>
+                                        <p class="text-sm text-gray-500 mt-1">{{ record.description|truncatewords:10 }}</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        {% if record.is_important %}
+                                        <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
+                                            Important
+                                        </span>
+                                        {% endif %}
+                                        {% if record.file_attachment %}
+                                        <a href="{{ record.file_attachment.url }}" class="text-medical-blue hover:text-blue-700">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8">
+                            <i class="fas fa-file-medical text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-600">No medical records found</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

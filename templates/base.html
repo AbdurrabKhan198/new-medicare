@@ -1,0 +1,688 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}{{ site_settings.site_name|default:"Mediwell Care" }} - {% block subtitle %}{{ site_settings.tagline|default:"Empowering Doctors Digitally" }}{% endblock %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ site_settings.meta_description|default:"Your digital partner for websites, CRM, SEO & patient growth. Custom solutions for doctors and healthcare professionals." }}{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}{{ site_settings.meta_keywords|default:"doctor website, healthcare digital marketing, medical SEO, doctor CRM, healthcare social media" }}{% endblock %}">
+    <meta name="author" content="{{ site_settings.site_name|default:'Mediwell Care' }}">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name|default:"Mediwell Care" }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ site_settings.meta_description|default:"Your digital partner for websites, CRM, SEO & patient growth." }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/logo.png' %}{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ site_settings.site_name|default:"Mediwell Care" }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ site_settings.meta_description|default:"Your digital partner for websites, CRM, SEO & patient growth." }}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% static 'images/logo.png' %}{% endblock %}">
+    
+    <!-- Favicon -->
+    {% if site_settings.favicon %}
+        <link rel="icon" type="image/x-icon" href="{{ site_settings.favicon.url }}">
+    {% else %}
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    {% endif %}
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #06B6D4 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1E40AF 0%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        .imgc {
+            height: 82px;
+            width: auto;
+        }
+        
+        /* Modern Dynamic Styles */
+        .dynamic-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dynamic-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .dynamic-button {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #06B6D4 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .dynamic-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        .dynamic-button:hover::before {
+            left: 100%;
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #1E40AF, #06B6D4);
+            padding: 2px;
+            border-radius: 12px;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: white;
+            border-radius: 10px;
+            z-index: -1;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #1E40AF 0%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 50%, rgba(6, 182, 212, 0.9) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .stat-counter {
+            font-variant-numeric: tabular-nums;
+            transition: all 0.3s ease;
+        }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+    
+    <!-- Google Analytics -->
+    {% if site_settings.google_analytics_id %}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ site_settings.google_analytics_id }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ site_settings.google_analytics_id }}');
+        </script>
+    {% endif %}
+    
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="font-inter bg-white text-gray-900 antialiased">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-lg" 
+         x-data="{ mobileMenuOpen: false, scrolled: false }"
+         x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 10)"
+         :class="{ 'bg-white/98 shadow-xl': scrolled }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
+                        <div class="relative">
+                            <img src="{% static 'images/logo.png' %}" alt="{{ site_settings.site_name|default:'Mediwell Care' }}" class="imgc transition-transform duration-300 group-hover:scale-105">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm"></div>
+                        </div>
+                        <span class="text-xl font-bold text-gradient hidden sm:block">{{ site_settings.site_name|default:"Mediwell Care" }}</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <a href="{% url 'home' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
+                            <span class="relative z-10">Home</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="{% url 'about' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
+                            <span class="relative z-10">About</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="{% url 'service_list' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
+                            <span class="relative z-10">Services</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="{% url 'portfolio' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
+                            <span class="relative z-10">Portfolio</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="{% url 'blog_list' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
+                            <span class="relative z-10">Blog</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="{% url 'contact' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
+                            <span class="relative z-10">Contact</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="{% url 'contact' %}" class="dynamic-button text-white px-6 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 ml-4">
+                            <span class="relative z-10">Get Free Quote</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" 
+                            class="relative p-2 text-gray-700 hover:text-medical-blue focus:outline-none focus:text-medical-blue transition-colors duration-200">
+                        <i class="fas fa-bars text-xl transition-transform duration-300" :class="{ 'rotate-90': mobileMenuOpen }"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenuOpen" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 transform -translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-2"
+             class="md:hidden bg-white border-t border-gray-200 shadow-lg">
+            <div class="px-4 pt-2 pb-3 space-y-1">
+                <a href="{% url 'home' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Home</a>
+                <a href="{% url 'about' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">About</a>
+                <a href="{% url 'service_list' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Services</a>
+                <a href="{% url 'portfolio' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Portfolio</a>
+                <a href="{% url 'blog_list' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Blog</a>
+                <a href="{% url 'contact' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Contact</a>
+                <a href="{% url 'contact' %}" class="dynamic-button text-white block px-3 py-2 rounded-lg text-base font-medium mt-2 text-center">Get Free Quote</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="pt-16">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"grid\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\"><path d=\"M 20 0 L 0 0 0 20\" fill=\"none\" stroke=\"white\" stroke-width=\"0.5\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23grid)\"/></svg>');"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-3 group">
+                        <div class="relative">
+                            <img src="{% static 'images/logo.png' %}" alt="{{ site_settings.site_name|default:'Mediwell Care' }}" class="h-10 w-auto transition-transform duration-300 group-hover:scale-110">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm"></div>
+                        </div>
+                        <span class="text-2xl font-bold text-gradient">{{ site_settings.site_name|default:"Mediwell Care" }}</span>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">{{ site_settings.description|default:"Your digital partner for websites, CRM, SEO & patient growth." }}</p>
+                    <div class="flex space-x-4">
+                        {% if site_settings.facebook_url %}
+                            <a href="{{ site_settings.facebook_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                                <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            </a>
+                        {% endif %}
+                        {% if site_settings.twitter_url %}
+                            <a href="{{ site_settings.twitter_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-twitter text-lg"></i>
+                                <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            </a>
+                        {% endif %}
+                        {% if site_settings.linkedin_url %}
+                            <a href="{{ site_settings.linkedin_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-linkedin-in text-lg"></i>
+                                <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            </a>
+                        {% endif %}
+                        {% if site_settings.instagram_url %}
+                            <a href="{{ site_settings.instagram_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-instagram text-lg"></i>
+                                <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-gradient">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'home' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            Home
+                        </a></li>
+                        <li><a href="{% url 'about' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            About
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            Services
+                        </a></li>
+                        <li><a href="{% url 'portfolio' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            Portfolio
+                        </a></li>
+                        <li><a href="{% url 'blog_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            Blog
+                        </a></li>
+                        <li><a href="{% url 'contact' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            Contact
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-gradient">Our Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-laptop-medical text-sm mr-3 text-medical-aqua"></i>
+                            Website Development
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-search text-sm mr-3 text-medical-aqua"></i>
+                            SEO Services
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-share-alt text-sm mr-3 text-medical-aqua"></i>
+                            Social Media Management
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-users-cog text-sm mr-3 text-medical-aqua"></i>
+                            CRM Systems
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fab fa-google text-sm mr-3 text-medical-aqua"></i>
+                            Google My Business
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-star text-sm mr-3 text-medical-aqua"></i>
+                            Reputation Management
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-gradient">Contact Info</h3>
+                    <div class="space-y-4">
+                        {% if site_settings.phone %}
+                            <div class="contact-item group flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
+                                <div class="p-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full">
+                                    <i class="fas fa-phone text-white text-sm"></i>
+                                </div>
+                                <span class="text-gray-300 group-hover:text-white transition-colors duration-300">{{ site_settings.phone }}</span>
+                            </div>
+                        {% endif %}
+                        {% if site_settings.email %}
+                            <div class="contact-item group flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
+                                <div class="p-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full">
+                                    <i class="fas fa-envelope text-white text-sm"></i>
+                                </div>
+                                <span class="text-gray-300 group-hover:text-white transition-colors duration-300">{{ site_settings.email }}</span>
+                            </div>
+                        {% endif %}
+                        {% if site_settings.address %}
+                            <div class="contact-item group flex items-start space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
+                                <div class="p-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full mt-1">
+                                    <i class="fas fa-map-marker-alt text-white text-sm"></i>
+                                </div>
+                                <span class="text-gray-300 group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">{{ site_settings.address }}</span>
+                            </div>
+                        {% endif %}
+                        {% if site_settings.whatsapp_number %}
+                            <div class="contact-item group flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
+                                <div class="p-2 bg-gradient-to-r from-green-500 to-green-600 rounded-full">
+                                    <i class="fab fa-whatsapp text-white text-sm"></i>
+                                </div>
+                                <a href="https://wa.me/{{ site_settings.whatsapp_number }}" class="text-gray-300 hover:text-white transition-colors duration-300">WhatsApp Chat</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/20 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <p class="text-gray-400 text-sm">
+                        &copy; {% now "Y" %} {{ site_settings.site_name|default:"Mediwell Care" }}. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- WhatsApp Chat Button -->
+    {% if site_settings.whatsapp_number %}
+        <div class="fixed bottom-6 right-6 z-50">
+            <a href="https://wa.me/{{ site_settings.whatsapp_number }}" 
+               class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+               title="Chat with us on WhatsApp">
+                <i class="fab fa-whatsapp text-2xl"></i>
+            </a>
+        </div>
+    {% endif %}
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" 
+            class="fixed bottom-6 left-6 z-50 bg-medical-blue hover:bg-medical-light-blue text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 invisible"
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+        
+        // Dynamic counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.floor(current).toLocaleString();
+                }, 16);
+            });
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    if (entry.target.classList.contains('stat-counter')) {
+                        animateCounters();
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.dynamic-card, .stat-counter, .floating-animation');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+        
+        // Back to top button with smooth animation
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        // Enhanced smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed header
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Enhanced form validation with real-time feedback
+        function validateForm(form) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                const value = field.value.trim();
+                const fieldContainer = field.closest('.form-group') || field.parentElement;
+                
+                // Remove existing validation classes
+                field.classList.remove('border-red-500', 'border-green-500');
+                fieldContainer.classList.remove('error', 'success');
+                
+                if (!value) {
+                    field.classList.add('border-red-500');
+                    fieldContainer.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.add('border-green-500');
+                    fieldContainer.classList.add('success');
+                }
+            });
+            
+            return isValid;
+        }
+        
+        // Real-time form validation
+        document.addEventListener('DOMContentLoaded', () => {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                const inputs = form.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => {
+                        validateForm(form);
+                    });
+                    
+                    input.addEventListener('input', () => {
+                        if (input.value.trim()) {
+                            input.classList.remove('border-red-500');
+                            input.classList.add('border-green-500');
+                        }
+                    });
+                });
+            });
+        });
+        
+        // Auto-hide alerts with animation
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert, .message');
+            alerts.forEach(alert => {
+                alert.style.transition = 'all 0.5s ease';
+                alert.style.transform = 'translateX(100%)';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 5000);
+        
+        // Dynamic loading states
+        function showLoading(element) {
+            element.classList.add('loading-skeleton');
+            element.style.pointerEvents = 'none';
+        }
+        
+        function hideLoading(element) {
+            element.classList.remove('loading-skeleton');
+            element.style.pointerEvents = 'auto';
+        }
+        
+        // Parallax effect for hero sections
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+        // Dynamic typing effect
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+        
+        // Initialize typing effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const typingElements = document.querySelectorAll('.typing-effect');
+            typingElements.forEach(element => {
+                const text = element.textContent;
+                typeWriter(element, text, 50);
+            });
+        });
+        
+        // Dynamic image loading with placeholder
+        function loadImageWithPlaceholder(img, placeholder) {
+            const image = new Image();
+            image.onload = () => {
+                img.src = image.src;
+                img.classList.remove('loading-skeleton');
+            };
+            image.onerror = () => {
+                img.src = placeholder;
+                img.classList.remove('loading-skeleton');
+            };
+            image.src = img.dataset.src || img.src;
+        }
+        
+        // Initialize image loading
+        document.addEventListener('DOMContentLoaded', () => {
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            lazyImages.forEach(img => {
+                img.classList.add('loading-skeleton');
+                loadImageWithPlaceholder(img, 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="100%" height="100%" fill="%23f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="%23999">Loading...</text></svg>');
+            });
+        });
+        
+        // Dynamic theme switching (if needed)
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        }
+        
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+        
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
