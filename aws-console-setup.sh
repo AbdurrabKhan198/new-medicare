@@ -15,14 +15,9 @@ sudo apt install -y python3 python3-pip python3-venv nginx git curl
 mkdir -p /home/ubuntu/mediwell-care
 cd /home/ubuntu/mediwell-care
 
-# Download your project files (you'll need to upload your code)
-echo "📁 Please upload your project files to /home/ubuntu/mediwell-care/"
-echo "You can do this by:"
-echo "1. Create a ZIP file of your project on your local machine"
-echo "2. Upload it to AWS S3 or use AWS CLI"
-echo "3. Or use git clone if your repo is public"
-echo ""
-echo "For now, let's assume you have the files here..."
+# Clone your project from GitHub
+echo "📁 Cloning your project from GitHub..."
+git clone https://github.com/AbdurrabKhan198/new-medicare.git .
 
 # Create virtual environment
 python3 -m venv venv

@@ -6,8 +6,8 @@ echo "🚀 Starting Mediwell Care setup..."
 # Update and install packages
 sudo apt update && sudo apt upgrade -y && sudo apt install -y python3 python3-pip python3-venv nginx git curl
 
-# Create project directory
-mkdir -p /home/ubuntu/mediwell-care && cd /home/ubuntu/mediwell-care
+# Create project directory and clone from GitHub
+mkdir -p /home/ubuntu/mediwell-care && cd /home/ubuntu/mediwell-care && git clone https://github.com/AbdurrabKhan198/new-medicare.git .
 
 # Create virtual environment and install packages
 python3 -m venv venv && source venv/bin/activate && pip install --upgrade pip && pip install Django==5.0.1 gunicorn==21.2.0 whitenoise==6.6.0 psycopg2-binary==2.9.9 django-allauth==0.57.0 Pillow==10.1.0 django-crispy-forms==2.1 crispy-tailwind==0.5.0 django-environ==0.11.2
