@@ -130,9 +130,10 @@ dmypy.json
 
 # Django specific
 media/
-staticfiles/
-static/admin/
-static/rest_framework/
+# Only ignore collected static files, not your source static files
+# staticfiles/
+# static/admin/
+# static/rest_framework/
 
 # Node.js
 node_modules/
@@ -263,11 +264,7 @@ local_settings.py
 # Media files (if you want to ignore uploaded files)
 # media/
 
-# Static files (if you want to ignore collected static files)
-# staticfiles/
-
-# Admin static files
-# static/admin/
-
-# REST framework static files
-# static/rest_framework/
+# Static files - only ignore collected static files, not source files
+# staticfiles/  # Uncomment if you want to ignore collected static files
+# static/admin/  # Uncomment if you want to ignore admin static files
+# static/rest_framework/  # Uncomment if you want to ignore REST framework static files
