@@ -429,9 +429,9 @@
                         &copy; {% now "Y" %} {{ site_settings.site_name|default:"Mediwell Care" }}. All rights reserved.
                     </p>
                     <div class="flex space-x-6">
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Privacy Policy</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Terms of Service</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Cookie Policy</a>
+                        <a href="{% url 'privacy_policy' %}" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Privacy Policy</a>
+                        <a href="{% url 'terms_of_service' %}" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Terms of Service</a>
+                        <a href="{% url 'cookie_policy' %}" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Cookie Policy</a>
                     </div>
                 </div>
             </div>
