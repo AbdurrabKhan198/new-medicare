@@ -268,3 +268,9 @@ local_settings.py
 # staticfiles/  # Uncomment if you want to ignore collected static files
 # static/admin/  # Uncomment if you want to ignore admin static files
 # static/rest_framework/  # Uncomment if you want to ignore REST framework static files
+
+# Deployment files (keep these in repo for easy deployment)
+# deploy.sh
+# aws-setup.sh
+# DEPLOYMENT_GUIDE.md
+# README_DEPLOYMENT.md

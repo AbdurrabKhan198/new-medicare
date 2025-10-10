@@ -23,7 +23,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-change-this-in-productio
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mediwellcare.com', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mediwellcare.com', 'www.mediwellcare.com', '43.204.114.233']
 
 # Application definition
 DJANGO_APPS = [
