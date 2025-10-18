@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ doctor.full_name }} - {{ site_settings.site_name|default:"Mediwell Care" }}{% endblock %}
+{% block description %}{{ doctor.specialization }} at {{ doctor.clinic.name }}. Book online appointment.{% endblock %}
+
+{% block content %}
+<section class="pt-24 pb-12 bg-white">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-2xl border border-gray-200 shadow p-6 md:p-10">
+      <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+        {% if doctor.profile_picture %}
+          <img src="{{ doctor.profile_picture.url }}" alt="{{ doctor.full_name }}" class="w-32 h-32 rounded-full object-cover">
+        {% else %}
+          <div class="w-32 h-32 rounded-full bg-gradient-to-r from-medical-blue to-medical-aqua flex items-center justify-center text-white text-3xl font-semibold">Dr</div>
+        {% endif %}
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold text-gray-900">{{ doctor.full_name }}</h1>
+          <p class="text-medical-blue text-lg">{{ doctor.specialization }}</p>
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+            <div><i class="fas fa-graduation-cap mr-2 text-medical-aqua"></i>{{ doctor.qualification }}</div>
+            <div><i class="fas fa-briefcase mr-2 text-medical-aqua"></i>{{ doctor.experience_years }} years experience</div>
+            <div><i class="fas fa-hospital mr-2 text-medical-aqua"></i>{{ doctor.clinic.name }}</div>
+            <div><i class="fas fa-location-dot mr-2 text-medical-aqua"></i>{{ doctor.clinic.city }}, {{ doctor.clinic.state }}</div>
+            <div><i class="fas fa-indian-rupee-sign mr-2 text-medical-aqua"></i>{{ doctor.consultation_fee }}</div>
+          </div>
+          {% if doctor.bio %}
+          <p class="mt-4 text-gray-600">{{ doctor.bio }}</p>
+          {% endif %}
+          <div class="mt-6">
+            <a href="{% url 'directory:book_appointment' doctor.id %}" class="btn-primary">Book Appointment</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

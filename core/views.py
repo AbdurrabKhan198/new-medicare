@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import HeroSection, FeatureCard, Testimonial, Counter, TeamMember
+from crm.models import Doctor
+
 from services.models import Service, ServiceCategory
 from portfolio.models import CaseStudy, DoctorWebsite
 from blog.models import BlogPost, BlogCategory
@@ -35,6 +37,9 @@ class HomeView(TemplateView):
         
         # Recent blog posts
         context['recent_posts'] = BlogPost.objects.filter(status='published').order_by('-published_at')[:3]
+        
+        # Featured doctors (public directory preview)
+        context['featured_doctors'] = Doctor.objects.filter(is_active=True, is_available=True).select_related('clinic').order_by('-experience_years')[:6]
         
         return context
 

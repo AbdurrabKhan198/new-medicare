@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointment Request Submitted{% endblock %}
+
+{% block content %}
+<section class="pt-24 pb-12 bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="bg-white border border-gray-200 rounded-2xl shadow p-10">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
+        <i class="fas fa-check text-green-600 text-2xl"></i>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-3">Thank you!</h1>
+      <p class="text-gray-600">Your appointment request has been submitted. Our team will confirm your booking shortly via phone or email.</p>
+      <div class="mt-6">
+        <a href="{% url 'directory:doctor_list' %}" class="btn-primary">Find more doctors</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

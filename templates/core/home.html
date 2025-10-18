@@ -63,22 +63,54 @@
                 {{ hero.description|default:"We specialize in creating powerful digital solutions exclusively for doctors and healthcare professionals. From custom websites to comprehensive CRM systems, we help you grow your practice and serve more patients." }}
             </p>
             
-            <!-- CTA Buttons -->
+            <!-- CTA + Inline Doctor Search -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="800">
+                    <a href="{% url 'directory:doctor_list' %}" class="btn-primary">
+                        <span class="relative z-10 flex items-center justify-center">
+                            <i class="fas fa-user-md mr-2"></i>
+                            Find Doctors
+                        </span>
+                    </a>
                     <a href="{% url 'contact' %}" 
                        class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 group">
                         <span class="relative z-10 flex items-center justify-center">
-                    <i class="fas fa-phone mr-2"></i>
-                    {{ hero.primary_cta_text|default:"Get Free Consultation" }}
+                            <i class="fas fa-phone mr-2"></i>
+                            {{ hero.primary_cta_text|default:"Get Free Consultation" }}
                         </span>
-                </a>
+                    </a>
                     <a href="{% url 'portfolio' %}" 
                        class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-xl hover:scale-105 group">
                         <span class="flex items-center justify-center">
-                    <i class="fas fa-eye mr-2"></i>
-                    {{ hero.secondary_cta_text|default:"View Our Work" }}
+                            <i class="fas fa-eye mr-2"></i>
+                            {{ hero.secondary_cta_text|default:"View Our Work" }}
                         </span>
                     </a>
+                </div>
+
+                <!-- Inline search card -->
+                <div class="mt-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 md:p-6" data-aos="fade-up" data-aos-delay="1000">
+                    <form action="{% url 'directory:doctor_list' %}" method="get" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="relative">
+                            <i class="fas fa-stethoscope text-white/70 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" name="q" placeholder="Doctor or specialization"
+                                   class="w-full pl-10 pr-4 py-3 rounded-xl bg-white/20 placeholder-white/70 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40" />
+                        </div>
+                        <div class="relative">
+                            <i class="fas fa-location-dot text-white/70 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" name="city" placeholder="City"
+                                   class="w-full pl-10 pr-4 py-3 rounded-xl bg-white/20 placeholder-white/70 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40" />
+                        </div>
+                        <div>
+                            <button class="w-full btn-primary flex items-center justify-center"><i class="fas fa-magnifying-glass mr-2"></i>Search Doctors</button>
+                        </div>
+                    </form>
+                    <div class="mt-3 text-white/80 text-sm">
+                        Popular: 
+                        <a href="{% url 'directory:doctor_list' %}?specialization=Cardiology" class="underline hover:text-white">Cardiology</a>
+                        • <a href="{% url 'directory:doctor_list' %}?specialization=Dermatology" class="underline hover:text-white">Dermatology</a>
+                        • <a href="{% url 'directory:doctor_list' %}?specialization=Orthopedic" class="underline hover:text-white">Orthopedic</a>
+                        • <a href="{% url 'directory:doctor_list' %}?specialization=Pediatrics" class="underline hover:text-white">Pediatrics</a>
+                    </div>
                 </div>
                 
                 <!-- Trust Indicators -->
@@ -153,6 +185,39 @@
     </div>
 </section>
 
+<!-- How It Works Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-route mr-2"></i>
+                How It Works
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins" data-aos="fade-up" data-aos-delay="150">Book Care in 3 Simple Steps</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="dynamic-card rounded-2xl p-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 text-medical-blue flex items-center justify-center mb-4"><i class="fas fa-stethoscope"></i></div>
+                <h3 class="font-semibold text-lg text-gray-900 mb-2">Search Doctors</h3>
+                <p class="text-gray-600">Find specialists by name, specialty, or city across our verified network.</p>
+            </div>
+            <div class="dynamic-card rounded-2xl p-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-12 h-12 rounded-xl bg-cyan-100 text-medical-aqua flex items-center justify-center mb-4"><i class="fas fa-calendar-check"></i></div>
+                <h3 class="font-semibold text-lg text-gray-900 mb-2">Pick a Slot</h3>
+                <p class="text-gray-600">Choose an available time that fits your schedule and share visit details.</p>
+            </div>
+            <div class="dynamic-card rounded-2xl p-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4"><i class="fas fa-user-shield"></i></div>
+                <h3 class="font-semibold text-lg text-gray-900 mb-2">Visit or Tele‑consult</h3>
+                <p class="text-gray-600">Get care at the clinic or online. Your data stays secure and private.</p>
+            </div>
+        </div>
+        <div class="text-center mt-8">
+            <a href="{% url 'directory:doctor_list' %}" class="btn-primary inline-flex items-center"><i class="fas fa-user-md mr-2"></i>Find Doctors</a>
+        </div>
+    </div>
+    </section>
+
 <!-- Feature Cards Section -->
 <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden" id="features">
     <!-- Background Pattern -->
@@ -217,6 +282,72 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Explore Specializations -->
+<section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-layer-group mr-2"></i>
+                Explore Specializations
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins" data-aos="fade-up" data-aos-delay="150">Top Specializations</h2>
+        </div>
+        <div class="flex flex-wrap gap-3 justify-center" data-aos="fade-up" data-aos-delay="250">
+            <a href="{% url 'directory:doctor_list' %}?specialization=Cardiology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Cardiology</a>
+            <a href="{% url 'directory:doctor_list' %}?specialization=Dermatology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Dermatology</a>
+            <a href="{% url 'directory:doctor_list' %}?specialization=Orthopedic" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Orthopedic</a>
+            <a href="{% url 'directory:doctor_list' %}?specialization=Pediatrics" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Pediatrics</a>
+            <a href="{% url 'directory:doctor_list' %}?specialization=Gynecology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Gynecology</a>
+            <a href="{% url 'directory:doctor_list' %}?specialization=Neurology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Neurology</a>
+            <a href="{% url 'directory:doctor_list' %}?specialization=ENT" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">ENT</a>
+            <a href="{% url 'directory:doctor_list' %}?specialization=Dentistry" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Dentistry</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Doctors Section -->
+<section class="py-16 bg-white" id="featured-doctors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
+                <i class="fas fa-user-md mr-2"></i>
+                Featured Doctors
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins" data-aos="fade-up" data-aos-delay="150">Meet Top Specialists</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="250">Browse experienced, verified doctors and book an appointment instantly.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for d in featured_doctors %}
+            <div class="bg-white rounded-2xl border border-gray-200 shadow hover-lift p-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                <div class="flex items-center gap-4">
+                  {% if d.profile_picture %}
+                    <img src="{{ d.profile_picture.url }}" alt="{{ d.full_name }}" class="w-16 h-16 rounded-full object-cover">
+                  {% else %}
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-medical-blue to-medical-aqua flex items-center justify-center text-white font-semibold">Dr</div>
+                  {% endif %}
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900">{{ d.full_name }}</h3>
+                    <p class="text-medical-blue text-sm">{{ d.specialization }}</p>
+                  </div>
+                </div>
+                <div class="mt-4 space-y-1 text-sm text-gray-600">
+                  <div><i class="fas fa-hospital mr-2 text-medical-aqua"></i>{{ d.clinic.name }}</div>
+                  <div><i class="fas fa-location-dot mr-2 text-medical-aqua"></i>{{ d.clinic.city }}, {{ d.clinic.state }}</div>
+                  <div><i class="fas fa-briefcase mr-2 text-medical-aqua"></i>{{ d.experience_years }} years experience</div>
+                  <div><i class="fas fa-indian-rupee-sign mr-2 text-medical-aqua"></i>{{ d.consultation_fee }}</div>
+                </div>
+                <div class="mt-6 flex gap-3">
+                  <a href="{% url 'directory:doctor_detail' d.id %}" class="btn-secondary">View Profile</a>
+                  <a href="{% url 'directory:book_appointment' d.id %}" class="btn-primary">Book</a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-600 text-center col-span-full">No featured doctors yet. Add doctors in the CRM to showcase them here.</p>
+            {% endfor %}
         </div>
     </div>
 </section>
