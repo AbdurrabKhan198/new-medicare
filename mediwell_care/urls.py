@@ -18,6 +18,7 @@ urlpatterns = [
     path('contact/', include('contact.urls')),
     path('doctors/', include('directory.urls')),
     path('crm/', include('crm.urls')),
+    path('pharmacy/', include('pharmacy.urls')),
 ]
 
 # Serve media files in development

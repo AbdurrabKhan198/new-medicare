@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Payment - Bill {{ bill.bill_id }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="py-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Add Payment</h1>
+                        <p class="text-gray-600">Bill {{ bill.bill_id }} - {{ bill.customer.full_name }}</p>
+                    </div>
+                    <a href="{% url 'pharmacy:bill_detail' bill.pk %}" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Bill
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Payment Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Payment Details</h3>
+                    </div>
+                    <div class="p-6">
+                        <form method="post">
+                            {% csrf_token %}
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="{{ form.amount.id_for_label }}" class="block text-sm font-medium text-gray-700">Amount</label>
+                                    <input type="number" name="amount" id="{{ form.amount.id_for_label }}" 
+                                           step="0.01" min="0.01" max="{{ bill.balance_amount }}"
+                                           value="{{ bill.balance_amount }}" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <p class="mt-1 text-sm text-gray-500">Maximum: ₹{{ bill.balance_amount|floatformat:2 }}</p>
+                                </div>
+
+                                <div>
+                                    <label for="{{ form.payment_method.id_for_label }}" class="block text-sm font-medium text-gray-700">Payment Method</label>
+                                    <select name="payment_method" id="{{ form.payment_method.id_for_label }}" required
+                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Select Payment Method</option>
+                                        <option value="cash">Cash</option>
+                                        <option value="card">Card</option>
+                                        <option value="upi">UPI</option>
+                                        <option value="netbanking">Net Banking</option>
+                                        <option value="cheque">Cheque</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="{{ form.transaction_id.id_for_label }}" class="block text-sm font-medium text-gray-700">Transaction ID (Optional)</label>
+                                    <input type="text" name="transaction_id" id="{{ form.transaction_id.id_for_label }}"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="Enter transaction ID if applicable">
+                                </div>
+
+                                <div>
+                                    <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700">Notes (Optional)</label>
+                                    <textarea name="notes" id="{{ form.notes.id_for_label }}" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                              placeholder="Add any additional notes about this payment"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 flex justify-end space-x-4">
+                                <a href="{% url 'pharmacy:bill_detail' bill.pk %}" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
+                                    Cancel
+                                </a>
+                                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+                                    <i class="fas fa-credit-card mr-2"></i>Add Payment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bill Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Bill Summary</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">Bill ID:</span>
+                                <span class="text-sm font-medium text-gray-900">{{ bill.bill_id }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">Customer:</span>
+                                <span class="text-sm font-medium text-gray-900">{{ bill.customer.full_name }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">Total Amount:</span>
+                                <span class="text-sm font-medium text-gray-900">₹{{ bill.total_amount|floatformat:2 }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">Paid Amount:</span>
+                                <span class="text-sm font-medium text-gray-900">₹{{ bill.paid_amount|floatformat:2 }}</span>
+                            </div>
+                            <div class="border-t pt-4">
+                                <div class="flex justify-between">
+                                    <span class="text-lg font-semibold text-gray-900">Balance:</span>
+                                    <span class="text-lg font-semibold text-gray-900">₹{{ bill.balance_amount|floatformat:2 }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Status -->
+                <div class="bg-white rounded-lg shadow mt-6">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Payment Status</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center">
+                            <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full
+                                {% if bill.payment_status == 'paid' %}bg-green-100 text-green-800
+                                {% elif bill.payment_status == 'partial' %}bg-yellow-100 text-yellow-800
+                                {% elif bill.payment_status == 'cancelled' %}bg-red-100 text-red-800
+                                {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                {{ bill.get_payment_status_display }}
+                            </span>
+                            <p class="mt-2 text-sm text-gray-600">
+                                {% if bill.payment_status == 'paid' %}
+                                    This bill has been fully paid.
+                                {% elif bill.payment_status == 'partial' %}
+                                    This bill has been partially paid.
+                                {% else %}
+                                    This bill is pending payment.
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const amountInput = document.getElementById('{{ form.amount.id_for_label }}');
+    const maxAmount = {{ bill.balance_amount }};
+    
+    amountInput.addEventListener('input', function() {
+        const value = parseFloat(this.value);
+        if (value > maxAmount) {
+            this.value = maxAmount;
+        }
+    });
+});
+</script>
+{% endblock %}

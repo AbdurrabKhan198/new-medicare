@@ -306,21 +306,22 @@ class Bill(models.Model):
         if not self.bill_id:
             self.bill_id = f"BILL{uuid.uuid4().hex[:8].upper()}"
         
-        # Calculate totals
-        self.subtotal = sum(item.total_price for item in self.bill_items.all())
-        
-        # Apply discount
-        if self.discount_percentage > 0:
-            self.discount_amount = (self.subtotal * self.discount_percentage) / 100
-        
-        # Calculate tax
-        taxable_amount = self.subtotal - self.discount_amount
-        if self.tax_percentage > 0:
-            self.tax_amount = (taxable_amount * self.tax_percentage) / 100
-        
-        # Calculate total
-        self.total_amount = taxable_amount + self.tax_amount
-        self.balance_amount = self.total_amount - self.paid_amount
+        # Only calculate totals if bill has items (after initial save)
+        if self.pk:
+            self.subtotal = sum(item.total_price for item in self.bill_items.all())
+            
+            # Apply discount
+            if self.discount_percentage > 0:
+                self.discount_amount = (self.subtotal * self.discount_percentage) / 100
+            
+            # Calculate tax
+            taxable_amount = self.subtotal - self.discount_amount
+            if self.tax_percentage > 0:
+                self.tax_amount = (taxable_amount * self.tax_percentage) / 100
+            
+            # Calculate total
+            self.total_amount = taxable_amount + self.tax_amount
+            self.balance_amount = self.total_amount - self.paid_amount
         
         super().save(*args, **kwargs)
 
