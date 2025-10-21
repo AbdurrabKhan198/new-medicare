@@ -297,14 +297,15 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins" data-aos="fade-up" data-aos-delay="150">Top Specializations</h2>
         </div>
         <div class="flex flex-wrap gap-3 justify-center" data-aos="fade-up" data-aos-delay="250">
-            <a href="{% url 'directory:doctor_list' %}?specialization=Cardiology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Cardiology</a>
-            <a href="{% url 'directory:doctor_list' %}?specialization=Dermatology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Dermatology</a>
-            <a href="{% url 'directory:doctor_list' %}?specialization=Orthopedic" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Orthopedic</a>
-            <a href="{% url 'directory:doctor_list' %}?specialization=Pediatrics" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Pediatrics</a>
-            <a href="{% url 'directory:doctor_list' %}?specialization=Gynecology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Gynecology</a>
-            <a href="{% url 'directory:doctor_list' %}?specialization=Neurology" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Neurology</a>
-            <a href="{% url 'directory:doctor_list' %}?specialization=ENT" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">ENT</a>
-            <a href="{% url 'directory:doctor_list' %}?specialization=Dentistry" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">Dentistry</a>
+            {% for specialization in specializations %}
+            <a href="{% url 'directory:doctor_list' %}?specialization={{ specialization.name }}" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">
+                {% if specialization.icon %}<i class="{{ specialization.icon }} mr-2"></i>{% endif %}{{ specialization.name }}
+            </a>
+            {% empty %}
+            <div class="col-span-full text-center py-8">
+                <p class="text-gray-600">No specializations available yet. Add specializations in the admin panel to showcase them here.</p>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -374,77 +375,40 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Website Development Service -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            {% for service in services %}
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
                 <div class="p-8">
                     <div class="flex items-center mb-6">
                         <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-laptop-medical text-white text-2xl"></i>
+                            <i class="{{ service.icon|default:'fas fa-laptop-medical' }} text-white text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900">Website Development</h3>
+                        <h3 class="text-xl font-semibold text-gray-900">{{ service.name }}</h3>
                     </div>
                     <div class="mb-6">
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='webGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%233B82F6'/><stop offset='100%' style='stop-color:%231E40AF'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23webGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
-                             alt="Website Development" 
-                             class="w-full h-48 object-cover rounded-lg mb-4">
+                        {% if service.image %}
+                            <img src="{{ service.image.url }}" alt="{{ service.name }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                        {% else %}
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='serviceGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%233B82F6'/><stop offset='100%' style='stop-color:%231E40AF'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23serviceGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
+                                 alt="{{ service.name }}" 
+                                 class="w-full h-48 object-cover rounded-lg mb-4">
+                        {% endif %}
                     </div>
-                    <p class="text-gray-600 mb-4">Professional, responsive websites designed specifically for medical practices with patient booking systems and online consultations.</p>
-                    <div class="text-medical-blue font-semibold mb-4">
-                        Starting from ₹25,000
-                    </div>
+                    <p class="text-gray-600 mb-4">{{ service.short_description }}</p>
+                    {% if service.starting_price %}
+                        <div class="text-medical-blue font-semibold mb-4">
+                            {{ service.price_unit }} ₹{{ service.starting_price|floatformat:0 }}
+                        </div>
+                    {% endif %}
                     <a href="{% url 'service_list' %}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
                         Learn More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
                     </a>
                 </div>
             </div>
-            
-            <!-- CRM Systems Service -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                <div class="p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-users-cog text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900">CRM Systems</h3>
-                    </div>
-                    <div class="mb-6">
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='crmGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23crmGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='140' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='210' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='70' y='120' width='200' height='60' fill='%23F3F4F6' rx='4'/></svg>" 
-                             alt="CRM Systems" 
-                             class="w-full h-48 object-cover rounded-lg mb-4">
-                    </div>
-                    <p class="text-gray-600 mb-4">Complete patient management systems with appointment scheduling, medical records, and billing integration.</p>
-                    <div class="text-medical-blue font-semibold mb-4">
-                        Starting from ₹15,000
-                    </div>
-                    <a href="{% url 'service_list' %}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
-                        Learn More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
-                    </a>
-                </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600">No services available yet. Add services in the admin panel to showcase them here.</p>
             </div>
-            
-            <!-- SEO Services -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
-                <div class="p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-search text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900">SEO Services</h3>
-                    </div>
-                    <div class="mb-6">
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='seoGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23seoGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='260' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='200' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='180' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='220' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                             alt="SEO Services" 
-                             class="w-full h-48 object-cover rounded-lg mb-4">
-                    </div>
-                    <p class="text-gray-600 mb-4">Medical SEO optimization to help your practice rank higher in search results and attract more patients.</p>
-                    <div class="text-medical-blue font-semibold mb-4">
-                        Starting from ₹8,000/month
-                    </div>
-                    <a href="{% url 'service_list' %}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
-                        Learn More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
-                    </a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         
         <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
@@ -549,86 +513,41 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Case Study 1: Dr. Sharma -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            {% for case_study in case_studies %}
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
                 <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='case1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23case1)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
-                         alt="Dr. Sharma's Website" 
-                         class="w-full h-48 object-cover">
+                    {% if case_study.featured_image %}
+                        <img src="{{ case_study.featured_image.url }}" alt="{{ case_study.title }}" class="w-full h-48 object-cover">
+                    {% else %}
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='caseGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23caseGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
+                             alt="{{ case_study.title }}" 
+                             class="w-full h-48 object-cover">
+                    {% endif %}
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 text-white">
                         <div class="flex items-center space-x-2">
                             <i class="fas fa-user-md text-white"></i>
-                            <span class="text-sm font-medium">Dr. Sharma</span>
+                            <span class="text-sm font-medium">{{ case_study.doctor_name }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Rajesh Sharma</h3>
-                    <p class="text-medical-blue font-medium mb-2">Cardiologist</p>
-                    <p class="text-gray-600 mb-4">Complete digital transformation with website, CRM, and SEO services. Increased patient bookings by 300%.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ case_study.doctor_name }}</h3>
+                    <p class="text-medical-blue font-medium mb-2">{{ case_study.doctor_specialization }}</p>
+                    <p class="text-gray-600 mb-4">{{ case_study.solution|truncatewords:20 }}</p>
                     <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">Website + CRM</span>
+                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">{{ case_study.project_type }}</span>
                         <a href="{% url 'portfolio' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
                             Read More <i class="fas fa-arrow-right ml-1"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Case Study 2: Dr. Patel -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='case2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23case2)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='140' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='210' y='70' width='60' height='40' fill='%23F3F4F6' rx='4'/><rect x='70' y='120' width='200' height='60' fill='%23F3F4F6' rx='4'/></svg>" 
-                         alt="Dr. Patel's CRM" 
-                         class="w-full h-48 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-user-md text-white"></i>
-                            <span class="text-sm font-medium">Dr. Patel</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Priya Patel</h3>
-                    <p class="text-medical-blue font-medium mb-2">Dermatologist</p>
-                    <p class="text-gray-600 mb-4">Advanced CRM system with telemedicine integration. Reduced appointment no-shows by 60%.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-green-100 px-3 py-1 rounded-full">CRM System</span>
-                        <a href="{% url 'portfolio' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Read More <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600">No case studies available yet. Add case studies in the admin panel to showcase them here.</p>
             </div>
-            
-            <!-- Case Study 3: Dr. Kumar -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
-                <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='case3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23case3)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='260' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='200' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='180' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='220' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                         alt="Dr. Kumar's SEO" 
-                         class="w-full h-48 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-user-md text-white"></i>
-                            <span class="text-sm font-medium">Dr. Kumar</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Amit Kumar</h3>
-                    <p class="text-medical-blue font-medium mb-2">Orthopedic Surgeon</p>
-                    <p class="text-gray-600 mb-4">SEO optimization and social media management. Achieved #1 ranking for local orthopedic searches.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-purple-100 px-3 py-1 rounded-full">SEO + Social</span>
-                        <a href="{% url 'portfolio' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Read More <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         
         <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
@@ -664,77 +583,38 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Testimonial 1 -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            {% for testimonial in testimonials %}
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
                 <div class="p-8">
                     <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-user-md text-white text-xl"></i>
-                        </div>
+                        {% if testimonial.image %}
+                            <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="w-16 h-16 rounded-full object-cover mr-4">
+                        {% else %}
+                            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-user-md text-white text-xl"></i>
+                            </div>
+                        {% endif %}
                         <div>
-                            <h4 class="font-semibold text-gray-900 text-lg">Dr. Rajesh Sharma</h4>
-                            <p class="text-medical-blue text-sm font-medium">Cardiologist</p>
-                            <p class="text-gray-600 text-sm">Sharma Heart Clinic, Mumbai</p>
+                            <h4 class="font-semibold text-gray-900 text-lg">{{ testimonial.name }}</h4>
+                            <p class="text-medical-blue text-sm font-medium">{{ testimonial.title }}</p>
+                            {% if testimonial.clinic_name %}
+                                <p class="text-gray-600 text-sm">{{ testimonial.clinic_name }}</p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="flex mb-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
+                        {% for i in "12345"|make_list %}
+                            <i class="fas fa-star text-yellow-400"></i>
+                        {% endfor %}
                     </div>
-                    <p class="text-gray-600 italic text-lg leading-relaxed">"Mediwell Care transformed our practice completely. Our patient bookings increased by 300% within 6 months. The CRM system is incredibly user-friendly and the website looks professional."</p>
+                    <p class="text-gray-600 italic text-lg leading-relaxed">"{{ testimonial.content }}"</p>
                 </div>
             </div>
-            
-            <!-- Testimonial 2 -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                <div class="p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-user-md text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 text-lg">Dr. Priya Patel</h4>
-                            <p class="text-medical-blue text-sm font-medium">Dermatologist</p>
-                            <p class="text-gray-600 text-sm">Skin Care Center, Delhi</p>
-                        </div>
-                    </div>
-                    <div class="flex mb-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                    <p class="text-gray-600 italic text-lg leading-relaxed">"The telemedicine integration in our CRM has been a game-changer. We reduced no-shows by 60% and our patients love the online consultation feature."</p>
-                </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600">No testimonials available yet. Add testimonials in the admin panel to showcase them here.</p>
             </div>
-            
-            <!-- Testimonial 3 -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
-                <div class="p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-user-md text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 text-lg">Dr. Amit Kumar</h4>
-                            <p class="text-medical-blue text-sm font-medium">Orthopedic Surgeon</p>
-                            <p class="text-gray-600 text-sm">Bone & Joint Clinic, Bangalore</p>
-                        </div>
-                    </div>
-                    <div class="flex mb-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                    <p class="text-gray-600 italic text-lg leading-relaxed">"Their SEO services helped us achieve #1 ranking for orthopedic searches in our city. The social media management has brought in so many new patients."</p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         
         <!-- Additional Testimonial Stats -->
@@ -781,86 +661,41 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Website 1: Dr. Sharma's Heart Clinic -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            {% for website in doctor_websites %}
+            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
                 <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='web1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23web1)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                         alt="Dr. Sharma's Website" 
-                         class="w-full h-48 object-cover">
+                    {% if website.screenshot %}
+                        <img src="{{ website.screenshot.url }}" alt="{{ website.doctor_name }}'s Website" class="w-full h-48 object-cover">
+                    {% else %}
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='webGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23webGrad)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                             alt="{{ website.doctor_name }}'s Website" 
+                             class="w-full h-48 object-cover">
+                    {% endif %}
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 text-white">
                         <div class="flex items-center space-x-2">
-                            <i class="fas fa-heart text-red-400"></i>
-                            <span class="text-sm font-medium">Heart Clinic</span>
+                            <i class="fas fa-globe text-blue-400"></i>
+                            <span class="text-sm font-medium">{{ website.website_type }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Rajesh Sharma</h3>
-                    <p class="text-medical-blue font-medium mb-2">Cardiologist</p>
-                    <p class="text-gray-600 mb-4">Professional website with online booking system and patient portal integration.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ website.doctor_name }}</h3>
+                    <p class="text-medical-blue font-medium mb-2">{{ website.specialization }}</p>
+                    <p class="text-gray-600 mb-4">Professional website with modern design and patient-friendly features.</p>
                     <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">Mumbai</span>
-                        <a href="#" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
+                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">{{ website.location }}</span>
+                        <a href="{{ website.website_url }}" target="_blank" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
                             Visit Website <i class="fas fa-external-link-alt ml-1"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Website 2: Dr. Patel's Skin Care -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='web2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23web2)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                         alt="Dr. Patel's Website" 
-                         class="w-full h-48 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-leaf text-green-400"></i>
-                            <span class="text-sm font-medium">Skin Care</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Priya Patel</h3>
-                    <p class="text-medical-blue font-medium mb-2">Dermatologist</p>
-                    <p class="text-gray-600 mb-4">Modern website with telemedicine features and online consultation booking.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-green-100 px-3 py-1 rounded-full">Delhi</span>
-                        <a href="#" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Visit Website <i class="fas fa-external-link-alt ml-1"></i>
-                        </a>
-                    </div>
-                </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600">No doctor websites available yet. Add doctor websites in the admin panel to showcase them here.</p>
             </div>
-            
-            <!-- Website 3: Dr. Kumar's Orthopedic -->
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
-                <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='web3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23web3)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                         alt="Dr. Kumar's Website" 
-                         class="w-full h-48 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-bone text-purple-400"></i>
-                            <span class="text-sm font-medium">Orthopedic</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dr. Amit Kumar</h3>
-                    <p class="text-medical-blue font-medium mb-2">Orthopedic Surgeon</p>
-                    <p class="text-gray-600 mb-4">SEO-optimized website with appointment scheduling and patient testimonials.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-purple-100 px-3 py-1 rounded-full">Bangalore</span>
-                        <a href="#" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Visit Website <i class="fas fa-external-link-alt ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         
         <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
@@ -896,31 +731,35 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Blog Post 1: Digital Transformation -->
-            <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            {% for post in recent_posts %}
+            <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
                 <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blog1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blog1)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                         alt="Digital Transformation Blog" 
-                         class="w-full h-48 object-cover">
+                    {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+                    {% else %}
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blogGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blogGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
+                             alt="{{ post.title }}" 
+                             class="w-full h-48 object-cover">
+                    {% endif %}
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 text-white">
                         <div class="flex items-center space-x-2">
-                            <i class="fas fa-laptop-medical text-blue-400"></i>
-                            <span class="text-sm font-medium">Digital Health</span>
+                            <i class="fas fa-newspaper text-blue-400"></i>
+                            <span class="text-sm font-medium">{{ post.category.name }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center mb-3">
-                        <span class="bg-medical-blue text-white px-3 py-1 rounded-full text-sm font-medium">Digital Health</span>
-                        <span class="text-gray-500 text-sm ml-3">Dec 15, 2024</span>
+                        <span class="bg-medical-blue text-white px-3 py-1 rounded-full text-sm font-medium">{{ post.category.name }}</span>
+                        <span class="text-gray-500 text-sm ml-3">{{ post.published_at|date:"M d, Y" }}</span>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Digital Transformation in Healthcare: A Complete Guide</h3>
-                    <p class="text-gray-600 mb-4">Learn how digital transformation is revolutionizing healthcare practices and improving patient outcomes through technology integration.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ post.title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center text-sm text-gray-500">
                             <i class="fas fa-eye mr-1"></i>
-                            1,250 views
+                            {{ post.views }} views
                         </div>
                         <a href="{% url 'blog_list' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
                             Read More <i class="fas fa-arrow-right ml-1"></i>
@@ -928,72 +767,11 @@
                     </div>
                 </div>
             </article>
-            
-            <!-- Blog Post 2: SEO for Doctors -->
-            <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blog2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310B981'/><stop offset='100%' style='stop-color:%2334D399'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blog2)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                         alt="SEO for Doctors Blog" 
-                         class="w-full h-48 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-search text-green-400"></i>
-                            <span class="text-sm font-medium">SEO & Marketing</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-3">
-                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">SEO & Marketing</span>
-                        <span class="text-gray-500 text-sm ml-3">Dec 12, 2024</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">SEO Strategies for Medical Practices: Get Found Online</h3>
-                    <p class="text-gray-600 mb-4">Discover proven SEO techniques that help medical practices rank higher in search results and attract more patients.</p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center text-sm text-gray-500">
-                            <i class="fas fa-eye mr-1"></i>
-                            980 views
-                        </div>
-                        <a href="{% url 'blog_list' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Read More <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- Blog Post 3: CRM Benefits -->
-            <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="600">
-                <div class="relative">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blog3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238B5CF6'/><stop offset='100%' style='stop-color:%23A78BFA'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blog3)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                         alt="CRM Benefits Blog" 
-                         class="w-full h-48 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-users-cog text-purple-400"></i>
-                            <span class="text-sm font-medium">CRM Systems</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-3">
-                        <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium">CRM Systems</span>
-                        <span class="text-gray-500 text-sm ml-3">Dec 10, 2024</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Why Every Doctor Needs a CRM System</h3>
-                    <p class="text-gray-600 mb-4">Explore the benefits of CRM systems for medical practices and how they can streamline patient management and improve efficiency.</p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center text-sm text-gray-500">
-                            <i class="fas fa-eye mr-1"></i>
-                            1,450 views
-                        </div>
-                        <a href="{% url 'blog_list' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Read More <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </article>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600">No blog posts available yet. Add blog posts in the admin panel to showcase them here.</p>
+            </div>
+            {% endfor %}
         </div>
         
         <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
@@ -1152,3 +930,4 @@
     });
 </script>
 {% endblock %}
+

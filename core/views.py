@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import HeroSection, FeatureCard, Testimonial, Counter, TeamMember
+from .models import HeroSection, FeatureCard, Testimonial, Counter, TeamMember, Specialization, HomePageSection
 from crm.models import Doctor
 
 from services.models import Service, ServiceCategory
@@ -40,6 +40,12 @@ class HomeView(TemplateView):
         
         # Featured doctors (public directory preview)
         context['featured_doctors'] = Doctor.objects.filter(is_active=True, is_available=True).select_related('clinic').order_by('-experience_years')[:6]
+        
+        # Specializations
+        context['specializations'] = Specialization.objects.filter(is_active=True).order_by('order')[:8]
+        
+        # Homepage sections configuration
+        context['homepage_sections'] = {section.section_name: section for section in HomePageSection.objects.filter(is_active=True)}
         
         return context
 

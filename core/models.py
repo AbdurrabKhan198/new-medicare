@@ -147,3 +147,52 @@ class FeatureCard(models.Model):
     
     def __str__(self):
         return self.title
+
+
+class Specialization(models.Model):
+    """Medical specializations for homepage"""
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+    icon = models.CharField(max_length=50, blank=True)  # FontAwesome icon class
+    description = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Specialization"
+        verbose_name_plural = "Specializations"
+    
+    def __str__(self):
+        return self.name
+
+
+class HomePageSection(models.Model):
+    """Configurable sections for homepage"""
+    SECTION_CHOICES = [
+        ('hero', 'Hero Section'),
+        ('features', 'Features'),
+        ('services', 'Services'),
+        ('specializations', 'Specializations'),
+        ('doctors', 'Featured Doctors'),
+        ('case_studies', 'Case Studies'),
+        ('testimonials', 'Testimonials'),
+        ('websites', 'Doctor Websites'),
+        ('blog', 'Blog Posts'),
+        ('counters', 'Statistics'),
+    ]
+    
+    section_name = models.CharField(max_length=50, choices=SECTION_CHOICES, unique=True)
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=300, blank=True)
+    description = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+    
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Homepage Section"
+        verbose_name_plural = "Homepage Sections"
+    
+    def __str__(self):
+        return self.title

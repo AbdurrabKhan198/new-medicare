@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from core.models import SiteSettings, TeamMember, Testimonial, Counter, HeroSection, FeatureCard
+from core.models import SiteSettings, TeamMember, Testimonial, Counter, HeroSection, FeatureCard, Specialization, HomePageSection
 from services.models import ServiceCategory, Service, ServicePackage, ServiceFAQ
 from portfolio.models import CaseStudy, CaseStudyImage, DoctorWebsite, Technology
 from blog.models import BlogCategory, BlogPost, BlogTag, BlogPostTag
@@ -56,6 +56,12 @@ class Command(BaseCommand):
         
         # Create contact info
         self.create_contact_info()
+        
+        # Create specializations
+        self.create_specializations()
+        
+        # Create homepage sections
+        self.create_homepage_sections()
         
         self.stdout.write(self.style.SUCCESS('Successfully populated database with dummy data!'))
 
@@ -495,3 +501,99 @@ class Command(BaseCommand):
                 is_active=True
             )
             self.stdout.write('Created contact information')
+
+    def create_specializations(self):
+        if not Specialization.objects.exists():
+            specializations = [
+                {'name': 'Cardiology', 'slug': 'cardiology', 'icon': 'fas fa-heart', 'order': 1},
+                {'name': 'Dermatology', 'slug': 'dermatology', 'icon': 'fas fa-leaf', 'order': 2},
+                {'name': 'Orthopedic', 'slug': 'orthopedic', 'icon': 'fas fa-bone', 'order': 3},
+                {'name': 'Pediatrics', 'slug': 'pediatrics', 'icon': 'fas fa-baby', 'order': 4},
+                {'name': 'Gynecology', 'slug': 'gynecology', 'icon': 'fas fa-female', 'order': 5},
+                {'name': 'Neurology', 'slug': 'neurology', 'icon': 'fas fa-brain', 'order': 6},
+                {'name': 'ENT', 'slug': 'ent', 'icon': 'fas fa-ear-listen', 'order': 7},
+                {'name': 'Dentistry', 'slug': 'dentistry', 'icon': 'fas fa-tooth', 'order': 8}
+            ]
+            
+            for spec in specializations:
+                Specialization.objects.create(**spec)
+            self.stdout.write('Created specializations')
+
+    def create_homepage_sections(self):
+        if not HomePageSection.objects.exists():
+            sections = [
+                {
+                    'section_name': 'hero',
+                    'title': 'Empowering Doctors Digitally',
+                    'subtitle': 'Your digital partner for websites, CRM, SEO & patient growth',
+                    'description': 'We specialize in creating powerful digital solutions exclusively for doctors and healthcare professionals.',
+                    'order': 1
+                },
+                {
+                    'section_name': 'features',
+                    'title': 'Why Choose Mediwell Care?',
+                    'subtitle': 'We understand the unique challenges doctors face in today\'s digital world',
+                    'description': 'Our solutions are designed specifically for healthcare professionals.',
+                    'order': 2
+                },
+                {
+                    'section_name': 'services',
+                    'title': 'Our Digital Solutions',
+                    'subtitle': 'Comprehensive digital services tailored for doctors and healthcare professionals',
+                    'description': 'From websites to CRM systems, we provide complete digital transformation.',
+                    'order': 3
+                },
+                {
+                    'section_name': 'specializations',
+                    'title': 'Top Specializations',
+                    'subtitle': 'Find doctors by their area of expertise',
+                    'description': 'Browse our network of verified doctors across various medical specializations.',
+                    'order': 4
+                },
+                {
+                    'section_name': 'doctors',
+                    'title': 'Meet Top Specialists',
+                    'subtitle': 'Browse experienced, verified doctors and book an appointment instantly',
+                    'description': 'Our network of qualified doctors is ready to serve you.',
+                    'order': 5
+                },
+                {
+                    'section_name': 'case_studies',
+                    'title': 'Success Stories',
+                    'subtitle': 'See how we\'ve helped doctors transform their practices with our digital solutions',
+                    'description': 'Real results from real doctors who trusted us with their digital transformation.',
+                    'order': 6
+                },
+                {
+                    'section_name': 'testimonials',
+                    'title': 'What Doctors Say About Us',
+                    'subtitle': 'Don\'t just take our word for it. Here\'s what our clients have to say about our services.',
+                    'description': 'Hear from doctors who have experienced the Mediwell Care difference.',
+                    'order': 7
+                },
+                {
+                    'section_name': 'websites',
+                    'title': 'Doctor Websites We\'ve Built',
+                    'subtitle': 'Professional, modern websites designed specifically for healthcare professionals',
+                    'description': 'See examples of our work and the results we\'ve achieved for our clients.',
+                    'order': 8
+                },
+                {
+                    'section_name': 'blog',
+                    'title': 'Latest Insights',
+                    'subtitle': 'Stay updated with the latest trends in healthcare digital marketing',
+                    'description': 'Expert insights and tips to help you grow your medical practice.',
+                    'order': 9
+                },
+                {
+                    'section_name': 'counters',
+                    'title': 'Our Impact in Numbers',
+                    'subtitle': 'Trusted by doctors across India for their digital transformation',
+                    'description': 'The numbers speak for themselves - see the impact we\'ve made.',
+                    'order': 10
+                }
+            ]
+            
+            for section in sections:
+                HomePageSection.objects.create(**section)
+            self.stdout.write('Created homepage sections')

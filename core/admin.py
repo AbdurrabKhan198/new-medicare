@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     SiteSettings, TeamMember, Testimonial, Counter, 
-    HeroSection, FeatureCard
+    HeroSection, FeatureCard, Specialization, HomePageSection
 )
 
 
@@ -85,4 +85,22 @@ class FeatureCardAdmin(admin.ModelAdmin):
     list_filter = ['is_active']
     search_fields = ['title', 'description']
     list_editable = ['order', 'is_active']
+    ordering = ['order']
+
+
+@admin.register(Specialization)
+class SpecializationAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', 'icon', 'order', 'is_active']
+    list_filter = ['is_active']
+    search_fields = ['name', 'description']
+    list_editable = ['order', 'is_active']
+    ordering = ['order']
+
+
+@admin.register(HomePageSection)
+class HomePageSectionAdmin(admin.ModelAdmin):
+    list_display = ['section_name', 'title', 'is_active', 'order']
+    list_filter = ['is_active', 'section_name']
+    search_fields = ['title', 'subtitle', 'description']
+    list_editable = ['is_active', 'order']
     ordering = ['order']
