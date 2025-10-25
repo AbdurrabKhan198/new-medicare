@@ -570,8 +570,20 @@
         window.addEventListener('load', () => {
             const loadTime = performance.now();
             console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+            
+            // Track page load time
+            if (window.Analytics) {
+                window.Analytics.track('page_load_time', loadTime.toFixed(2) + 'ms');
+            }
         });
     </script>
+    
+    <!-- Analytics Tracking -->
+    <script src="{% static 'js/analytics.js' %}"></script>
+    
+    <!-- Google Analytics & Other Tracking -->
+    {% load analytics_tags %}
+    {% analytics_tracking %}
     
     {% block extra_js %}{% endblock %}
 </body>

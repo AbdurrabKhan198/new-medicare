@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediwell Care - Digital Solutions for Doctors</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+        
+        .pamphlet {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .page {
+            min-height: 297mm;
+            padding: 15mm;
+            position: relative;
+            page-break-after: always;
+        }
+        
+        .page:last-child {
+            page-break-after: avoid;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #06B6D4 100%);
+            color: white;
+            padding: 20mm 15mm;
+            text-align: center;
+            margin: -15mm -15mm 20mm -15mm;
+        }
+        
+        .logo {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .tagline {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            margin-bottom: 20mm;
+        }
+        
+        .section-title {
+            font-size: 1.6em;
+            color: #1E40AF;
+            margin-bottom: 10mm;
+            border-bottom: 2px solid #06B6D4;
+            padding-bottom: 3px;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15mm;
+            margin-bottom: 20mm;
+        }
+        
+        .service-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15mm;
+        }
+        
+        .service-icon {
+            font-size: 1.8em;
+            color: #1E40AF;
+            margin-bottom: 8px;
+        }
+        
+        .service-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1E40AF;
+            margin-bottom: 8px;
+        }
+        
+        .service-desc {
+            color: #64748b;
+            margin-bottom: 10mm;
+            font-size: 0.9em;
+        }
+        
+        .service-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .service-features li {
+            padding: 2px 0;
+            color: #475569;
+            font-size: 0.85em;
+        }
+        
+        .service-features li:before {
+            content: "✓ ";
+            color: #06B6D4;
+            font-weight: bold;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15mm;
+            margin: 20mm 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            background: linear-gradient(135deg, #1E40AF, #06B6D4);
+            color: white;
+            padding: 15mm;
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .stat-label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+        
+        .testimonial {
+            background: #f1f5f9;
+            border-left: 3px solid #06B6D4;
+            padding: 15mm;
+            margin: 10mm 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 10mm;
+            color: #475569;
+            font-size: 0.9em;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: #1E40AF;
+            font-size: 0.85em;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, #1E40AF, #06B6D4);
+            color: white;
+            padding: 20mm;
+            border-radius: 8px;
+            margin-top: 20mm;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15mm;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10mm;
+        }
+        
+        .contact-icon {
+            font-size: 1.3em;
+            margin-right: 10mm;
+            width: 25mm;
+        }
+        
+        .contact-details {
+            font-size: 0.9em;
+        }
+        
+        .pricing-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15mm;
+            text-align: center;
+            margin: 10mm 0;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: #06B6D4;
+            transform: scale(1.02);
+        }
+        
+        .pricing-card.featured:before {
+            content: "POPULAR";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #06B6D4;
+            color: white;
+            padding: 3px 10mm;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        
+        .price {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1E40AF;
+            margin: 10mm 0;
+        }
+        
+        .package-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1E40AF;
+            margin-bottom: 8mm;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #1E40AF, #06B6D4);
+            color: white;
+            padding: 10mm 20mm;
+            border: none;
+            border-radius: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5mm;
+            transition: all 0.3s ease;
+        }
+        
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 15mm;
+            text-align: center;
+            margin: 20mm -15mm -15mm -15mm;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20mm;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15mm;
+            margin: 15mm 0;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin: 10mm 0;
+            padding: 10mm;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 3px solid #06B6D4;
+        }
+        
+        .step-number {
+            background: #06B6D4;
+            color: white;
+            width: 30mm;
+            height: 30mm;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10mm;
+            font-size: 1.2em;
+        }
+        
+        .step-content h4 {
+            color: #1E40AF;
+            margin-bottom: 3mm;
+            font-size: 1.1em;
+        }
+        
+        .step-content p {
+            color: #64748b;
+            font-size: 0.9em;
+        }
+        
+        @media print {
+            .page {
+                page-break-inside: avoid;
+            }
+            
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        .print-instructions {
+            background: #e0f2fe;
+            border: 2px solid #0284c7;
+            border-radius: 8px;
+            padding: 15mm;
+            margin-bottom: 20mm;
+            text-align: center;
+        }
+        
+        .print-instructions h3 {
+            color: #0284c7;
+            margin-bottom: 8mm;
+        }
+        
+        .print-instructions p {
+            color: #0369a1;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-instructions">
+        <h3>📄 Print Instructions</h3>
+        <p><strong>To create PDF:</strong> Press Ctrl+P (or Cmd+P on Mac) → Select "Save as PDF" → Choose "More settings" → Set margins to "Minimum" → Save</p>
+    </div>
+    
+    <div class="pamphlet">
+        <!-- Page 1: Cover & Introduction -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">🏥 Mediwell Care</div>
+                <div class="tagline">Empowering Doctors Digitally</div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Your Digital Partner for Healthcare Success</h2>
+                <p style="font-size: 1.1em; color: #475569; margin-bottom: 20mm;">
+                    We specialize in creating powerful digital solutions exclusively for doctors and healthcare professionals. 
+                    From custom websites to comprehensive CRM systems, we help you grow your practice and serve more patients.
+                </p>
+                
+                <div class="highlight-box">
+                    <h3 style="color: #92400e; margin-bottom: 10mm;">🎯 Why Choose Mediwell Care?</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 5mm 0; color: #92400e; font-size: 0.9em;">✓ <strong>Healthcare-Focused:</strong> We understand medical practices like no other</li>
+                        <li style="padding: 5mm 0; color: #92400e; font-size: 0.9em;">✓ <strong>Proven Results:</strong> 500+ successful doctor transformations</li>
+                        <li style="padding: 5mm 0; color: #92400e; font-size: 0.9em;">✓ <strong>Complete Solutions:</strong> From websites to patient management</li>
+                        <li style="padding: 5mm 0; color: #92400e; font-size: 0.9em;">✓ <strong>Ongoing Support:</strong> We're with you every step of the way</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Doctors Served</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">300%</div>
+                    <div class="stat-label">Avg. Growth</div>
+                </div>
+            </div>
+            
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "Mediwell Care transformed our practice completely. Our patient inquiries increased by 400% within just 3 months. 
+                    The website they created is not just beautiful, it's a powerful tool that brings us new patients every day."
+                </div>
+                <div class="testimonial-author">- Dr. Priya Sharma, Cardiologist, Mumbai</div>
+            </div>
+        </div>
+        
+        <!-- Page 2: Services Overview -->
+        <div class="page">
+            <h2 class="section-title">Our Comprehensive Services</h2>
+            
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <div class="service-title">Website Development</div>
+                    <div class="service-desc">Custom medical websites designed to attract and convert patients</div>
+                    <ul class="service-features">
+                        <li>Mobile-responsive design</li>
+                        <li>Patient appointment booking</li>
+                        <li>Online consultation forms</li>
+                        <li>SEO optimized</li>
+                        <li>Fast loading & secure</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <div class="service-title">Social Media Management</div>
+                    <div class="service-desc">Build your online presence and engage with patients</div>
+                    <ul class="service-features">
+                        <li>Content creation & posting</li>
+                        <li>Patient engagement strategies</li>
+                        <li>Health awareness campaigns</li>
+                        <li>Review management</li>
+                        <li>Community building</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <div class="service-title">SEO Optimization</div>
+                    <div class="service-desc">Get found by patients searching for your services</div>
+                    <ul class="service-features">
+                        <li>Local SEO optimization</li>
+                        <li>Google My Business setup</li>
+                        <li>Keyword research & targeting</li>
+                        <li>Content marketing</li>
+                        <li>Link building strategies</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <div class="service-title">CRM Systems</div>
+                    <div class="service-desc">Complete patient management and practice automation</div>
+                    <ul class="service-features">
+                        <li>Patient database management</li>
+                        <li>Appointment scheduling</li>
+                        <li>Treatment tracking</li>
+                        <li>Prescription management</li>
+                        <li>Billing & payments</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <div class="service-title">Analytics & Reporting</div>
+                    <div class="service-desc">Track your digital success with detailed insights</div>
+                    <ul class="service-features">
+                        <li>Website traffic analysis</li>
+                        <li>Patient conversion tracking</li>
+                        <li>Social media metrics</li>
+                        <li>ROI reporting</li>
+                        <li>Performance optimization</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏥</div>
+                    <div class="service-title">Pharmacy Management</div>
+                    <div class="service-desc">Complete pharmacy and inventory management system</div>
+                    <ul class="service-features">
+                        <li>Medicine inventory tracking</li>
+                        <li>Prescription management</li>
+                        <li>Customer database</li>
+                        <li>Billing & payments</li>
+                        <li>Stock alerts & reports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page 3: Process & Pricing -->
+        <div class="page">
+            <h2 class="section-title">Our Proven Process</h2>
+            
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Discovery & Consultation</h4>
+                    <p>We understand your practice, goals, and challenges through detailed consultation</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Strategy & Planning</h4>
+                    <p>Create a customized digital strategy tailored to your practice needs</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Development & Implementation</h4>
+                    <p>Build and deploy your digital solutions with regular updates and feedback</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Launch & Optimization</h4>
+                    <p>Go live with your new digital presence and continuously optimize for better results</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>Ongoing Support & Growth</h4>
+                    <p>We provide continuous support, updates, and strategies for sustained growth</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title" style="margin-top: 30mm;">Service Packages</h2>
+            
+            <div class="two-column">
+                <div class="pricing-card">
+                    <div class="package-name">Starter Package</div>
+                    <div class="price">₹25,000</div>
+                    <ul style="list-style: none; padding: 0; text-align: left; font-size: 0.85em;">
+                        <li style="padding: 3mm 0;">✓ Basic Website (5 pages)</li>
+                        <li style="padding: 3mm 0;">✓ Mobile Responsive Design</li>
+                        <li style="padding: 3mm 0;">✓ Contact Forms</li>
+                        <li style="padding: 3mm 0;">✓ Basic SEO Setup</li>
+                        <li style="padding: 3mm 0;">✓ 3 Months Support</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="package-name">Professional Package</div>
+                    <div class="price">₹75,000</div>
+                    <ul style="list-style: none; padding: 0; text-align: left; font-size: 0.85em;">
+                        <li style="padding: 3mm 0;">✓ Advanced Website (10+ pages)</li>
+                        <li style="padding: 3mm 0;">✓ Appointment Booking System</li>
+                        <li style="padding: 3mm 0;">✓ SEO Optimization</li>
+                        <li style="padding: 3mm 0;">✓ Social Media Setup</li>
+                        <li style="padding: 3mm 0;">✓ Google My Business</li>
+                        <li style="padding: 3mm 0;">✓ 6 Months Support</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="package-name">Complete Digital Transformation</div>
+                <div class="price">₹1,50,000</div>
+                <ul style="list-style: none; padding: 0; text-align: left; font-size: 0.85em;">
+                    <li style="padding: 3mm 0;">✓ Premium Website + CRM System</li>
+                    <li style="padding: 3mm 0;">✓ Complete SEO Campaign</li>
+                    <li style="padding: 3mm 0;">✓ Social Media Management (6 months)</li>
+                    <li style="padding: 3mm 0;">✓ Pharmacy Management System</li>
+                    <li style="padding: 3mm 0;">✓ Analytics & Reporting</li>
+                    <li style="padding: 3mm 0;">✓ 12 Months Support & Growth</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Page 4: Success Stories & Contact -->
+        <div class="page">
+            <h2 class="section-title">Success Stories</h2>
+            
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "Our clinic's online presence was almost non-existent. Mediwell Care not only created a stunning website 
+                    but also helped us rank #1 on Google for our specialty. Patient inquiries increased by 350% in just 4 months!"
+                </div>
+                <div class="testimonial-author">- Dr. Rajesh Kumar, Orthopedic Surgeon, Delhi</div>
+            </div>
+            
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "The CRM system they built for us has revolutionized our practice. We can now manage 3x more patients 
+                    with the same staff. The automated appointment reminders alone have reduced no-shows by 60%."
+                </div>
+                <div class="testimonial-author">- Dr. Anjali Mehta, Pediatrician, Bangalore</div>
+            </div>
+            
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "From zero social media presence to 10,000+ followers in 6 months. Mediwell Care's social media 
+                    strategy helped us build a community of engaged patients and establish thought leadership in our field."
+                </div>
+                <div class="testimonial-author">- Dr. Vikram Singh, Dermatologist, Pune</div>
+            </div>
+            
+            <h2 class="section-title">Ready to Transform Your Practice?</h2>
+            
+            <div class="contact-info">
+                <h3 style="margin-bottom: 15mm; text-align: center;">Get Your Free Consultation Today!</h3>
+                
+                <div class="contact-grid">
+                    <div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-details">
+                                <strong>Phone:</strong><br>
+                                +91 98765 43210
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <strong>Email:</strong><br>
+                                info@mediwellcare.com
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">💬</div>
+                            <div class="contact-details">
+                                <strong>WhatsApp:</strong><br>
+                                +91 98765 43210
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🌐</div>
+                            <div class="contact-details">
+                                <strong>Website:</strong><br>
+                                www.mediwellcare.com
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <strong>Office Hours:</strong><br>
+                                Mon-Fri: 9 AM - 6 PM<br>
+                                Sat: 10 AM - 4 PM
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">🏢</div>
+                            <div class="contact-details">
+                                <strong>Location:</strong><br>
+                                Mumbai, Maharashtra, India
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20mm;">
+                    <a href="tel:+919876543210" class="cta-button">📞 Call Now</a>
+                    <a href="mailto:info@mediwellcare.com" class="cta-button">📧 Email Us</a>
+                    <a href="https://wa.me/919876543210" class="cta-button">💬 WhatsApp</a>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 20mm;">
+                <h3 style="color: #92400e; margin-bottom: 10mm;">🎁 Special Offer for New Clients!</h3>
+                <p style="color: #92400e; font-size: 1em;">
+                    <strong>Get 20% OFF on your first project!</strong> Plus, receive a FREE digital audit of your current online presence 
+                    (worth ₹15,000) when you book a consultation this month.
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Mediwell Care</strong> - Empowering Doctors Digitally</p>
+            <p>Your trusted partner for healthcare digital transformation</p>
+            <p style="margin-top: 8mm; font-size: 0.8em; opacity: 0.8;">
+                © 2024 Mediwell Care. All rights reserved. | www.mediwellcare.com | +91 98765 43210
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1217 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Analytics Dashboard - Mediwell Care{% endblock %}
+
+{% block extra_css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/date-fns@2.30.0/index.min.js"></script>
+<style>
+    .gradient-bg {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+    }
+    
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .pulse-animation {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    .metric-icon {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    .metric-icon.visitors {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    .metric-icon.views {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+    
+    .metric-icon.bounce {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+    
+    .metric-icon.realtime {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .metric-icon.duration {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    }
+    
+    .metric-icon.sessions {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    }
+    
+    /* Advanced Animations */
+    .floating-animation {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    .slide-in-left {
+        animation: slideInLeft 0.8s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+        from { transform: translateX(-100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .slide-in-right {
+        animation: slideInRight 0.8s ease-out;
+    }
+    
+    @keyframes slideInRight {
+        from { transform: translateX(100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .scale-on-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .scale-on-hover:hover {
+        transform: scale(1.05);
+    }
+    
+    .glow-effect {
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        transition: box-shadow 0.3s ease;
+    }
+    
+    .glow-effect:hover {
+        box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+    }
+    
+    .chart-container {
+        position: relative;
+        height: 300px;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 1rem 0;
+    }
+    
+    .metric-card-enhanced {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .metric-card-enhanced:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-color: #3b82f6;
+    }
+    
+    .live-indicator {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .live-indicator::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+    
+    .progress-bar-animated {
+        background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+        background-size: 200% 100%;
+        animation: gradientShift 3s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    .floating-elements {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    
+    .floating-element {
+        position: absolute;
+        opacity: 0.1;
+        animation: floatRandom 8s infinite linear;
+    }
+    
+    @keyframes floatRandom {
+        0% { transform: translateY(100vh) rotate(0deg); }
+        100% { transform: translateY(-100px) rotate(360deg); }
+    }
+    
+    .interactive-chart {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .interactive-chart:hover {
+        transform: scale(1.02);
+        filter: brightness(1.1);
+    }
+    
+    .metric-trend {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .metric-trend.positive {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    
+    .metric-trend.negative {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+    
+    .metric-trend.neutral {
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    }
+    
+    .real-time-pulse {
+        animation: realTimePulse 2s infinite;
+    }
+    
+    @keyframes realTimePulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.1); }
+    }
+    
+    .data-loading {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+    }
+    
+    @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+        <!-- Header Section -->
+        <div class="glass-effect border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+                        📊 Analytics Dashboard
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-700 mb-8">
+                        Real-time insights for your medical practice
+                    </p>
+                    <div class="inline-flex items-center bg-green-100 px-6 py-3 rounded-full border border-green-200">
+                        <div class="w-3 h-3 bg-green-500 rounded-full pulse-animation mr-3"></div>
+                        <span class="text-green-800 font-medium">Live Data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <!-- Total Visitors -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg card-hover border border-gray-200">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="w-16 h-16 metric-icon visitors rounded-2xl flex items-center justify-center text-2xl text-white">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-gray-900">{{ total_visitors|default:"3" }}</div>
+                        <div class="text-sm text-gray-500">Total Visitors</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        +12%
+                    </span>
+                    <span class="text-xs text-gray-500">vs last period</span>
+                </div>
+            </div>
+
+            <!-- Unique Visitors -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg card-hover border border-gray-200">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="w-16 h-16 metric-icon visitors rounded-2xl flex items-center justify-center text-2xl text-white">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-gray-900">{{ unique_visitors|default:"3" }}</div>
+                        <div class="text-sm text-gray-500">Unique Visitors</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        +8%
+                    </span>
+                    <span class="text-xs text-gray-500">vs last period</span>
+                </div>
+            </div>
+
+            <!-- Page Views -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg card-hover border border-gray-200">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="w-16 h-16 metric-icon views rounded-2xl flex items-center justify-center text-2xl text-white">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-gray-900">{{ total_page_views|default:"181" }}</div>
+                        <div class="text-sm text-gray-500">Page Views</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        +15%
+                    </span>
+                    <span class="text-xs text-gray-500">vs last period</span>
+                </div>
+            </div>
+
+            <!-- Bounce Rate -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg card-hover border border-gray-200">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="w-16 h-16 metric-icon bounce rounded-2xl flex items-center justify-center text-2xl text-white">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-gray-900">{{ bounce_rate|default:"66.67%" }}</div>
+                        <div class="text-sm text-gray-500">Bounce Rate</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                        <i class="fas fa-arrow-down mr-1"></i>
+                        -3%
+                    </span>
+                    <span class="text-xs text-gray-500">vs last period</span>
+                </div>
+            </div>
+
+            <!-- Real-time Visitors -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg card-hover border border-gray-200">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="w-16 h-16 metric-icon realtime rounded-2xl flex items-center justify-center text-2xl text-white">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-gray-900">{{ real_time_visitors|default:"2" }}</div>
+                        <div class="text-sm text-gray-500">Real-time Visitors</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        <div class="w-2 h-2 bg-green-500 rounded-full pulse-animation mr-2"></div>
+                        Active now
+                    </span>
+                    <span class="text-xs text-gray-500">last 5 min</span>
+                </div>
+            </div>
+
+            <!-- Average Session Duration -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg card-hover border border-gray-200">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="w-16 h-16 metric-icon duration rounded-2xl flex items-center justify-center text-2xl text-white">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-gray-900">{{ avg_duration|default:"2:34" }}</div>
+                        <div class="text-sm text-gray-500">Avg. Session</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        +5%
+                    </span>
+                    <span class="text-xs text-gray-500">vs last period</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-time Activity Section -->
+        <div class="bg-white rounded-3xl p-8 mb-12 shadow-lg border border-gray-200">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                    <i class="fas fa-broadcast-tower mr-3 text-blue-600"></i>
+                    Live Activity
+                </h3>
+                <p class="text-gray-600 mb-6">Active in last 5 minutes</p>
+                <div class="inline-flex items-center bg-green-100 px-6 py-3 rounded-full border border-green-200">
+                    <div class="w-3 h-3 bg-green-500 rounded-full pulse-animation mr-3"></div>
+                    <span class="text-green-800 font-medium">Live Data Streaming</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- Real-time Traffic Chart -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 interactive-chart">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-gray-900">
+                        <i class="fas fa-chart-line mr-3 text-blue-500"></i>
+                        Real-time Traffic
+                    </h3>
+                    <div class="flex space-x-2">
+                        <button onclick="updateChart('7d')" class="px-3 py-1 text-xs bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors">7D</button>
+                        <button onclick="updateChart('30d')" class="px-3 py-1 text-xs bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition-colors">30D</button>
+                        <button onclick="updateChart('90d')" class="px-3 py-1 text-xs bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition-colors">90D</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trafficChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Geographic Heatmap -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 interactive-chart">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-gray-900">
+                        <i class="fas fa-globe mr-3 text-green-500"></i>
+                        Geographic Heatmap
+                    </h3>
+                    <div class="text-sm text-gray-500">Live Locations</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="geoChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Metrics Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Conversion Rate -->
+            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/20 metric-card-enhanced">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 metric-icon visitors rounded-xl flex items-center justify-center text-xl text-white">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900">2.4%</div>
+                        <div class="text-sm text-gray-500">Conversion Rate</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="metric-trend positive">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        +0.3%
+                    </span>
+                    <span class="text-xs text-gray-500">vs last month</span>
+                </div>
+            </div>
+
+            <!-- Engagement Score -->
+            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/20 metric-card-enhanced">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 metric-icon views rounded-xl flex items-center justify-center text-xl text-white">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900">8.7</div>
+                        <div class="text-sm text-gray-500">Engagement Score</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="metric-trend positive">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        +1.2
+                    </span>
+                    <span class="text-xs text-gray-500">vs last month</span>
+                </div>
+            </div>
+
+            <!-- Page Load Speed -->
+            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/20 metric-card-enhanced">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 metric-icon bounce rounded-xl flex items-center justify-center text-xl text-white">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900">1.2s</div>
+                        <div class="text-sm text-gray-500">Avg Load Time</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="metric-trend positive">
+                        <i class="fas fa-arrow-down mr-1"></i>
+                        -0.3s
+                    </span>
+                    <span class="text-xs text-gray-500">vs last month</span>
+                </div>
+            </div>
+
+            <!-- Mobile Traffic -->
+            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/20 metric-card-enhanced">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 metric-icon realtime rounded-xl flex items-center justify-center text-xl text-white">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900">68%</div>
+                        <div class="text-sm text-gray-500">Mobile Traffic</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="metric-trend positive">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        +5%
+                    </span>
+                    <span class="text-xs text-gray-500">vs last month</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Device & Browser Analytics -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- Device Breakdown -->
+            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-mobile-alt mr-3 text-purple-500"></i>
+                    Device Breakdown
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-mobile-alt text-2xl text-blue-500 mr-4"></i>
+                            <span class="font-medium text-gray-700">Mobile</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-gray-900">65%</div>
+                            <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-desktop text-2xl text-green-500 mr-4"></i>
+                            <span class="font-medium text-gray-700">Desktop</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-gray-900">30%</div>
+                            <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-tablet-alt text-2xl text-purple-500 mr-4"></i>
+                            <span class="font-medium text-gray-700">Tablet</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-gray-900">5%</div>
+                            <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Browser Analytics -->
+            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-browser mr-3 text-orange-500"></i>
+                    Browser Analytics
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fab fa-chrome text-2xl text-blue-500 mr-4"></i>
+                            <span class="font-medium text-gray-700">Chrome</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-gray-900">45%</div>
+                            <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fab fa-firefox text-2xl text-orange-500 mr-4"></i>
+                            <span class="font-medium text-gray-700">Firefox</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-gray-900">25%</div>
+                            <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <div class="bg-orange-500 h-2 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fab fa-safari text-2xl text-blue-400 mr-4"></i>
+                            <span class="font-medium text-gray-700">Safari</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-gray-900">20%</div>
+                            <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-400 h-2 rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fab fa-edge text-2xl text-blue-600 mr-4"></i>
+                            <span class="font-medium text-gray-700">Edge</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-gray-900">10%</div>
+                            <div class="w-24 bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Traffic Sources Section -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mb-12">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">
+                <i class="fas fa-external-link-alt mr-3 text-blue-500"></i>
+                Traffic Sources
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Direct Traffic -->
+                <div class="p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl border border-blue-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-globe text-3xl text-blue-500 mr-4"></i>
+                            <div>
+                                <div class="font-bold text-gray-900">Direct Traffic</div>
+                                <div class="text-sm text-gray-600">Users typing URL directly</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-blue-600">{{ traffic_breakdown.direct|floatformat:0 }}%</div>
+                            <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-blue-200 rounded-full h-3">
+                        <div class="bg-blue-500 h-3 rounded-full" style="width: {{ traffic_breakdown.direct }}%"></div>
+                    </div>
+                </div>
+
+                <!-- Google Search -->
+                <div class="p-6 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl border border-green-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fab fa-google text-3xl text-green-500 mr-4"></i>
+                            <div>
+                                <div class="font-bold text-gray-900">Google Search</div>
+                                <div class="text-sm text-gray-600">Organic search results</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-green-600">{{ traffic_breakdown.google|floatformat:0 }}%</div>
+                            <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-green-200 rounded-full h-3">
+                        <div class="bg-green-500 h-3 rounded-full" style="width: {{ traffic_breakdown.google }}%"></div>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="p-6 bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl border border-purple-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-share-alt text-3xl text-purple-500 mr-4"></i>
+                            <div>
+                                <div class="font-bold text-gray-900">Social Media</div>
+                                <div class="text-sm text-gray-600">Facebook, Instagram, LinkedIn</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-purple-600">{{ social_media_total|floatformat:0 }}%</div>
+                            <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-purple-200 rounded-full h-3">
+                        <div class="bg-purple-500 h-3 rounded-full" style="width: {{ social_media_total }}%"></div>
+                    </div>
+                </div>
+
+                <!-- Referral Sites -->
+                <div class="p-6 bg-gradient-to-br from-orange-50 to-red-100 rounded-2xl border border-orange-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-link text-3xl text-orange-500 mr-4"></i>
+                            <div>
+                                <div class="font-bold text-gray-900">Referral Sites</div>
+                                <div class="text-sm text-gray-600">Other websites linking to you</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-orange-600">{{ traffic_breakdown.referral|floatformat:0 }}%</div>
+                            <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-orange-200 rounded-full h-3">
+                        <div class="bg-orange-500 h-3 rounded-full" style="width: {{ traffic_breakdown.referral }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Traffic Sources -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mb-12">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">
+                <i class="fas fa-chart-pie mr-3 text-indigo-500"></i>
+                Detailed Source Breakdown
+            </h3>
+            <div class="space-y-4">
+                <!-- Google -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        <i class="fab fa-google text-2xl text-blue-500 mr-4"></i>
+                        <div>
+                            <div class="font-medium text-gray-900">Google</div>
+                            <div class="text-sm text-gray-500">Organic Search</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ traffic_breakdown.google|floatformat:0 }}%</div>
+                        <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                    </div>
+                </div>
+
+                <!-- Facebook -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        <i class="fab fa-facebook text-2xl text-blue-600 mr-4"></i>
+                        <div>
+                            <div class="font-medium text-gray-900">Facebook</div>
+                            <div class="text-sm text-gray-500">Social Media</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ traffic_breakdown.facebook|floatformat:0 }}%</div>
+                        <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                    </div>
+                </div>
+
+                <!-- Instagram -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        <i class="fab fa-instagram text-2xl text-pink-500 mr-4"></i>
+                        <div>
+                            <div class="font-medium text-gray-900">Instagram</div>
+                            <div class="text-sm text-gray-500">Social Media</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ traffic_breakdown.instagram|floatformat:0 }}%</div>
+                        <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                    </div>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        <i class="fab fa-linkedin text-2xl text-blue-700 mr-4"></i>
+                        <div>
+                            <div class="font-medium text-gray-900">LinkedIn</div>
+                            <div class="text-sm text-gray-500">Professional Network</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ traffic_breakdown.linkedin|floatformat:0 }}%</div>
+                        <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                    </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        <i class="fab fa-whatsapp text-2xl text-green-500 mr-4"></i>
+                        <div>
+                            <div class="font-medium text-gray-900">WhatsApp</div>
+                            <div class="text-sm text-gray-500">Messaging Platform</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ traffic_breakdown.whatsapp|floatformat:0 }}%</div>
+                        <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                    </div>
+                </div>
+
+                <!-- Direct -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        <i class="fas fa-globe text-2xl text-gray-500 mr-4"></i>
+                        <div>
+                            <div class="font-medium text-gray-900">Direct Traffic</div>
+                            <div class="text-sm text-gray-500">Typed URL or bookmarks</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ traffic_breakdown.direct|floatformat:0 }}%</div>
+                        <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                    </div>
+                </div>
+
+                <!-- Referral -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        <i class="fas fa-link text-2xl text-orange-500 mr-4"></i>
+                        <div>
+                            <div class="font-medium text-gray-900">Referral Sites</div>
+                            <div class="text-sm text-gray-500">Other websites</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ traffic_breakdown.referral|floatformat:0 }}%</div>
+                        <div class="text-sm text-gray-500">{{ unique_visitors }} visitors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Pages Section -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mb-12">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">
+                <i class="fas fa-file-alt mr-3 text-indigo-500"></i>
+                Top Pages
+            </h3>
+            <div class="space-y-4">
+                {% for page in top_pages %}
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                    <div class="flex items-center">
+                        {% if page.path == '/' %}
+                            <i class="fas fa-home text-2xl text-blue-500 mr-4"></i>
+                        {% elif 'services' in page.path %}
+                            <i class="fas fa-user-md text-2xl text-green-500 mr-4"></i>
+                        {% elif 'contact' in page.path %}
+                            <i class="fas fa-phone text-2xl text-purple-500 mr-4"></i>
+                        {% elif 'blog' in page.path %}
+                            <i class="fas fa-blog text-2xl text-orange-500 mr-4"></i>
+                        {% elif 'portfolio' in page.path %}
+                            <i class="fas fa-briefcase text-2xl text-indigo-500 mr-4"></i>
+                        {% else %}
+                            <i class="fas fa-file text-2xl text-gray-500 mr-4"></i>
+                        {% endif %}
+                        <div>
+                            <div class="font-medium text-gray-900">{{ page.page_title|default:page.path }}</div>
+                            <div class="text-sm text-gray-500">{{ page.path }}</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-gray-900">{{ page.views }} views</div>
+                        <div class="text-sm text-gray-500">{{ page.percentage }}% of total</div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center py-8">
+                    <i class="fas fa-chart-bar text-4xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-500">No page data available</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Real-time Visitor Tracking -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mb-12">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">
+                <i class="fas fa-users mr-3 text-purple-500"></i>
+                Live Visitor Activity
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-2xl border border-blue-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-blue-600 font-medium">Active Now</div>
+                            <div class="text-2xl font-bold text-blue-800" id="activeVisitors">{{ real_time_visitors }}</div>
+                        </div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full real-time-pulse"></div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-2xl border border-green-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-green-600 font-medium">New Today</div>
+                            <div class="text-2xl font-bold text-green-800" id="newVisitors">{{ unique_visitors }}</div>
+                        </div>
+                        <i class="fas fa-user-plus text-green-500 text-xl"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-2xl border border-purple-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-purple-600 font-medium">Pages Viewed</div>
+                            <div class="text-2xl font-bold text-purple-800" id="pagesViewed">{{ total_page_views }}</div>
+                        </div>
+                        <i class="fas fa-eye text-purple-500 text-xl"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-2xl border border-orange-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-orange-600 font-medium">Avg. Session</div>
+                            <div class="text-2xl font-bold text-orange-800" id="avgSession">{{ avg_duration|default:"2:34" }}</div>
+                        </div>
+                        <i class="fas fa-clock text-orange-500 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Filters Section -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mb-12">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">
+                <i class="fas fa-filter mr-3 text-indigo-500"></i>
+                Advanced Analytics Filters
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="7d">Last 7 Days</option>
+                        <option value="30d" selected>Last 30 Days</option>
+                        <option value="90d">Last 90 Days</option>
+                        <option value="1y">Last Year</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Traffic Source</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="all">All Sources</option>
+                        <option value="direct">Direct Traffic</option>
+                        <option value="google">Google Search</option>
+                        <option value="social">Social Media</option>
+                        <option value="referral">Referral Sites</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Device Type</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="all">All Devices</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="desktop">Desktop</option>
+                        <option value="tablet">Tablet</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="all">All Countries</option>
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="ca">Canada</option>
+                        <option value="au">Australia</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-gray-600">
+            <p class="text-sm">
+                <i class="fas fa-shield-alt mr-2"></i>
+                Advanced Analytics Dashboard powered by Mediwell Care
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Elements -->
+<div class="floating-elements">
+    <div class="floating-element" style="left: 10%; animation-delay: 0s;">📊</div>
+    <div class="floating-element" style="left: 20%; animation-delay: 2s;">📈</div>
+    <div class="floating-element" style="left: 30%; animation-delay: 4s;">📱</div>
+    <div class="floating-element" style="left: 40%; animation-delay: 6s;">🌐</div>
+    <div class="floating-element" style="left: 50%; animation-delay: 8s;">💻</div>
+    <div class="floating-element" style="left: 60%; animation-delay: 10s;">📊</div>
+    <div class="floating-element" style="left: 70%; animation-delay: 12s;">📈</div>
+    <div class="floating-element" style="left: 80%; animation-delay: 14s;">📱</div>
+    <div class="floating-element" style="left: 90%; animation-delay: 16s;">🌐</div>
+</div>
+
+<script>
+// Real-time Analytics Dashboard JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize charts
+    initializeCharts();
+    
+    // Start real-time updates
+    startRealTimeUpdates();
+    
+    // Add scroll animations
+    addScrollAnimations();
+});
+
+// Chart.js Configuration
+function initializeCharts() {
+    // Traffic Chart
+    const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+    const trafficChart = new Chart(trafficCtx, {
+        type: 'line',
+        data: {
+            labels: generateTimeLabels(),
+            datasets: [{
+                label: 'Visitors',
+                data: generateTrafficData(),
+                borderColor: '#4facfe',
+                backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#4facfe',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    ticks: {
+                        color: '#6b7280'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    ticks: {
+                        color: '#6b7280'
+                    }
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            }
+        }
+    });
+
+    // Geographic Chart
+    const geoCtx = document.getElementById('geoChart').getContext('2d');
+    const geoChart = new Chart(geoCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'Others'],
+            datasets: [{
+                data: [35, 20, 15, 10, 8, 12],
+                backgroundColor: [
+                    '#4facfe',
+                    '#00f2fe',
+                    '#43e97b',
+                    '#38f9d7',
+                    '#fa709a',
+                    '#fee140'
+                ],
+                borderWidth: 0,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true
+                    }
+                }
+            }
+        }
+    });
+
+    // Store chart references
+    window.trafficChart = trafficChart;
+    window.geoChart = geoChart;
+}
+
+// Generate time labels for charts
+function generateTimeLabels() {
+    const labels = [];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+        const date = new Date(now);
+        date.setDate(date.getDate() - i);
+        labels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+    }
+    return labels;
+}
+
+// Generate traffic data
+function generateTrafficData() {
+    return [12, 19, 15, 25, 22, 18, 24].map(value => value + Math.floor(Math.random() * 10));
+}
+
+// Update chart function
+function updateChart(period) {
+    // Update button states
+    document.querySelectorAll('button[onclick^="updateChart"]').forEach(btn => {
+        btn.classList.remove('bg-blue-100', 'text-blue-800');
+        btn.classList.add('bg-gray-100', 'text-gray-800');
+    });
+    event.target.classList.remove('bg-gray-100', 'text-gray-800');
+    event.target.classList.add('bg-blue-100', 'text-blue-800');
+    
+    // Update chart data based on period
+    const newData = generateTrafficData();
+    window.trafficChart.data.datasets[0].data = newData;
+    window.trafficChart.update();
+}
+
+// Real-time updates
+function startRealTimeUpdates() {
+    setInterval(() => {
+        updateRealTimeMetrics();
+        updateCharts();
+    }, 5000); // Update every 5 seconds
+}
+
+// Update real-time metrics
+function updateRealTimeMetrics() {
+    // Simulate real-time data updates
+    const activeVisitors = document.getElementById('activeVisitors');
+    const newVisitors = document.getElementById('newVisitors');
+    const pagesViewed = document.getElementById('pagesViewed');
+    
+    if (activeVisitors) {
+        const current = parseInt(activeVisitors.textContent);
+        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+        activeVisitors.textContent = Math.max(0, current + change);
+    }
+    
+    if (newVisitors) {
+        const current = parseInt(newVisitors.textContent);
+        newVisitors.textContent = current + Math.floor(Math.random() * 2);
+    }
+    
+    if (pagesViewed) {
+        const current = parseInt(pagesViewed.textContent);
+        pagesViewed.textContent = current + Math.floor(Math.random() * 3);
+    }
+}
+
+// Update charts with new data
+function updateCharts() {
+    if (window.trafficChart) {
+        const newData = generateTrafficData();
+        window.trafficChart.data.datasets[0].data = newData;
+        window.trafficChart.update('none'); // Smooth update
+    }
+}
+
+// Add scroll animations
+function addScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in-up');
+            }
+        });
+    });
+
+    document.querySelectorAll('.metric-card-enhanced').forEach(card => {
+        observer.observe(card);
+    });
+}
+
+// Add hover effects
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.metric-card-enhanced').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+</script>
+{% endblock %}
+

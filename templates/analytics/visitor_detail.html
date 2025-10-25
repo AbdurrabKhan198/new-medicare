@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Visitor Details - {{ visitor.visitor_id }} - Mediwell Care{% endblock %}
+
+{% block extra_css %}
+<style>
+    .visitor-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .info-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .page-view-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #007bff;
+    }
+    
+    .event-item {
+        background: #fff3cd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #ffc107;
+    }
+    
+    .session-item {
+        background: #d1ecf1;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #17a2b8;
+    }
+    
+    .timeline-item {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #007bff;
+    }
+    
+    .timeline-item::after {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 10px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #007bff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Visitor Header -->
+    <div class="visitor-header">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="h3 mb-2">
+                    <i class="fas fa-user me-2"></i>
+                    Visitor Details
+                </h1>
+                <p class="mb-0 opacity-75">{{ visitor.visitor_id }}</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="h4 mb-0">{{ visitor.total_visits }}</div>
+                        <div class="small">Visits</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="h4 mb-0">{{ visitor.total_page_views }}</div>
+                        <div class="small">Page Views</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="h4 mb-0">
+                            {% if visitor.total_time_spent %}
+                                {{ visitor.total_time_spent|floatformat:0 }}s
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </div>
+                        <div class="small">Time Spent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visitor Information -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="info-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Basic Information
+                </h5>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>IP Address:</strong></td>
+                        <td>{{ visitor.ip_address }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location:</strong></td>
+                        <td>
+                            {% if visitor.city and visitor.country %}
+                                {{ visitor.city }}, {{ visitor.country }}
+                            {% else %}
+                                {{ visitor.country|default:"Unknown" }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Device:</strong></td>
+                        <td>
+                            <i class="fas fa-{% if visitor.device_type == 'mobile' %}mobile-alt{% elif visitor.device_type == 'tablet' %}tablet-alt{% else %}desktop{% endif %} me-1"></i>
+                            {{ visitor.device_type|title }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Browser:</strong></td>
+                        <td>{{ visitor.browser }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OS:</strong></td>
+                        <td>{{ visitor.operating_system }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>First Visit:</strong></td>
+                        <td>{{ visitor.first_visit|date:"M d, Y H:i" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Last Visit:</strong></td>
+                        <td>{{ visitor.last_visit|date:"M d, Y H:i" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bot:</strong></td>
+                        <td>
+                            {% if visitor.is_bot %}
+                                <span class="badge bg-danger">Yes</span>
+                            {% else %}
+                                <span class="badge bg-success">No</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="info-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-globe me-2"></i>
+                    Traffic Sources
+                </h5>
+                {% for source in traffic_sources %}
+                <div class="d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded">
+                    <div>
+                        <i class="fas fa-{% if source.source_type == 'google' %}search{% elif source.source_type == 'facebook' %}facebook{% elif source.source_type == 'whatsapp' %}whatsapp{% elif source.source_type == 'direct' %}home{% else %}link{% endif %} me-2"></i>
+                        <strong>{{ source.source_name }}</strong>
+                        {% if source.campaign_name %}
+                            <br><small class="text-muted">Campaign: {{ source.campaign_name }}</small>
+                        {% endif %}
+                    </div>
+                    <span class="badge bg-{% if source.source_type == 'direct' %}primary{% elif source.source_type == 'google' %}success{% elif source.source_type == 'facebook' %}info{% elif source.source_type == 'whatsapp' %}success{% else %}secondary{% endif %}">
+                        {{ source.source_type|title }}
+                    </span>
+                </div>
+                {% empty %}
+                <p class="text-muted">No traffic sources recorded</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Views Timeline -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="info-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-eye me-2"></i>
+                    Page Views Timeline
+                </h5>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    {% for page_view in page_views %}
+                    <div class="timeline-item">
+                        <div class="page-view-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h6 class="mb-1">
+                                        <a href="{{ page_view.url }}" target="_blank" class="text-decoration-none">
+                                            {{ page_view.page_title|default:page_view.path }}
+                                        </a>
+                                    </h6>
+                                    <small class="text-muted">{{ page_view.path }}</small>
+                                </div>
+                                <div class="col-md-2">
+                                    <i class="fas fa-clock me-1"></i>
+                                    {{ page_view.timestamp|date:"H:i:s" }}
+                                </div>
+                                <div class="col-md-2">
+                                    {% if page_view.time_spent %}
+                                        <i class="fas fa-hourglass-half me-1"></i>
+                                        {{ page_view.time_spent|floatformat:0 }}s
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    {% if page_view.exit_page %}
+                                        <span class="badge bg-danger">Exit</span>
+                                    {% endif %}
+                                    {% if page_view.bounce %}
+                                        <span class="badge bg-warning">Bounce</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if page_view.referrer %}
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-external-link-alt me-1"></i>
+                                    From: {{ page_view.referrer }}
+                                </small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center text-muted py-4">
+                        <i class="fas fa-eye-slash fa-3x mb-3"></i>
+                        <p>No page views recorded</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events and Sessions -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-mouse-pointer me-2"></i>
+                    Events
+                </h5>
+                <div style="max-height: 300px; overflow-y: auto;">
+                    {% for event in events %}
+                    <div class="event-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>{{ event.event_name }}</strong>
+                                <br>
+                                <small class="text-muted">{{ event.event_type|title }}</small>
+                                {% if event.event_value %}
+                                    <br>
+                                    <small class="text-info">{{ event.event_value }}</small>
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">{{ event.timestamp|date:"H:i:s" }}</small>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">No events recorded</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="info-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-clock me-2"></i>
+                    Sessions
+                </h5>
+                <div style="max-height: 300px; overflow-y: auto;">
+                    {% for session in sessions %}
+                    <div class="session-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Session {{ session.session_key|truncatechars:8 }}</strong>
+                                <br>
+                                <small class="text-muted">
+                                    Started: {{ session.start_time|date:"M d, H:i" }}
+                                    {% if session.end_time %}
+                                        <br>Ended: {{ session.end_time|date:"M d, H:i" }}
+                                    {% endif %}
+                                </small>
+                                <br>
+                                <small class="text-info">{{ session.page_views_count }} page views</small>
+                            </div>
+                            <div class="text-end">
+                                {% if session.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Ended</span>
+                                {% endif %}
+                                {% if session.duration %}
+                                    <br>
+                                    <small class="text-muted">{{ session.duration|floatformat:0 }}s</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">No sessions recorded</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediwell Care - Premium Digital Solutions for Doctors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'medical-blue': '#1e40af',
+                        'medical-light-blue': '#3b82f6',
+                        'medical-aqua': '#06b6d4',
+                        'medical-green': '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            .page-break { page-break-after: always; }
+            .no-break { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Page 1: Hero & Services -->
+    <div class="min-h-screen bg-gradient-to-br from-medical-blue via-medical-light-blue to-medical-aqua text-white">
+        <!-- Header -->
+        <div class="container mx-auto px-6 py-12">
+            <div class="text-center mb-16">
+                <h1 class="font-serif text-5xl md:text-7xl font-bold mb-4 text-white drop-shadow-lg">
+                    🏥 Mediwell Care
+                </h1>
+                <p class="text-xl md:text-2xl font-light mb-8 opacity-90">
+                    Empowering Doctors Digitally
+                </p>
+                <div class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/30">
+                    <span class="text-sm font-medium">✨ Trusted by 500+ Doctors Across India</span>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold mb-2">500+</div>
+                    <div class="text-sm opacity-80">Doctors Served</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold mb-2">98%</div>
+                    <div class="text-sm opacity-80">Success Rate</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold mb-2">300%</div>
+                    <div class="text-sm opacity-80">Avg. Growth</div>
+                </div>
+            </div>
+
+            <!-- Value Proposition -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-16 border border-white/20">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6 text-center">
+                    Transform Your Practice Today
+                </h2>
+                <p class="text-lg md:text-xl text-center opacity-90 leading-relaxed">
+                    We specialize in creating powerful digital solutions exclusively for doctors and healthcare professionals. 
+                    From custom websites to comprehensive CRM systems, we help you grow your practice and serve more patients.
+                </p>
+            </div>
+
+            <!-- Testimonial -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                <div class="text-center">
+                    <div class="text-6xl text-white/20 mb-4">"</div>
+                    <p class="text-lg md:text-xl italic mb-6 leading-relaxed">
+                        "Mediwell Care transformed our practice completely. Our patient inquiries increased by 400% within just 3 months. 
+                        The website they created is not just beautiful, it's a powerful tool that brings us new patients every day."
+                    </p>
+                    <div class="font-bold text-lg">Dr. Priya Sharma</div>
+                    <div class="text-sm opacity-80">Cardiologist, Mumbai</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Services & Process -->
+    <div class="min-h-screen bg-white page-break">
+        <div class="container mx-auto px-6 py-16">
+            <!-- Services Section -->
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-medical-blue mb-6">
+                    Our Premium Services
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive digital solutions designed exclusively for healthcare professionals. 
+                    Each service is tailored to meet the unique needs of medical practices.
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Website Development -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-medical-blue to-medical-aqua rounded-2xl flex items-center justify-center text-2xl text-white mb-6">
+                        🌐
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-medical-blue mb-4">Website Development</h3>
+                    <p class="text-gray-600 mb-6">Custom medical websites designed to attract and convert patients with modern design and functionality.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Mobile-responsive design
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Patient appointment booking
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Online consultation forms
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            SEO optimized structure
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Management -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-medical-blue to-medical-aqua rounded-2xl flex items-center justify-center text-2xl text-white mb-6">
+                        📱
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-medical-blue mb-4">Social Media Management</h3>
+                    <p class="text-gray-600 mb-6">Build your online presence and engage with patients through strategic social media management.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Content creation & posting
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Patient engagement strategies
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Health awareness campaigns
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Review management
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- SEO Optimization -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-medical-blue to-medical-aqua rounded-2xl flex items-center justify-center text-2xl text-white mb-6">
+                        🔍
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-medical-blue mb-4">SEO Optimization</h3>
+                    <p class="text-gray-600 mb-6">Get found by patients searching for your services with comprehensive SEO strategies.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Local SEO optimization
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Google My Business setup
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Keyword research & targeting
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Content marketing
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CRM Systems -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-medical-blue to-medical-aqua rounded-2xl flex items-center justify-center text-2xl text-white mb-6">
+                        💼
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-medical-blue mb-4">CRM Systems</h3>
+                    <p class="text-gray-600 mb-6">Complete patient management and practice automation with our advanced CRM solutions.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Patient database management
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Appointment scheduling
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Treatment tracking
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Prescription management
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Analytics & Reporting -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-medical-blue to-medical-aqua rounded-2xl flex items-center justify-center text-2xl text-white mb-6">
+                        📊
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-medical-blue mb-4">Analytics & Reporting</h3>
+                    <p class="text-gray-600 mb-6">Track your digital success with detailed insights and performance analytics.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Website traffic analysis
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Patient conversion tracking
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Social media metrics
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            ROI reporting
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pharmacy Management -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-medical-blue to-medical-aqua rounded-2xl flex items-center justify-center text-2xl text-white mb-6">
+                        🏥
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-medical-blue mb-4">Pharmacy Management</h3>
+                    <p class="text-gray-600 mb-6">Complete pharmacy and inventory management system for medical practices.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Medicine inventory tracking
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Prescription management
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Customer database
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Billing & payments
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Process Section -->
+            <div class="bg-gradient-to-r from-medical-blue to-medical-aqua rounded-3xl p-12 text-white">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">Our Proven Process</h2>
+                    <p class="text-xl opacity-90">A systematic approach that ensures your digital transformation is successful and delivers real results.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+                        <h3 class="font-bold text-lg mb-2">Discovery</h3>
+                        <p class="text-sm opacity-80">We understand your practice, goals, and challenges through detailed consultation</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                        <h3 class="font-bold text-lg mb-2">Strategy</h3>
+                        <p class="text-sm opacity-80">Create a customized digital strategy tailored to your practice needs</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                        <h3 class="font-bold text-lg mb-2">Development</h3>
+                        <p class="text-sm opacity-80">Build and deploy your digital solutions with regular updates and feedback</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+                        <h3 class="font-bold text-lg mb-2">Launch</h3>
+                        <p class="text-sm opacity-80">Go live with your new digital presence and continuously optimize for better results</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">5</div>
+                        <h3 class="font-bold text-lg mb-2">Growth</h3>
+                        <p class="text-sm opacity-80">We provide continuous support, updates, and strategies for sustained growth</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Pricing, Testimonials & Contact -->
+    <div class="min-h-screen bg-gray-50 page-break">
+        <div class="container mx-auto px-6 py-16">
+            <!-- Pricing Section -->
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-medical-blue mb-6">
+                    Premium Service Packages
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Choose the perfect package for your practice. All packages include our signature 
+                    consultation and ongoing support to ensure your success.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Starter Package -->
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="text-center mb-8">
+                        <h3 class="font-serif text-2xl font-bold text-medical-blue mb-4">Starter Package</h3>
+                        <div class="text-4xl font-bold text-medical-blue mb-2">₹25,000</div>
+                        <div class="text-gray-500">one-time</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Basic Website (5 pages)
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Mobile Responsive Design
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Contact Forms
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Basic SEO Setup
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            3 Months Support
+                        </li>
+                    </ul>
+                    <a href="tel:+919876543210" class="w-full bg-gradient-to-r from-medical-blue to-medical-aqua text-white py-4 px-6 rounded-xl font-semibold text-center block hover:shadow-lg transition-all duration-300">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Professional Package -->
+                <div class="bg-white border-2 border-medical-blue rounded-2xl p-8 shadow-xl relative transform scale-105">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-semibold">
+                            MOST POPULAR
+                        </span>
+                    </div>
+                    <div class="text-center mb-8">
+                        <h3 class="font-serif text-2xl font-bold text-medical-blue mb-4">Professional Package</h3>
+                        <div class="text-4xl font-bold text-medical-blue mb-2">₹75,000</div>
+                        <div class="text-gray-500">one-time</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Advanced Website (10+ pages)
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Appointment Booking System
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Complete SEO Optimization
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Social Media Setup
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Google My Business
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            6 Months Support
+                        </li>
+                    </ul>
+                    <a href="tel:+919876543210" class="w-full bg-gradient-to-r from-medical-blue to-medical-aqua text-white py-4 px-6 rounded-xl font-semibold text-center block hover:shadow-lg transition-all duration-300">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Complete Transformation -->
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="text-center mb-8">
+                        <h3 class="font-serif text-2xl font-bold text-medical-blue mb-4">Complete Transformation</h3>
+                        <div class="text-4xl font-bold text-medical-blue mb-2">₹1,50,000</div>
+                        <div class="text-gray-500">one-time</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Premium Website + CRM
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Complete SEO Campaign
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Social Media Management (6 months)
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Pharmacy Management System
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            Analytics & Reporting
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="text-medical-green mr-3">✓</span>
+                            12 Months Support & Growth
+                        </li>
+                    </ul>
+                    <a href="tel:+919876543210" class="w-full bg-gradient-to-r from-medical-blue to-medical-aqua text-white py-4 px-6 rounded-xl font-semibold text-center block hover:shadow-lg transition-all duration-300">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+
+            <!-- Success Stories -->
+            <div class="mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-medical-blue text-center mb-12">
+                    Success Stories
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-medical-aqua">
+                        <div class="text-4xl text-medical-aqua/20 mb-4">"</div>
+                        <p class="text-gray-700 italic mb-6 leading-relaxed">
+                            "Our clinic's online presence was almost non-existent. Mediwell Care not only created a stunning website 
+                            but also helped us rank #1 on Google for our specialty. Patient inquiries increased by 350% in just 4 months!"
+                        </p>
+                        <div class="font-bold text-medical-blue">Dr. Rajesh Kumar</div>
+                        <div class="text-sm text-gray-500">Orthopedic Surgeon, Delhi</div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-medical-green">
+                        <div class="text-4xl text-medical-green/20 mb-4">"</div>
+                        <p class="text-gray-700 italic mb-6 leading-relaxed">
+                            "The CRM system they built for us has revolutionized our practice. We can now manage 3x more patients 
+                            with the same staff. The automated appointment reminders alone have reduced no-shows by 60%."
+                        </p>
+                        <div class="font-bold text-medical-blue">Dr. Anjali Mehta</div>
+                        <div class="text-sm text-gray-500">Pediatrician, Bangalore</div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-medical-light-blue">
+                        <div class="text-4xl text-medical-light-blue/20 mb-4">"</div>
+                        <p class="text-gray-700 italic mb-6 leading-relaxed">
+                            "From zero social media presence to 10,000+ followers in 6 months. Mediwell Care's social media 
+                            strategy helped us build a community of engaged patients and establish thought leadership in our field."
+                        </p>
+                        <div class="font-bold text-medical-blue">Dr. Vikram Singh</div>
+                        <div class="text-sm text-gray-500">Dermatologist, Pune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Offer -->
+            <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 border-2 border-yellow-300 rounded-2xl p-8 mb-16">
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🎁</div>
+                    <h3 class="font-serif text-2xl font-bold text-yellow-800 mb-4">Special Offer for New Clients!</h3>
+                    <p class="text-lg text-yellow-800">
+                        <strong>Get 20% OFF on your first project!</strong> Plus, receive a FREE digital audit of your current online presence 
+                        (worth ₹15,000) when you book a consultation this month. Limited time offer - don't miss out!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="bg-gradient-to-br from-medical-blue via-medical-light-blue to-medical-aqua rounded-3xl p-12 text-white">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Practice?</h2>
+                    <p class="text-xl opacity-90">Get your free consultation today and start your digital transformation journey</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl mr-4">📞</div>
+                            <div>
+                                <div class="font-bold text-lg">Phone</div>
+                                <div class="opacity-90">+91 98765 43210</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl mr-4">📧</div>
+                            <div>
+                                <div class="font-bold text-lg">Email</div>
+                                <div class="opacity-90">info@mediwellcare.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl mr-4">💬</div>
+                            <div>
+                                <div class="font-bold text-lg">WhatsApp</div>
+                                <div class="opacity-90">+91 98765 43210</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl mr-4">🌐</div>
+                            <div>
+                                <div class="font-bold text-lg">Website</div>
+                                <div class="opacity-90">www.mediwellcare.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl mr-4">📍</div>
+                            <div>
+                                <div class="font-bold text-lg">Office Hours</div>
+                                <div class="opacity-90">Mon-Fri: 9 AM - 6 PM<br>Sat: 10 AM - 4 PM</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl mr-4">🏢</div>
+                            <div>
+                                <div class="font-bold text-lg">Location</div>
+                                <div class="opacity-90">Mumbai, Maharashtra, India</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="tel:+919876543210" class="inline-block bg-white text-medical-blue py-4 px-8 rounded-xl font-bold text-lg mr-4 hover:bg-gray-100 transition-all duration-300">
+                        📞 Call Now
+                    </a>
+                    <a href="mailto:info@mediwellcare.com" class="inline-block bg-white text-medical-blue py-4 px-8 rounded-xl font-bold text-lg mr-4 hover:bg-gray-100 transition-all duration-300">
+                        📧 Email Us
+                    </a>
+                    <a href="https://wa.me/919876543210" class="inline-block bg-white text-medical-blue py-4 px-8 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300">
+                        💬 WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center mt-16">
+                <div class="font-serif text-2xl font-bold text-medical-blue mb-4">🏥 Mediwell Care</div>
+                <div class="text-lg text-gray-600 mb-4">Empowering Doctors Digitally</div>
+                <div class="text-sm text-gray-500">
+                    © 2024 Mediwell Care. All rights reserved. | www.mediwellcare.com | +91 98765 43210
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

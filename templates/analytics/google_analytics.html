@@ -1,0 +1,159 @@
+<!-- Google Analytics -->
+{% if analytics_settings.google_analytics_id %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_settings.google_analytics_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ analytics_settings.google_analytics_id }}', {
+    'anonymize_ip': {{ analytics_settings.anonymize_ip|yesno:"true,false" }},
+    'cookie_consent_required': {{ analytics_settings.cookie_consent_required|yesno:"true,false" }}
+  });
+  
+  // Enhanced ecommerce tracking
+  gtag('config', '{{ analytics_settings.google_analytics_id }}', {
+    'send_page_view': false
+  });
+  
+  // Track page views manually for better control
+  function trackPageView(url, title) {
+    gtag('config', '{{ analytics_settings.google_analytics_id }}', {
+      'page_title': title,
+      'page_location': url
+    });
+  }
+  
+  // Track custom events
+  function trackGAEvent(eventName, parameters = {}) {
+    gtag('event', eventName, parameters);
+  }
+  
+  // Track form submissions
+  function trackGAForm(formName, formId) {
+    gtag('event', 'form_submit', {
+      'event_category': 'engagement',
+      'event_label': formName,
+      'form_id': formId
+    });
+  }
+  
+  // Track outbound clicks
+  function trackGAOutboundClick(url, linkText) {
+    gtag('event', 'click', {
+      'event_category': 'outbound',
+      'event_label': url,
+      'link_text': linkText
+    });
+  }
+  
+  // Track file downloads
+  function trackGADownload(fileName, fileType) {
+    gtag('event', 'file_download', {
+      'event_category': 'engagement',
+      'event_label': fileName,
+      'file_type': fileType
+    });
+  }
+  
+  // Track scroll depth
+  function trackGAScrollDepth(percent) {
+    gtag('event', 'scroll', {
+      'event_category': 'engagement',
+      'event_label': percent + '%'
+    });
+  }
+  
+  // Track video interactions
+  function trackGAVideo(action, videoTitle) {
+    gtag('event', 'video_' + action, {
+      'event_category': 'engagement',
+      'event_label': videoTitle
+    });
+  }
+  
+  // Track search queries
+  function trackGASearch(searchTerm, resultsCount) {
+    gtag('event', 'search', {
+      'search_term': searchTerm,
+      'results_count': resultsCount
+    });
+  }
+  
+  // Track conversions
+  function trackGAConversion(conversionType, value, currency = 'USD') {
+    gtag('event', 'conversion', {
+      'event_category': 'conversion',
+      'event_label': conversionType,
+      'value': value,
+      'currency': currency
+    });
+  }
+  
+  // Make functions globally available
+  window.trackPageView = trackPageView;
+  window.trackGAEvent = trackGAEvent;
+  window.trackGAForm = trackGAForm;
+  window.trackGAOutboundClick = trackGAOutboundClick;
+  window.trackGADownload = trackGADownload;
+  window.trackGAScrollDepth = trackGAScrollDepth;
+  window.trackGAVideo = trackGAVideo;
+  window.trackGASearch = trackGASearch;
+  window.trackGAConversion = trackGAConversion;
+</script>
+{% endif %}
+
+<!-- Google Tag Manager -->
+{% if analytics_settings.google_tag_manager_id %}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','{{ analytics_settings.google_tag_manager_id }}');</script>
+<!-- End Google Tag Manager -->
+{% endif %}
+
+<!-- Facebook Pixel -->
+{% if analytics_settings.facebook_pixel_id %}
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '{{ analytics_settings.facebook_pixel_id }}');
+fbq('track', 'PageView');
+
+// Track custom events
+function trackFBPixel(eventName, parameters = {}) {
+  fbq('track', eventName, parameters);
+}
+
+// Track form submissions
+function trackFBForm(formName) {
+  fbq('track', 'Lead', {
+    content_name: formName
+  });
+}
+
+// Track purchases
+function trackFBPurchase(value, currency = 'USD') {
+  fbq('track', 'Purchase', {
+    value: value,
+    currency: currency
+  });
+}
+
+// Make functions globally available
+window.trackFBPixel = trackFBPixel;
+window.trackFBForm = trackFBForm;
+window.trackFBPurchase = trackFBPurchase;
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id={{ analytics_settings.facebook_pixel_id }}&ev=PageView&noscript=1"
+/></noscript>
+{% endif %}
