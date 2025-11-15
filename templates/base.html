@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{{ site_settings.site_name|default:"Mediwell Care" }} - {% block subtitle %}{{ site_settings.tagline|default:"Empowering Doctors Digitally" }}{% endblock %}{% endblock %}</title>
-    <meta name="description" content="{% block description %}{{ site_settings.meta_description|default:"Your digital partner for websites, CRM, SEO & patient growth. Custom solutions for doctors and healthcare professionals." }}{% endblock %}">
+    <title>{% block title %}{{ site_settings.site_name|default:"Mediwell Care" }} - {% block subtitle %}{{ site_settings.tagline|default:"Clinic Growth OS - AI-Powered Practice Growth System" }}{% endblock %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ site_settings.meta_description|default:"MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically. One system, complete clinic growth." }}{% endblock %}">
     <meta name="keywords" content="{% block keywords %}{{ site_settings.meta_keywords|default:"doctor website, healthcare digital marketing, medical SEO, doctor CRM, healthcare social media" }}{% endblock %}">
     <meta name="author" content="{{ site_settings.site_name|default:'Mediwell Care' }}">
     
@@ -32,23 +32,36 @@
         <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     {% endif %}
     
-    <!-- Fonts -->
+    <!-- Resource Hints for Performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    
+    <!-- Preconnect to Critical Domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Preload Critical CSS -->
+    <link rel="preload" href="{% static 'css/output.css' %}" as="style">
+    
+    <!-- Fonts with font-display swap for faster rendering -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Critical CSS -->
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
     
-    <!-- Alpine.js -->
+    <!-- Font Awesome - Load asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- Alpine.js - Already deferred -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- AOS (Animate On Scroll) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS (Animate On Scroll) - Load after page load for better performance -->
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
     
     <!-- Custom CSS moved to static/css/input.css (compiled to static/css/output.css) -->
     
@@ -76,12 +89,14 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
-                        <div class="relative">
-                            <img src="{% static 'images/logo.png' %}" alt="{{ site_settings.site_name|default:'Mediwell Care' }}" class="imgc transition-transform duration-300 group-hover:scale-105">
-                            <div class="absolute -inset-1 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm"></div>
-                        </div>
-                        <span class="text-xl font-bold text-gradient hidden sm:block">{{ site_settings.site_name|default:"Mediwell Care" }}</span>
+                    <a href="{% url 'home' %}" class="flex items-center space-x-3 group" aria-label="Mediwell Care - Home">
+                        <img src="{% static 'images/logo.png' %}" 
+                             alt="{{ site_settings.site_name|default:'Mediwell Care' }}" 
+                             width="50" 
+                             height="50"
+                             loading="eager"
+                             fetchpriority="high">
+                        <span class="text-xl md:text-2xl font-bold text-gradient hidden sm:block tracking-tight">{{ site_settings.site_name|default:"Mediwell Care" }}</span>
                     </a>
                 </div>
                 
@@ -97,15 +112,11 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         </a>
                         <a href="{% url 'service_list' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
-                            <span class="relative z-10">Services</span>
+                            <span class="relative z-10">Clinic Growth OS</span>
                             <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         </a>
                         <a href="{% url 'portfolio' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
-                            <span class="relative z-10">Portfolio</span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                        </a>
-                        <a href="{% url 'directory:doctor_list' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
-                            <span class="relative z-10">Doctors</span>
+                            <span class="relative z-10">Results</span>
                             <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         </a>
                         <a href="{% url 'blog_list' %}" class="nav-link group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10">
@@ -117,7 +128,7 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         </a>
                         <a href="{% url 'contact' %}" class="dynamic-button text-white px-6 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 ml-4">
-                            <span class="relative z-10">Get Free Quote</span>
+                            <span class="relative z-10">Get Free Demo</span>
                         </a>
                     </div>
                 </div>
@@ -144,12 +155,11 @@
             <div class="px-4 pt-2 pb-3 space-y-1">
                 <a href="{% url 'home' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Home</a>
                 <a href="{% url 'about' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">About</a>
-                <a href="{% url 'service_list' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Services</a>
-                <a href="{% url 'portfolio' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Portfolio</a>
-                <a href="{% url 'directory:doctor_list' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Doctors</a>
+                <a href="{% url 'service_list' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Clinic Growth OS</a>
+                <a href="{% url 'portfolio' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Results</a>
                 <a href="{% url 'blog_list' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Blog</a>
                 <a href="{% url 'contact' %}" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-medical-blue hover:bg-gradient-to-r hover:from-medical-blue/10 hover:to-medical-aqua/10 transition-all duration-200">Contact</a>
-                <a href="{% url 'contact' %}" class="dynamic-button text-white block px-3 py-2 rounded-lg text-base font-medium mt-2 text-center">Get Free Quote</a>
+                <a href="{% url 'contact' %}" class="dynamic-button text-white block px-3 py-2 rounded-lg text-base font-medium mt-2 text-center">Get Free Demo</a>
             </div>
         </div>
     </nav>
@@ -172,12 +182,19 @@
                 <div class="space-y-6">
                     <div class="flex items-center space-x-3 group">
                         <div class="relative">
-                            <img src="{% static 'images/logo.png' %}" alt="{{ site_settings.site_name|default:'Mediwell Care' }}" class="h-10 w-auto transition-transform duration-300 group-hover:scale-110">
-                            <div class="absolute -inset-1 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm"></div>
+                            <div class="logo-container bg-white/10 backdrop-blur-sm">
+                                <img src="{% static 'images/logo.png' %}" 
+                                     alt="{{ site_settings.site_name|default:'Mediwell Care' }}" 
+                                     class="h-12 w-auto logo-enhanced"
+                                     width="48" 
+                                     height="48"
+                                     loading="lazy">
+                                <div class="absolute -inset-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-25 transition-opacity duration-300 blur-md"></div>
+                            </div>
                         </div>
                         <span class="text-2xl font-bold text-gradient">{{ site_settings.site_name|default:"Mediwell Care" }}</span>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">{{ site_settings.description|default:"Your digital partner for websites, CRM, SEO & patient growth." }}</p>
+                    <p class="text-gray-300 text-sm leading-relaxed">{{ site_settings.description|default:"MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem that grows your clinic automatically. One system, complete clinic growth." }}</p>
                     <div class="flex space-x-4">
                         {% if site_settings.facebook_url %}
                             <a href="{{ site_settings.facebook_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
@@ -220,15 +237,11 @@
                         </a></li>
                         <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
                             <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                            Services
+                            Clinic Growth OS
                         </a></li>
                         <li><a href="{% url 'portfolio' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
                             <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                            Portfolio
-                        </a></li>
-                        <li><a href="{% url 'directory:doctor_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
-                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                            Doctors
+                            Results
                         </a></li>
                         <li><a href="{% url 'blog_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
                             <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
@@ -241,33 +254,33 @@
                     </ul>
                 </div>
                 
-                <!-- Services -->
+                <!-- Clinic Growth OS Features -->
                 <div>
-                    <h3 class="text-xl font-bold mb-6 text-gradient">Our Services</h3>
+                    <h3 class="text-xl font-bold mb-6 text-gradient">Clinic Growth OS</h3>
                     <ul class="space-y-3">
                         <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
-                            <i class="fas fa-laptop-medical text-sm mr-3 text-medical-aqua"></i>
-                            Website Development
+                            <i class="fab fa-whatsapp text-sm mr-3 text-medical-aqua"></i>
+                            AI WhatsApp Auto-Responder
                         </a></li>
                         <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
-                            <i class="fas fa-search text-sm mr-3 text-medical-aqua"></i>
-                            SEO Services
-                        </a></li>
-                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
-                            <i class="fas fa-share-alt text-sm mr-3 text-medical-aqua"></i>
-                            Social Media Management
-                        </a></li>
-                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
-                            <i class="fas fa-users-cog text-sm mr-3 text-medical-aqua"></i>
-                            CRM Systems
-                        </a></li>
-                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
-                            <i class="fab fa-google text-sm mr-3 text-medical-aqua"></i>
-                            Google My Business
+                            <i class="fas fa-bell text-sm mr-3 text-medical-aqua"></i>
+                            AI Appointment Reminders
                         </a></li>
                         <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
                             <i class="fas fa-star text-sm mr-3 text-medical-aqua"></i>
-                            Reputation Management
+                            AI Review Booster
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-robot text-sm mr-3 text-medical-aqua"></i>
+                            AI Website Chatbot
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-users-cog text-sm mr-3 text-medical-aqua"></i>
+                            Clinic CRM System
+                        </a></li>
+                        <li><a href="{% url 'service_list' %}" class="footer-link group flex items-center text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">
+                            <i class="fas fa-chart-line text-sm mr-3 text-medical-aqua"></i>
+                            Analytics Dashboard
                         </a></li>
                     </ul>
                 </div>
@@ -347,13 +360,19 @@
     </button>
     
     <!-- JavaScript -->
+    <!-- AOS Script - Load after page load -->
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
+        // Initialize AOS after page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true,
+                    offset: 100
+                });
+            }
         });
         
         // Dynamic counter animation

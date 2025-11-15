@@ -10,11 +10,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-6 font-poppins" data-aos="fade-up">
-                Healthcare Digital Insights
+                Learn How Top Doctors Grow Their Clinics
             </h1>
             <p class="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                Stay updated with the latest trends in healthcare digital marketing and technology
+                Real strategies from doctors using Clinic Growth OS. No fluff. Just results.
             </p>
+            <div class="mt-8" data-aos="fade-up" data-aos-delay="400">
+                <a href="{% url 'contact' %}" class="inline-block bg-white text-medical-blue px-8 py-4 rounded-xl text-lg font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Get Free Demo - See It Work
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -171,14 +177,40 @@
     </div>
 </section>
 
-<!-- Newsletter Section -->
-<section class="py-20 bg-gradient-to-r from-medical-blue to-medical-aqua text-white">
-    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+<!-- Conversion CTA Section -->
+<section class="py-20 bg-gradient-to-br from-medical-blue via-blue-700 to-medical-aqua text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-6 font-poppins" data-aos="fade-up">
+            Ready to Grow Your Clinic Like These Doctors?
+        </h2>
+        <p class="text-xl text-white/90 mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            Stop reading. Start growing. Get your free demo and see how Clinic Growth OS works in 15 minutes.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'contact' %}" class="bg-white text-medical-blue px-10 py-5 rounded-xl text-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <i class="fas fa-rocket mr-3"></i>
+                Get Free Demo Now
+            </a>
+            <a href="{% url 'service_list' %}" class="border-3 border-white text-white px-10 py-5 rounded-xl text-xl font-bold hover:bg-white hover:text-medical-blue transition-all duration-300">
+                <i class="fas fa-cogs mr-3"></i>
+                See All Features
+            </a>
+        </div>
+        <p class="text-white/80 text-sm">
+            <i class="fas fa-shield-alt mr-2"></i>
+            30-day money-back guarantee • No credit card required
+        </p>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-poppins text-gray-900" data-aos="fade-up">
             Stay Updated
         </h2>
-        <p class="text-xl text-white/90 mb-8" data-aos="fade-up" data-aos-delay="200">
-            Subscribe to our newsletter for the latest healthcare digital marketing insights and tips.
+        <p class="text-xl text-gray-600 mb-8" data-aos="fade-up" data-aos-delay="200">
+            Get weekly insights on how top doctors grow their clinics with AI.
         </p>
         <form method="post" action="{% url 'newsletter_subscribe' %}" class="max-w-md mx-auto" data-aos="fade-up" data-aos-delay="400">
             {% csrf_token %}

@@ -3,14 +3,12 @@ Allow: /
 
 # Important pages for SEO
 Allow: /services/
-Allow: /doctors/
 Allow: /blog/
 Allow: /contact/
 Allow: /about/
 
 # Disallow admin and private areas
 Disallow: /admin/
-Disallow: /pharmacy/
 Disallow: /crm/
 Disallow: /accounts/
 

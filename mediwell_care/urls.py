@@ -16,9 +16,7 @@ urlpatterns = [
     path('portfolio/', include('portfolio.urls')),
     path('blog/', include('blog.urls')),
     path('contact/', include('contact.urls')),
-    path('doctors/', include('directory.urls')),
     path('crm/', include('crm.urls')),
-    path('pharmacy/', include('pharmacy.urls')),
     path('analytics/', include('analytics.urls')),
 ]
 

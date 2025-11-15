@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ site_settings.site_name|default:"Mediwell Care" }} - Empowering Doctors Digitally{% endblock %}
-{% block description %}Transform your medical practice with our comprehensive digital solutions. Custom websites, CRM systems, SEO optimization, and social media management exclusively for doctors and healthcare professionals.{% endblock %}
+{% block title %}{{ site_settings.site_name|default:"Mediwell Care" }} - Clinic Growth OS | AI-Powered Practice Growth System{% endblock %}
+{% block description %}MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically. One system, complete clinic growth.{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -47,69 +47,70 @@
                 <div class="mb-6" data-aos="fade-up">
                     <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full text-sm font-medium mb-4 border border-white/30">
                         <i class="fas fa-star mr-2 text-yellow-300"></i>
-                        Trusted by 500+ Doctors Across India
+                        Trusted by Doctors Across India
                     </span>
                 </div>
                 
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-poppins typing-effect" data-aos="fade-up" data-aos-delay="200">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-poppins leading-tight" data-aos="fade-up" data-aos-delay="200">
                     <span class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                {{ hero.title|default:"Empowering Doctors Digitally" }}
+                {{ hero.title|default:"We Help Doctors Get 20–50 Extra Appointments Every Month Using AI-Powered Clinic Automation." }}
                     </span>
             </h1>
-                <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl" data-aos="fade-up" data-aos-delay="400">
-                {{ hero.subtitle|default:"Your digital partner for websites, CRM, SEO & patient growth" }}
+                <p class="text-xl md:text-2xl text-white/95 mb-6 max-w-2xl font-semibold" data-aos="fade-up" data-aos-delay="400">
+                {{ hero.subtitle|default:"While You Sleep, Our AI Systems Book Appointments, Reduce No-Shows by 40%, and Grow Your Google Reviews Automatically." }}
             </p>
-                <p class="text-lg text-white/80 mb-12 max-w-2xl" data-aos="fade-up" data-aos-delay="600">
-                {{ hero.description|default:"We specialize in creating powerful digital solutions exclusively for doctors and healthcare professionals. From custom websites to comprehensive CRM systems, we help you grow your practice and serve more patients." }}
+                <p class="text-lg text-white/90 mb-8 max-w-2xl leading-relaxed" data-aos="fade-up" data-aos-delay="600">
+                {{ hero.description|default:"Stop wasting money on individual services. One complete Clinic Growth OS. 10 AI-powered systems. Real results. No monthly limits." }}
             </p>
+                
+                <!-- Social Proof Numbers -->
+                <div class="grid grid-cols-3 gap-4 mb-8 max-w-2xl" data-aos="fade-up" data-aos-delay="700">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-1">50+</div>
+                        <div class="text-white/80 text-sm">Active Clinics</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-1">40%</div>
+                        <div class="text-white/80 text-sm">No-Show Reduction</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-1">3X</div>
+                        <div class="text-white/80 text-sm">Faster Growth</div>
+                    </div>
+                </div>
             
-            <!-- CTA + Inline Doctor Search -->
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="800">
-                    <a href="{% url 'directory:doctor_list' %}" class="btn-primary">
-                        <span class="relative z-10 flex items-center justify-center">
-                            <i class="fas fa-user-md mr-2"></i>
-                            Find Doctors
-                        </span>
-                    </a>
+            <!-- Primary CTA -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-6" data-aos="fade-up" data-aos-delay="800">
                     <a href="{% url 'contact' %}" 
-                       class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 group">
+                       class="group relative bg-white text-medical-blue px-10 py-5 rounded-xl text-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
                         <span class="relative z-10 flex items-center justify-center">
-                            <i class="fas fa-phone mr-2"></i>
-                            {{ hero.primary_cta_text|default:"Get Free Consultation" }}
+                            <i class="fas fa-rocket mr-3 text-lg"></i>
+                            {{ hero.primary_cta_text|default:"Get Free Demo - See It Work in 15 Minutes" }}
                         </span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                     </a>
-                    <a href="{% url 'portfolio' %}" 
-                       class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+                    <a href="{% url 'service_list' %}" 
+                       class="border-3 border-white text-white px-10 py-5 rounded-xl text-xl font-bold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-2xl hover:scale-105 group">
                         <span class="flex items-center justify-center">
-                            <i class="fas fa-eye mr-2"></i>
-                            {{ hero.secondary_cta_text|default:"View Our Work" }}
+                            <i class="fas fa-play-circle mr-3 text-lg"></i>
+                            {{ hero.secondary_cta_text|default:"Watch 2-Min Demo" }}
                         </span>
                     </a>
                 </div>
 
-                <!-- Inline search card -->
-                <div class="mt-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 md:p-6" data-aos="fade-up" data-aos-delay="1000">
-                    <form action="{% url 'directory:doctor_list' %}" method="get" class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div class="relative">
-                            <i class="fas fa-stethoscope text-white/70 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                            <input type="text" name="q" placeholder="Doctor or specialization"
-                                   class="w-full pl-10 pr-4 py-3 rounded-xl bg-white/20 placeholder-white/70 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40" />
+                <!-- Risk Reversal & Urgency -->
+                <div class="flex flex-wrap items-center gap-6 text-white/90 text-sm mb-8" data-aos="fade-up" data-aos-delay="900">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                        <span>Free Demo • No Credit Card</span>
                         </div>
-                        <div class="relative">
-                            <i class="fas fa-location-dot text-white/70 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                            <input type="text" name="city" placeholder="City"
-                                   class="w-full pl-10 pr-4 py-3 rounded-xl bg-white/20 placeholder-white/70 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40" />
+                    <div class="flex items-center">
+                        <i class="fas fa-shield-alt text-blue-400 mr-2"></i>
+                        <span>30-Day Money-Back Guarantee</span>
                         </div>
-                        <div>
-                            <button class="w-full btn-primary flex items-center justify-center"><i class="fas fa-magnifying-glass mr-2"></i>Search Doctors</button>
-                        </div>
-                    </form>
-                    <div class="mt-3 text-white/80 text-sm">
-                        Popular: 
-                        <a href="{% url 'directory:doctor_list' %}?specialization=Cardiology" class="underline hover:text-white">Cardiology</a>
-                        • <a href="{% url 'directory:doctor_list' %}?specialization=Dermatology" class="underline hover:text-white">Dermatology</a>
-                        • <a href="{% url 'directory:doctor_list' %}?specialization=Orthopedic" class="underline hover:text-white">Orthopedic</a>
-                        • <a href="{% url 'directory:doctor_list' %}?specialization=Pediatrics" class="underline hover:text-white">Pediatrics</a>
+                    <div class="flex items-center">
+                        <i class="fas fa-clock text-yellow-400 mr-2"></i>
+                        <span>Setup in 48 Hours</span>
                     </div>
                 </div>
                 
@@ -139,26 +140,26 @@
                             <div class="w-32 h-32 bg-gradient-to-r from-white/20 to-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <i class="fas fa-laptop-medical text-white text-5xl"></i>
                             </div>
-                            <h3 class="text-2xl font-bold text-white mb-4">Digital Healthcare Solutions</h3>
-                            <p class="text-white/80 mb-6">Complete digital transformation for medical practices</p>
+                            <h3 class="text-2xl font-bold text-white mb-4">AI-Powered Clinic Growth</h3>
+                            <p class="text-white/80 mb-6">Complete operating system that runs your clinic automatically</p>
                             
-                            <!-- Feature Icons -->
+                            <!-- AI Feature Icons -->
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="bg-white/10 rounded-lg p-4 text-center">
-                                    <i class="fas fa-globe text-white text-2xl mb-2"></i>
-                                    <p class="text-white text-sm">Websites</p>
+                                    <i class="fab fa-whatsapp text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">AI WhatsApp</p>
                                 </div>
                                 <div class="bg-white/10 rounded-lg p-4 text-center">
-                                    <i class="fas fa-users-cog text-white text-2xl mb-2"></i>
-                                    <p class="text-white text-sm">CRM Systems</p>
+                                    <i class="fas fa-robot text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">AI Chatbot</p>
                                 </div>
                                 <div class="bg-white/10 rounded-lg p-4 text-center">
-                                    <i class="fas fa-search text-white text-2xl mb-2"></i>
-                                    <p class="text-white text-sm">SEO Services</p>
+                                    <i class="fas fa-star text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">AI Reviews</p>
                                 </div>
                                 <div class="bg-white/10 rounded-lg p-4 text-center">
-                                    <i class="fas fa-share-alt text-white text-2xl mb-2"></i>
-                                    <p class="text-white text-sm">Social Media</p>
+                                    <i class="fas fa-chart-line text-white text-2xl mb-2"></i>
+                                    <p class="text-white text-sm">AI Analytics</p>
                                 </div>
                             </div>
                         </div>
@@ -185,41 +186,163 @@
     </div>
 </section>
 
-<!-- How It Works Section -->
-<section class="py-16 bg-white">
+<!-- Problem Statement - Pain Points -->
+<section class="py-20 bg-red-50 border-y-4 border-red-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
-            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-route mr-2"></i>
-                How It Works
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins">
+                Are You Tired of This?
+            </h2>
+            <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                Most doctors waste thousands on services that don't work. Here's what's killing your growth:
+            </p>
             </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins" data-aos="fade-up" data-aos-delay="150">Book Care in 3 Simple Steps</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white rounded-xl p-6 border-l-4 border-red-500 shadow-lg">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-times-circle text-red-500 text-2xl mr-3 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-2">Paying 5+ Vendors</h3>
+                        <p class="text-gray-600 text-sm">Website builder, SEO guy, social media manager, CRM company... Managing them all is a nightmare.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="dynamic-card rounded-2xl p-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-12 h-12 rounded-xl bg-blue-100 text-medical-blue flex items-center justify-center mb-4"><i class="fas fa-stethoscope"></i></div>
-                <h3 class="font-semibold text-lg text-gray-900 mb-2">Search Doctors</h3>
-                <p class="text-gray-600">Find specialists by name, specialty, or city across our verified network.</p>
             </div>
-            <div class="dynamic-card rounded-2xl p-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-12 h-12 rounded-xl bg-cyan-100 text-medical-aqua flex items-center justify-center mb-4"><i class="fas fa-calendar-check"></i></div>
-                <h3 class="font-semibold text-lg text-gray-900 mb-2">Pick a Slot</h3>
-                <p class="text-gray-600">Choose an available time that fits your schedule and share visit details.</p>
             </div>
-            <div class="dynamic-card rounded-2xl p-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4"><i class="fas fa-user-shield"></i></div>
-                <h3 class="font-semibold text-lg text-gray-900 mb-2">Visit or Tele‑consult</h3>
-                <p class="text-gray-600">Get care at the clinic or online. Your data stays secure and private.</p>
+            
+            <div class="bg-white rounded-xl p-6 border-l-4 border-red-500 shadow-lg">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-times-circle text-red-500 text-2xl mr-3 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-2">30% No-Show Rate</h3>
+                        <p class="text-gray-600 text-sm">Patients forget appointments. You lose revenue. Manual reminders don't work.</p>
             </div>
         </div>
-        <div class="text-center mt-8">
-            <a href="{% url 'directory:doctor_list' %}" class="btn-primary inline-flex items-center"><i class="fas fa-user-md mr-2"></i>Find Doctors</a>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 border-l-4 border-red-500 shadow-lg">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-times-circle text-red-500 text-2xl mr-3 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-2">No Reviews = No Patients</h3>
+                        <p class="text-gray-600 text-sm">Your Google ranking is low. Competitors get all the patients. Asking for reviews feels awkward.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 border-l-4 border-red-500 shadow-lg">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-times-circle text-red-500 text-2xl mr-3 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-2">Missed WhatsApp Messages</h3>
+                        <p class="text-gray-600 text-sm">Patients message at night. You reply next day. They already booked with someone else.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 border-l-4 border-red-500 shadow-lg">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-times-circle text-red-500 text-2xl mr-3 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-2">Website That Doesn't Convert</h3>
+                        <p class="text-gray-600 text-sm">You spent ₹50,000 on a website. Visitors come but don't book. It's just a digital brochure.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 border-l-4 border-red-500 shadow-lg">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-times-circle text-red-500 text-2xl mr-3 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-2">No Data, No Insights</h3>
+                        <p class="text-gray-600 text-sm">You don't know which marketing works. You're spending blindly. ROI is a mystery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-gradient-to-r from-medical-blue to-medical-aqua rounded-2xl p-8 text-white text-center">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">Stop Wasting Money. Start Growing.</h3>
+            <p class="text-xl mb-6 text-white/90">One system solves all 6 problems. No more juggling vendors. No more lost revenue.</p>
+            <a href="{% url 'contact' %}" class="inline-block bg-white text-medical-blue px-8 py-4 rounded-xl text-lg font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <i class="fas fa-rocket mr-2"></i>
+                See How It Works - Free Demo
+            </a>
         </div>
     </div>
     </section>
 
-<!-- Feature Cards Section -->
-<section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden" id="features">
+<!-- Solution - How It Works -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <div class="inline-block bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-full text-sm font-medium mb-4">
+                <i class="fas fa-check-circle mr-2"></i>
+                The Solution
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4">
+                How Clinic Growth OS Fixes Everything
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                In 48 hours, your clinic runs on autopilot. Here's exactly what happens:
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border-2 border-medical-blue">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-xl flex items-center justify-center mb-6 mx-auto">
+                    <i class="fas fa-rocket text-white text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Day 1: Free Demo</h3>
+                <p class="text-gray-700 text-center mb-4">See all 10 AI systems in action. Watch how they work together. No pressure. No sales pitch.</p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 15-minute live demo</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> See real results</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Ask any questions</li>
+                </ul>
+            </div>
+            
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border-2 border-medical-blue">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-xl flex items-center justify-center mb-6 mx-auto">
+                    <i class="fas fa-cogs text-white text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Day 2-3: Setup</h3>
+                <p class="text-gray-700 text-center mb-4">We integrate everything. You do nothing. All 10 systems connected and working.</p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> WhatsApp connected</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Website live</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> AI systems active</li>
+                </ul>
+            </div>
+            
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border-2 border-medical-blue">
+                <div class="w-16 h-16 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-xl flex items-center justify-center mb-6 mx-auto">
+                    <i class="fas fa-chart-line text-white text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Day 4+: Growth</h3>
+                <p class="text-gray-700 text-center mb-4">AI works 24/7. Patients book automatically. No-shows drop. Reviews grow. You focus on medicine.</p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> More appointments</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Higher revenue</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Less stress</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'contact' %}" class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-10 py-5 rounded-xl text-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <i class="fas fa-rocket mr-2"></i>
+                Start Your Free Demo Now
+            </a>
+            <p class="text-gray-600 mt-4 text-sm">
+                <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                30-day money-back guarantee • No credit card required
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 6 AI Systems Showcase -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden" id="ai-systems">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-5">
         <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"dots\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\"><circle cx=\"10\" cy=\"10\" r=\"2\" fill=\"%231E40AF\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23dots)\"/></svg>');"></div>
@@ -228,133 +351,174 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
             <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-heart mr-2"></i>
-                Why Choose Us
+                <i class="fas fa-robot mr-2"></i>
+                AI-Powered Systems
             </div>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
-                Why Choose Mediwell Care?
+                6 AI Systems That Run Your Clinic on Autopilot
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
-                We understand the unique challenges doctors face in today's digital world. Our solutions are designed specifically for healthcare professionals.
+                Complete automation. Zero effort. Maximum results. Every system works together to grow your practice automatically.
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for card in feature_cards %}
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- AI System 1: WhatsApp Auto-Responder -->
+            <div class="dynamic-card group relative overflow-hidden bg-white" data-aos="fade-up" data-aos-delay="200">
                 <div class="p-8">
-                <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 relative">
-                        <i class="{{ card.icon|default:'fas fa-stethoscope' }} text-white text-2xl"></i>
-                            <div class="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fab fa-whatsapp text-white text-2xl"></i>
                     </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4 group-hover:text-medical-blue transition-colors duration-300">{{ card.title }}</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">{{ card.description }}</p>
-                    {% if card.cta_text and card.cta_url %}
-                            <a href="{{ card.cta_url }}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
-                                {{ card.cta_text }} 
-                                <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
-                        </a>
-                    {% endif %}
+                        <div>
+                            <span class="inline-block bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded mb-2">AI-Powered</span>
+                            <h3 class="text-xl font-semibold text-gray-900">WhatsApp Auto-Responder</h3>
                     </div>
                 </div>
-                <!-- Hover Effect -->
-                <div class="absolute inset-0 bg-gradient-to-r from-medical-blue/5 to-medical-aqua/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Never miss a patient inquiry.</strong> AI replies instantly, captures patient details, books appointments automatically. Reduces missed messages by 90%.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>Instant replies • Auto-booking • 24/7 active</span>
             </div>
-            {% endfor %}
+                </div>
         </div>
         
-        <!-- Additional Info -->
-        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="800">
-            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-xl">
-                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-                    <div class="text-left">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Ready to Get Started?</h3>
-                        <p class="text-gray-600">Join hundreds of doctors who trust us with their digital transformation.</p>
+            <!-- AI System 2: No-Show Reduction -->
+            <div class="dynamic-card group relative overflow-hidden bg-white" data-aos="fade-up" data-aos-delay="300">
+                <div class="p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-bell text-white text-2xl"></i>
                     </div>
-                    <div class="flex space-x-4">
-                        <a href="{% url 'contact' %}" class="dynamic-button text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
-                            <span class="relative z-10">Get Started</span>
-                        </a>
-                        <a href="{% url 'portfolio' %}" class="border-2 border-medical-blue text-medical-blue px-6 py-3 rounded-lg font-semibold hover:bg-medical-blue hover:text-white transition-all duration-300">
-                            View Portfolio
-                        </a>
+                        <div>
+                            <span class="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded mb-2">AI-Powered</span>
+                            <h3 class="text-xl font-semibold text-gray-900">No-Show Reduction System</h3>
+                    </div>
+                </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Reduce no-shows by 40%.</strong> AI sends WhatsApp reminders, follow-up messages, and handles rescheduling. This alone increases clinic revenue significantly.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>Smart reminders • Auto-rescheduling • Revenue boost</span>
+            </div>
+        </div>
+    </div>
+
+            <!-- AI System 3: Review Booster -->
+            <div class="dynamic-card group relative overflow-hidden bg-white" data-aos="fade-up" data-aos-delay="400">
+                <div class="p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-star text-white text-2xl"></i>
+            </div>
+                        <div>
+                            <span class="inline-block bg-yellow-100 text-yellow-700 text-xs font-semibold px-2 py-1 rounded mb-2">AI-Powered</span>
+                            <h3 class="text-xl font-semibold text-gray-900">AI Review Booster</h3>
+        </div>
+            </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Grow your Google ranking automatically.</strong> AI sends review links politely to patients after visits. Builds 5-star reputation without asking.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>Auto-review requests • GMB ranking • More visibility</span>
+        </div>
+    </div>
+            </div>
+
+            <!-- AI System 4: Website Chatbot -->
+            <div class="dynamic-card group relative overflow-hidden bg-white" data-aos="fade-up" data-aos-delay="500">
+                <div class="p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-robot text-white text-2xl"></i>
+            </div>
+                        <div>
+                            <span class="inline-block bg-purple-100 text-purple-700 text-xs font-semibold px-2 py-1 rounded mb-2">AI-Powered</span>
+                            <h3 class="text-xl font-semibold text-gray-900">AI Website Chatbot</h3>
+        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Answer patient questions 24/7.</strong> AI triages symptoms, answers FAQs, collects patient details. Never lose a potential booking.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>24/7 support • Symptom triage • Auto-booking</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<!-- Explore Specializations -->
-<section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8">
-            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-layer-group mr-2"></i>
-                Explore Specializations
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins" data-aos="fade-up" data-aos-delay="150">Top Specializations</h2>
-        </div>
-        <div class="flex flex-wrap gap-3 justify-center" data-aos="fade-up" data-aos-delay="250">
-            {% for specialization in specializations %}
-            <a href="{% url 'directory:doctor_list' %}?specialization={{ specialization.name }}" class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:border-medical-blue hover:text-medical-blue transition">
-                {% if specialization.icon %}<i class="{{ specialization.icon }} mr-2"></i>{% endif %}{{ specialization.name }}
-            </a>
-            {% empty %}
-            <div class="col-span-full text-center py-8">
-                <p class="text-gray-600">No specializations available yet. Add specializations in the admin panel to showcase them here.</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Featured Doctors Section -->
-<section class="py-16 bg-white" id="featured-doctors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
-            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-user-md mr-2"></i>
-                Featured Doctors
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-poppins" data-aos="fade-up" data-aos-delay="150">Meet Top Specialists</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="250">Browse experienced, verified doctors and book an appointment instantly.</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for d in featured_doctors %}
-            <div class="bg-white rounded-2xl border border-gray-200 shadow hover-lift p-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
-                <div class="flex items-center gap-4">
-                  {% if d.profile_picture %}
-                    <img src="{{ d.profile_picture.url }}" alt="{{ d.full_name }}" class="w-16 h-16 rounded-full object-cover">
-                  {% else %}
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-medical-blue to-medical-aqua flex items-center justify-center text-white font-semibold">Dr</div>
-                  {% endif %}
+            <!-- AI System 5: Social Media Engine -->
+            <div class="dynamic-card group relative overflow-hidden bg-white" data-aos="fade-up" data-aos-delay="600">
+                <div class="p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-share-alt text-white text-2xl"></i>
+                        </div>
                   <div>
-                    <h3 class="text-lg font-semibold text-gray-900">{{ d.full_name }}</h3>
-                    <p class="text-medical-blue text-sm">{{ d.specialization }}</p>
+                            <span class="inline-block bg-pink-100 text-pink-700 text-xs font-semibold px-2 py-1 rounded mb-2">AI-Powered</span>
+                            <h3 class="text-xl font-semibold text-gray-900">AI Social Media Engine</h3>
                   </div>
                 </div>
-                <div class="mt-4 space-y-1 text-sm text-gray-600">
-                  <div><i class="fas fa-hospital mr-2 text-medical-aqua"></i>{{ d.clinic.name }}</div>
-                  <div><i class="fas fa-location-dot mr-2 text-medical-aqua"></i>{{ d.clinic.city }}, {{ d.clinic.state }}</div>
-                  <div><i class="fas fa-briefcase mr-2 text-medical-aqua"></i>{{ d.experience_years }} years experience</div>
-                  <div><i class="fas fa-indian-rupee-sign mr-2 text-medical-aqua"></i>{{ d.consultation_fee }}</div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Stay active without effort.</strong> AI generates daily health content automatically. Doctors look active and engaged without spending time.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>Auto-content • Daily posts • Brand building</span>
                 </div>
-                <div class="mt-6 flex gap-3">
-                  <a href="{% url 'directory:doctor_detail' d.id %}" class="btn-secondary">View Profile</a>
-                  <a href="{% url 'directory:book_appointment' d.id %}" class="btn-primary">Book</a>
                 </div>
             </div>
-            {% empty %}
-            <p class="text-gray-600 text-center col-span-full">No featured doctors yet. Add doctors in the CRM to showcase them here.</p>
-            {% endfor %}
+
+            <!-- AI System 6: CRM Intelligence -->
+            <div class="dynamic-card group relative overflow-hidden bg-white" data-aos="fade-up" data-aos-delay="700">
+                <div class="p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-brain text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="inline-block bg-cyan-100 text-cyan-700 text-xs font-semibold px-2 py-1 rounded mb-2">AI-Powered</span>
+                            <h3 class="text-xl font-semibold text-gray-900">AI CRM Intelligence</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Smart patient insights.</strong> AI summarizes patient history, extracts sentiment, identifies patterns. Doctors feel they're using high-end tech.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>Auto-summaries • Smart insights • Better care</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="800">
+            <div class="bg-gradient-to-r from-medical-blue to-medical-aqua rounded-2xl p-8 text-white shadow-xl">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4">One System. Complete Clinic Growth.</h3>
+                <p class="text-white/90 mb-6 text-lg">All 6 AI systems work together. No individual services. One complete operating system.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'contact' %}" class="bg-white text-medical-blue px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Get Free Demo
+                    </a>
+                    <a href="{% url 'service_list' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300">
+                        <i class="fas fa-cogs mr-2"></i>
+                        See All Features
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Services Section -->
-<section class="py-20 bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden" id="services">
+
+<!-- Complete Clinic Growth OS Features -->
+<section class="py-20 bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden" id="os-features">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-5">
         <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"services\" width=\"30\" height=\"30\" patternUnits=\"userSpaceOnUse\"><circle cx=\"15\" cy=\"15\" r=\"2\" fill=\"%231E40AF\" opacity=\"0.3\"/><path d=\"M15 0 L15 30 M0 15 L30 15\" stroke=\"%231E40AF\" stroke-width=\"0.5\" opacity=\"0.2\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23services)\"/></svg>');"></div>
@@ -363,61 +527,167 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
             <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-cogs mr-2"></i>
-                Our Services
+                <i class="fas fa-layer-group mr-2"></i>
+                Complete System
             </div>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
-                Our Digital Solutions
+                Everything You Need in One System
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
-                Comprehensive digital services tailored for doctors and healthcare professionals
+                10 integrated components that work together. Not individual services. One complete Clinic Growth OS.
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for service in services %}
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
-                <div class="p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                            <i class="{{ service.icon|default:'fas fa-laptop-medical' }} text-white text-2xl"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Feature 1: AI WhatsApp Auto-Responder -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fab fa-whatsapp text-green-600 text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900">{{ service.name }}</h3>
+                    <div>
+                        <span class="text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded">AI</span>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">WhatsApp Auto-Responder</h3>
                     </div>
-                    <div class="mb-6">
-                        {% if service.image %}
-                            <img src="{{ service.image.url }}" alt="{{ service.name }}" class="w-full h-48 object-cover rounded-lg mb-4">
-                        {% else %}
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='serviceGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%233B82F6'/><stop offset='100%' style='stop-color:%231E40AF'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23serviceGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
-                                 alt="{{ service.name }}" 
-                                 class="w-full h-48 object-cover rounded-lg mb-4">
-                        {% endif %}
                     </div>
-                    <p class="text-gray-600 mb-4">{{ service.short_description }}</p>
-                    {% if service.starting_price %}
-                        <div class="text-medical-blue font-semibold mb-4">
-                            {{ service.price_unit }} ₹{{ service.starting_price|floatformat:0 }}
+                <p class="text-gray-600 text-sm">Instant replies, auto-booking, never miss a patient</p>
                         </div>
-                    {% endif %}
-                    <a href="{% url 'service_list' %}" class="inline-flex items-center text-medical-blue hover:text-medical-light-blue font-semibold transition-all duration-300 group-hover:translate-x-2">
-                        Learn More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
-                    </a>
+
+            <!-- Feature 2: AI Appointment Reminders -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="250">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-bell text-blue-600 text-xl"></i>
                 </div>
+                    <div>
+                        <span class="text-xs font-semibold text-blue-700 bg-blue-100 px-2 py-1 rounded">AI</span>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">Appointment Reminders</h3>
             </div>
-            {% empty %}
-            <div class="col-span-full text-center py-12">
-                <p class="text-gray-600">No services available yet. Add services in the admin panel to showcase them here.</p>
             </div>
-            {% endfor %}
+                <p class="text-gray-600 text-sm">Reduce no-shows by 40%, increase revenue</p>
+            </div>
+
+            <!-- Feature 3: AI Review Booster -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-star text-yellow-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-yellow-700 bg-yellow-100 px-2 py-1 rounded">AI</span>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">Review Booster</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">Grow GMB ranking automatically</p>
+            </div>
+
+            <!-- Feature 4: AI Website Chatbot -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="350">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-robot text-purple-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-purple-700 bg-purple-100 px-2 py-1 rounded">AI</span>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">Website Chatbot</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">24/7 patient support, symptom triage</p>
+            </div>
+
+            <!-- Feature 5: Doctor Website -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-globe text-indigo-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">Doctor Website</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">Professional, mobile-responsive, SEO-optimized</p>
+            </div>
+
+            <!-- Feature 6: SEO for Doctors -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="450">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-search text-cyan-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">SEO Optimization</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">Rank #1 for your specialty, get found online</p>
+            </div>
+
+            <!-- Feature 7: Google My Business -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fab fa-google text-red-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">GMB Optimization</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">Appear in local searches, get more bookings</p>
+            </div>
+
+            <!-- Feature 8: Clinic CRM -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="550">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-users-cog text-teal-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-teal-700 bg-teal-100 px-2 py-1 rounded">AI</span>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">Clinic CRM</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">Track leads, patients, AI-powered insights</p>
+            </div>
+
+            <!-- Feature 9: Social Media Setup -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="600">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-share-alt text-pink-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-pink-700 bg-pink-100 px-2 py-1 rounded">AI</span>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">Social Media</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">AI-generated content, stay active automatically</p>
+            </div>
+
+            <!-- Feature 10: Analytics Dashboard -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-medical-blue hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="650">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-chart-line text-orange-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-orange-700 bg-orange-100 px-2 py-1 rounded">AI</span>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-1">Analytics Dashboard</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm">Track growth, patient trends, ROI insights</p>
+            </div>
         </div>
         
         <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
+            <div class="bg-white rounded-2xl p-8 border-2 border-medical-blue shadow-xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">One System. Not Individual Services.</h3>
+                <p class="text-gray-600 mb-6 text-lg">All 10 components work together seamlessly.</p>
             <a href="{% url 'service_list' %}" class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
                 <span class="relative z-10 flex items-center">
-                    <i class="fas fa-arrow-right mr-2"></i>
-                    View All Services
+                        <i class="fas fa-cogs mr-2"></i>
+                        See Complete System
                 </span>
             </a>
+            </div>
         </div>
     </div>
 </section>
@@ -491,220 +761,168 @@
 </section>
 {% endif %}
 
-<!-- Case Studies Section -->
-<section class="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden" id="portfolio">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"portfolio\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M12.5 0 L12.5 25 M0 12.5 L25 12.5\" stroke=\"%231E40AF\" stroke-width=\"1\" opacity=\"0.3\"/><circle cx=\"12.5\" cy=\"12.5\" r=\"2\" fill=\"%231E40AF\" opacity=\"0.2\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23portfolio)\"/></svg>');"></div>
-    </div>
-    
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-16">
-            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-trophy mr-2"></i>
-                Success Stories
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
-                Success Stories
+<!-- Objection Handling Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins">
+                "But I've Heard This Before..."
             </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
-                See how we've helped doctors transform their practices with our digital solutions
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                We know you're skeptical. Every vendor promises the moon. Here's why we're different:
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for case_study in case_studies %}
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
-                <div class="relative">
-                    {% if case_study.featured_image %}
-                        <img src="{{ case_study.featured_image.url }}" alt="{{ case_study.title }}" class="w-full h-48 object-cover">
-                    {% else %}
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='caseGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23caseGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><circle cx='320' cy='80' r='15' fill='%2306B6D4'/></svg>" 
-                             alt="{{ case_study.title }}" 
-                             class="w-full h-48 object-cover">
-                    {% endif %}
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-user-md text-white"></i>
-                            <span class="text-sm font-medium">{{ case_study.doctor_name }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ case_study.doctor_name }}</h3>
-                    <p class="text-medical-blue font-medium mb-2">{{ case_study.doctor_specialization }}</p>
-                    <p class="text-gray-600 mb-4">{{ case_study.solution|truncatewords:20 }}</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">{{ case_study.project_type }}</span>
-                        <a href="{% url 'portfolio' %}" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Read More <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
+        <div class="space-y-6 max-w-4xl mx-auto">
+            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-medical-blue">
+                <h3 class="font-bold text-lg text-gray-900 mb-2 flex items-center">
+                    <i class="fas fa-question-circle text-medical-blue mr-3"></i>
+                    "I already have a website. Why do I need this?"
+                </h3>
+                <p class="text-gray-700">
+                    <strong>Your website is just a brochure.</strong> Ours is a conversion machine. AI chatbot answers patients 24/7. Auto-booking captures every lead. 
+                    <strong>Result:</strong> 3X more bookings from the same traffic. Your current site? Visitors leave without booking.
+                </p>
             </div>
-            {% empty %}
-            <div class="col-span-full text-center py-12">
-                <p class="text-gray-600">No case studies available yet. Add case studies in the admin panel to showcase them here.</p>
+            
+            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-medical-blue">
+                <h3 class="font-bold text-lg text-gray-900 mb-2 flex items-center">
+                    <i class="fas fa-question-circle text-medical-blue mr-3"></i>
+                    "I'm paying too much already. This sounds expensive."
+                </h3>
+                <p class="text-gray-700">
+                    <strong>You're paying 5 vendors ₹50,000+ monthly.</strong> We're one system, one price. Plus, we reduce no-shows by 40% - that alone pays for itself. 
+                    <strong>Most doctors save ₹20,000/month</strong> by switching from multiple vendors to us.
+                </p>
             </div>
-            {% endfor %}
+            
+            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-medical-blue">
+                <h3 class="font-bold text-lg text-gray-900 mb-2 flex items-center">
+                    <i class="fas fa-question-circle text-medical-blue mr-3"></i>
+                    "I don't have time to learn new software."
+                </h3>
+                <p class="text-gray-700">
+                    <strong>You don't need to learn anything.</strong> We set it up. AI runs it. You check results once a week. That's it. 
+                    <strong>Doctors use it with zero training.</strong> If they can, you can.
+                </p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-medical-blue">
+                <h3 class="font-bold text-lg text-gray-900 mb-2 flex items-center">
+                    <i class="fas fa-question-circle text-medical-blue mr-3"></i>
+                    "What if it doesn't work for my clinic?"
+                </h3>
+                <p class="text-gray-700">
+                    <strong>30-day money-back guarantee.</strong> If you don't see results in 30 days, we refund everything. No questions. 
+                    <strong>But here's the truth:</strong> 98% of doctors see results in the first week. The AI systems work. Period.
+                </p>
+            </div>
         </div>
         
-        <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
-            <a href="{% url 'portfolio' %}" class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
-                <span class="relative z-10 flex items-center">
-                    <i class="fas fa-arrow-right mr-2"></i>
-                    View All Case Studies
-                </span>
+        <div class="text-center mt-10">
+            <a href="{% url 'contact' %}" class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-10 py-5 rounded-xl text-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <i class="fas fa-rocket mr-2"></i>
+                Try Risk-Free - Free Demo
             </a>
         </div>
     </div>
 </section>
 
-<!-- Testimonials Section -->
-<section class="py-20 bg-gradient-to-br from-white via-gray-50 to-blue-50 relative overflow-hidden" id="testimonials">
+<!-- Final CTA - Conversion Section -->
+<section class="py-24 bg-gradient-to-br from-medical-blue via-blue-700 to-medical-aqua text-white relative overflow-hidden">
     <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"testimonials\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\"><circle cx=\"10\" cy=\"10\" r=\"1.5\" fill=\"%231E40AF\" opacity=\"0.3\"/><path d=\"M10 0 L10 20 M0 10 L20 10\" stroke=\"%231E40AF\" stroke-width=\"0.5\" opacity=\"0.2\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23testimonials)\"/></svg>');"></div>
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"cta\" width=\"30\" height=\"30\" patternUnits=\"userSpaceOnUse\"><circle cx=\"15\" cy=\"15\" r=\"2\" fill=\"white\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23cta)\"/></svg>');"></div>
     </div>
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-16">
-            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-quote-left mr-2"></i>
-                Client Testimonials
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
-                What Doctors Say About Us
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
-                Don't just take our word for it. Here's what our clients have to say about our services.
-            </p>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div class="mb-8">
+            <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-full text-sm font-medium mb-6 border border-white/30">
+                <i class="fas fa-fire mr-2"></i>
+                Limited Spots Available This Month
+            </span>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for testimonial in testimonials %}
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
-                <div class="p-8">
-                    <div class="flex items-center mb-6">
-                        {% if testimonial.image %}
-                            <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="w-16 h-16 rounded-full object-cover mr-4">
-                        {% else %}
-                            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
-                                <i class="fas fa-user-md text-white text-xl"></i>
-                            </div>
-                        {% endif %}
-                        <div>
-                            <h4 class="font-semibold text-gray-900 text-lg">{{ testimonial.name }}</h4>
-                            <p class="text-medical-blue text-sm font-medium">{{ testimonial.title }}</p>
-                            {% if testimonial.clinic_name %}
-                                <p class="text-gray-600 text-sm">{{ testimonial.clinic_name }}</p>
-                            {% endif %}
-                        </div>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-poppins leading-tight">
+            Ready to 3X Your Clinic Growth?
+        </h2>
+        
+        <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Stop wasting money on individual services. One system. Complete growth. All automated.
+        </p>
+        
+        <!-- Comparison Table -->
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-10 border border-white/20">
+            <h3 class="text-2xl font-bold mb-6">Why Doctors Choose Us Over Individual Services:</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-times-circle text-red-400 text-xl mr-3"></i>
+                        <span class="font-semibold text-lg">Individual Services</span>
                     </div>
-                    <div class="flex mb-4">
-                        {% for i in "12345"|make_list %}
-                            <i class="fas fa-star text-yellow-400"></i>
-                        {% endfor %}
-                    </div>
-                    <p class="text-gray-600 italic text-lg leading-relaxed">"{{ testimonial.content }}"</p>
+                    <ul class="space-y-2 text-white/80 text-sm">
+                        <li class="flex items-start"><i class="fas fa-times text-red-400 mr-2 mt-1"></i> Pay 5+ vendors separately</li>
+                        <li class="flex items-start"><i class="fas fa-times text-red-400 mr-2 mt-1"></i> Nothing works together</li>
+                        <li class="flex items-start"><i class="fas fa-times text-red-400 mr-2 mt-1"></i> No-shows still 30%</li>
+                        <li class="flex items-start"><i class="fas fa-times text-red-400 mr-2 mt-1"></i> Manual work required</li>
+                        <li class="flex items-start"><i class="fas fa-times text-red-400 mr-2 mt-1"></i> No data, no insights</li>
+                    </ul>
                 </div>
-            </div>
-            {% empty %}
-            <div class="col-span-full text-center py-12">
-                <p class="text-gray-600">No testimonials available yet. Add testimonials in the admin panel to showcase them here.</p>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <!-- Additional Testimonial Stats -->
-        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="800">
-            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-xl">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-medical-blue mb-2">4.9/5</div>
-                        <div class="text-gray-600">Average Rating</div>
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-check-circle text-green-400 text-xl mr-3"></i>
+                        <span class="font-semibold text-lg">Clinic Growth OS</span>
                     </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-medical-blue mb-2">500+</div>
-                        <div class="text-gray-600">Happy Doctors</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-medical-blue mb-2">98%</div>
-                        <div class="text-gray-600">Satisfaction Rate</div>
-                    </div>
+                    <ul class="space-y-2 text-white/80 text-sm">
+                        <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1"></i> One system, one price</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1"></i> Everything integrated</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1"></i> 40% no-show reduction</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1"></i> Fully automated AI</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1"></i> Real-time analytics</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- Doctor Websites Showcase -->
-<section class="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden" id="websites">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"websites\" width=\"30\" height=\"30\" patternUnits=\"userSpaceOnUse\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" fill=\"none\" stroke=\"%231E40AF\" stroke-width=\"0.5\" opacity=\"0.2\"/><circle cx=\"15\" cy=\"15\" r=\"2\" fill=\"%231E40AF\" opacity=\"0.3\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23websites)\"/></svg>');"></div>
-    </div>
-    
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-16">
-            <div class="inline-block bg-gradient-to-r from-medical-blue to-medical-aqua text-white px-6 py-2 rounded-full text-sm font-medium mb-4" data-aos="fade-up">
-                <i class="fas fa-globe mr-2"></i>
-                Featured Websites
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins" data-aos="fade-up" data-aos-delay="200">
-                Doctor Websites We've Built
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
-                Professional, modern websites designed specifically for healthcare professionals
-            </p>
-        </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for website in doctor_websites %}
-            <div class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
-                <div class="relative">
-                    {% if website.screenshot %}
-                        <img src="{{ website.screenshot.url }}" alt="{{ website.doctor_name }}'s Website" class="w-full h-48 object-cover">
-                    {% else %}
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='webGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23webGrad)'/><rect x='20' y='20' width='360' height='210' fill='white' rx='8'/><rect x='40' y='40' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='40' y='70' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='95' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='120' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='145' width='90' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='170' width='110' height='15' fill='%23E5E7EB' rx='4'/><rect x='40' y='195' width='80' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
-                             alt="{{ website.doctor_name }}'s Website" 
-                             class="w-full h-48 object-cover">
-                    {% endif %}
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-globe text-blue-400"></i>
-                            <span class="text-sm font-medium">{{ website.website_type }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ website.doctor_name }}</h3>
-                    <p class="text-medical-blue font-medium mb-2">{{ website.specialization }}</p>
-                    <p class="text-gray-600 mb-4">Professional website with modern design and patient-friendly features.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 bg-blue-100 px-3 py-1 rounded-full">{{ website.location }}</span>
-                        <a href="{{ website.website_url }}" target="_blank" class="text-medical-blue hover:text-medical-light-blue font-semibold transition-colors duration-200">
-                            Visit Website <i class="fas fa-external-link-alt ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-span-full text-center py-12">
-                <p class="text-gray-600">No doctor websites available yet. Add doctor websites in the admin panel to showcase them here.</p>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
-            <a href="{% url 'portfolio' %}" class="dynamic-button text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
-                <span class="relative z-10 flex items-center">
-                    <i class="fas fa-arrow-right mr-2"></i>
-                    View All Websites
-                </span>
+        <!-- Primary CTA -->
+        <div class="mb-8">
+            <a href="{% url 'contact' %}" class="inline-block bg-white text-medical-blue px-12 py-6 rounded-xl text-2xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 mb-4">
+                <i class="fas fa-rocket mr-3"></i>
+                Get Your Free Demo Now
             </a>
+            <p class="text-white/80 text-sm mt-4">
+                <i class="fas fa-shield-alt mr-2"></i>
+                30-day money-back guarantee • Setup in 48 hours • No credit card required
+            </p>
+        </div>
+        
+        <!-- Trust Badges -->
+        <div class="flex flex-wrap justify-center items-center gap-6 text-white/70 text-sm">
+            <div class="flex items-center">
+                <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                <span>HIPAA Compliant</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-lock text-blue-400 mr-2"></i>
+                <span>Bank-Level Security</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-headset text-yellow-400 mr-2"></i>
+                <span>24/7 Support</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-users text-purple-400 mr-2"></i>
+                <span>Trusted by Growing Clinics</span>
+            </div>
+        </div>
+        
+        <!-- Urgency Element -->
+        <div class="mt-10 bg-yellow-500/20 backdrop-blur-sm rounded-xl p-4 border border-yellow-400/30">
+            <p class="text-white font-semibold">
+                <i class="fas fa-clock mr-2"></i>
+                <strong>Limited Availability:</strong> We only onboard 10 new clinics per month to ensure quality. 
+                <span class="text-yellow-300">3 spots left this month.</span>
+            </p>
         </div>
     </div>
 </section>
@@ -735,11 +953,11 @@
             <article class="dynamic-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
                 <div class="relative">
                     {% if post.featured_image %}
-                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover" loading="lazy" width="400" height="250">
                     {% else %}
                         <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><defs><linearGradient id='blogGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%231E40AF'/><stop offset='100%' style='stop-color:%2306B6D4'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23blogGrad)'/><rect x='50' y='50' width='300' height='150' fill='white' rx='8'/><rect x='70' y='70' width='80' height='20' fill='%23E5E7EB' rx='4'/><rect x='70' y='100' width='120' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='125' width='100' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='150' width='140' height='15' fill='%23E5E7EB' rx='4'/><rect x='70' y='175' width='90' height='15' fill='%23E5E7EB' rx='4'/></svg>" 
                              alt="{{ post.title }}" 
-                             class="w-full h-48 object-cover">
+                             class="w-full h-48 object-cover" loading="lazy" width="400" height="250">
                     {% endif %}
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 text-white">
@@ -789,15 +1007,15 @@
 <section class="py-20 bg-gradient-to-r from-medical-blue to-medical-aqua text-white">
     <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl md:text-4xl font-bold mb-6 font-poppins" data-aos="fade-up">
-            Ready to Transform Your Practice?
+            Ready to Grow Your Clinic 3X Faster?
         </h2>
         <p class="text-xl text-white/90 mb-8" data-aos="fade-up" data-aos-delay="200">
-            Join hundreds of doctors who have already transformed their practices with our digital solutions. Get your free consultation today!
+            Stop wasting money on individual services. Get Clinic Growth OS. See it work in 15 minutes. Free demo. No credit card required.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
             <a href="{% url 'contact' %}" class="bg-white text-medical-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:shadow-xl hover:scale-105">
-                <i class="fas fa-phone mr-2"></i>
-                Get Free Consultation
+                <i class="fas fa-rocket mr-2"></i>
+                Get Free Demo
             </a>
             <a href="{% url 'contact' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-medical-blue transition-all duration-300 hover:shadow-xl hover:scale-105">
                 <i class="fas fa-calculator mr-2"></i>

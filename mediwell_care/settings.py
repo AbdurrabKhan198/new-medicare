@@ -51,8 +51,6 @@ LOCAL_APPS = [
     'blog',
     'contact',
     'crm',
-    'directory',
-    'pharmacy',
     'analytics',
 ]
 
@@ -129,9 +127,30 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+# WhiteNoise Configuration for Static Files Compression
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = DEBUG  # Only auto-refresh in debug mode
+
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Caching Configuration for Better Performance
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+        },
+        'TIMEOUT': 300,  # 5 minutes default timeout
+    }
+}
+
+# Session Configuration for Performance
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SESSION_CACHE_ALIAS = 'default'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

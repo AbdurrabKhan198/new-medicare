@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from core.models import SiteSettings, TeamMember, Testimonial, Counter, HeroSection, FeatureCard, Specialization, HomePageSection
+from core.models import SiteSettings, TeamMember, Testimonial, Counter, HeroSection, FeatureCard, HomePageSection
 from services.models import ServiceCategory, Service, ServicePackage, ServiceFAQ
 from portfolio.models import CaseStudy, CaseStudyImage, DoctorWebsite, Technology
 from blog.models import BlogCategory, BlogPost, BlogTag, BlogPostTag
@@ -57,8 +57,6 @@ class Command(BaseCommand):
         # Create contact info
         self.create_contact_info()
         
-        # Create specializations
-        self.create_specializations()
         
         # Create homepage sections
         self.create_homepage_sections()
@@ -502,23 +500,6 @@ class Command(BaseCommand):
             )
             self.stdout.write('Created contact information')
 
-    def create_specializations(self):
-        if not Specialization.objects.exists():
-            specializations = [
-                {'name': 'Cardiology', 'slug': 'cardiology', 'icon': 'fas fa-heart', 'order': 1},
-                {'name': 'Dermatology', 'slug': 'dermatology', 'icon': 'fas fa-leaf', 'order': 2},
-                {'name': 'Orthopedic', 'slug': 'orthopedic', 'icon': 'fas fa-bone', 'order': 3},
-                {'name': 'Pediatrics', 'slug': 'pediatrics', 'icon': 'fas fa-baby', 'order': 4},
-                {'name': 'Gynecology', 'slug': 'gynecology', 'icon': 'fas fa-female', 'order': 5},
-                {'name': 'Neurology', 'slug': 'neurology', 'icon': 'fas fa-brain', 'order': 6},
-                {'name': 'ENT', 'slug': 'ent', 'icon': 'fas fa-ear-listen', 'order': 7},
-                {'name': 'Dentistry', 'slug': 'dentistry', 'icon': 'fas fa-tooth', 'order': 8}
-            ]
-            
-            for spec in specializations:
-                Specialization.objects.create(**spec)
-            self.stdout.write('Created specializations')
-
     def create_homepage_sections(self):
         if not HomePageSection.objects.exists():
             sections = [
@@ -542,20 +523,6 @@ class Command(BaseCommand):
                     'subtitle': 'Comprehensive digital services tailored for doctors and healthcare professionals',
                     'description': 'From websites to CRM systems, we provide complete digital transformation.',
                     'order': 3
-                },
-                {
-                    'section_name': 'specializations',
-                    'title': 'Top Specializations',
-                    'subtitle': 'Find doctors by their area of expertise',
-                    'description': 'Browse our network of verified doctors across various medical specializations.',
-                    'order': 4
-                },
-                {
-                    'section_name': 'doctors',
-                    'title': 'Meet Top Specialists',
-                    'subtitle': 'Browse experienced, verified doctors and book an appointment instantly',
-                    'description': 'Our network of qualified doctors is ready to serve you.',
-                    'order': 5
                 },
                 {
                     'section_name': 'case_studies',

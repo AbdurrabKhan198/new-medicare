@@ -1,10 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import HeroSection, FeatureCard, Testimonial, Counter, TeamMember, Specialization, HomePageSection
-from crm.models import Doctor
+from .models import HeroSection, FeatureCard, Counter, TeamMember, HomePageSection
 
 from services.models import Service, ServiceCategory
-from portfolio.models import CaseStudy, DoctorWebsite
 from blog.models import BlogPost, BlogCategory
 
 
@@ -14,38 +12,23 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Hero section
+        # Hero section - single query
         context['hero'] = HeroSection.objects.filter(is_active=True).first()
         
-        # Feature cards
-        context['feature_cards'] = FeatureCard.objects.filter(is_active=True).order_by('order')[:3]
+        # Feature cards - optimized query
+        context['feature_cards'] = FeatureCard.objects.filter(is_active=True).order_by('order')[:3].only('title', 'description', 'icon', 'order')
         
-        # Services
-        context['services'] = Service.objects.filter(is_active=True, is_featured=True).order_by('order')[:6]
+        # Services - optimized query
+        context['services'] = Service.objects.filter(is_active=True, is_featured=True).order_by('order')[:6].only('title', 'short_description', 'slug', 'icon', 'order')
         
-        # Testimonials
-        context['testimonials'] = Testimonial.objects.filter(is_active=True).order_by('order')[:6]
+        # Counters - optimized query
+        context['counters'] = Counter.objects.filter(is_active=True).order_by('order').only('title', 'number', 'suffix', 'icon', 'order')
         
-        # Counters
-        context['counters'] = Counter.objects.filter(is_active=True).order_by('order')
+        # Recent blog posts - optimized query with select_related
+        context['recent_posts'] = BlogPost.objects.filter(status='published').select_related('category', 'author').order_by('-published_at')[:3].only('title', 'excerpt', 'slug', 'featured_image', 'published_at', 'category__name', 'author__username')
         
-        # Case studies
-        context['case_studies'] = CaseStudy.objects.filter(is_active=True, is_featured=True).order_by('order')[:3]
-        
-        # Doctor websites
-        context['doctor_websites'] = DoctorWebsite.objects.filter(is_active=True, is_featured=True).order_by('order')[:6]
-        
-        # Recent blog posts
-        context['recent_posts'] = BlogPost.objects.filter(status='published').order_by('-published_at')[:3]
-        
-        # Featured doctors (public directory preview)
-        context['featured_doctors'] = Doctor.objects.filter(is_active=True, is_available=True).select_related('clinic').order_by('-experience_years')[:6]
-        
-        # Specializations
-        context['specializations'] = Specialization.objects.filter(is_active=True).order_by('order')[:8]
-        
-        # Homepage sections configuration
-        context['homepage_sections'] = {section.section_name: section for section in HomePageSection.objects.filter(is_active=True)}
+        # Homepage sections configuration - single query with dict comprehension
+        context['homepage_sections'] = {section.section_name: section for section in HomePageSection.objects.filter(is_active=True).only('section_name', 'is_active', 'order')}
         
         return context
 
@@ -56,14 +39,11 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Team members
-        context['team_members'] = TeamMember.objects.filter(is_active=True).order_by('order')
+        # Team members - optimized query
+        context['team_members'] = TeamMember.objects.filter(is_active=True).order_by('order').only('name', 'role', 'bio', 'image', 'order')
         
-        # Testimonials
-        context['testimonials'] = Testimonial.objects.filter(is_active=True).order_by('order')[:6]
-        
-        # Counters
-        context['counters'] = Counter.objects.filter(is_active=True).order_by('order')
+        # Counters - optimized query
+        context['counters'] = Counter.objects.filter(is_active=True).order_by('order').only('title', 'number', 'suffix', 'icon', 'order')
         
         return context
 
