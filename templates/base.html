@@ -313,29 +313,29 @@
                                 <div class="absolute -inset-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-25 transition-opacity duration-300 blur-md"></div>
                             </div>
                         </div>
-                        <span class="text-2xl font-bold text-gradient">{{ site_settings.site_name|default:"Mediwell Care" }}</span>
+                        <span class="text-2xl font-bold text-gradient">{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}</span>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">{{ site_settings.description|default:"MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem that grows your clinic automatically. One system, complete clinic growth." }}</p>
+                    <p class="text-gray-300 text-sm leading-relaxed">{% if site_settings and site_settings.description %}{{ site_settings.description }}{% else %}MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem that grows your clinic automatically. One system, complete clinic growth.{% endif %}</p>
                     <div class="flex space-x-4">
-                        {% if site_settings.facebook_url %}
+                        {% if site_settings and site_settings.facebook_url %}
                             <a href="{{ site_settings.facebook_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
                                 <i class="fab fa-facebook-f text-lg"></i>
                                 <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                             </a>
                         {% endif %}
-                        {% if site_settings.twitter_url %}
+                        {% if site_settings and site_settings.twitter_url %}
                             <a href="{{ site_settings.twitter_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
                                 <i class="fab fa-twitter text-lg"></i>
                                 <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                             </a>
                         {% endif %}
-                        {% if site_settings.linkedin_url %}
+                        {% if site_settings and site_settings.linkedin_url %}
                             <a href="{{ site_settings.linkedin_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
                                 <i class="fab fa-linkedin-in text-lg"></i>
                                 <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                             </a>
                         {% endif %}
-                        {% if site_settings.instagram_url %}
+                        {% if site_settings and site_settings.instagram_url %}
                             <a href="{{ site_settings.instagram_url }}" class="social-link group relative p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-medical-blue hover:to-medical-aqua transition-all duration-300 hover:scale-110">
                                 <i class="fab fa-instagram text-lg"></i>
                                 <div class="absolute inset-0 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
@@ -406,7 +406,7 @@
                 <div>
                     <h3 class="text-xl font-bold mb-6 text-gradient">Contact Info</h3>
                     <div class="space-y-4">
-                        {% if site_settings.phone %}
+                        {% if site_settings and site_settings.phone %}
                             <div class="contact-item group flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
                                 <div class="p-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full">
                                     <i class="fas fa-phone text-white text-sm"></i>
@@ -414,7 +414,7 @@
                                 <span class="text-gray-300 group-hover:text-white transition-colors duration-300">{{ site_settings.phone }}</span>
                             </div>
                         {% endif %}
-                        {% if site_settings.email %}
+                        {% if site_settings and site_settings.email %}
                             <div class="contact-item group flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
                                 <div class="p-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full">
                                     <i class="fas fa-envelope text-white text-sm"></i>
@@ -422,7 +422,7 @@
                                 <span class="text-gray-300 group-hover:text-white transition-colors duration-300">{{ site_settings.email }}</span>
                             </div>
                         {% endif %}
-                        {% if site_settings.address %}
+                        {% if site_settings and site_settings.address %}
                             <div class="contact-item group flex items-start space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
                                 <div class="p-2 bg-gradient-to-r from-medical-blue to-medical-aqua rounded-full mt-1">
                                     <i class="fas fa-map-marker-alt text-white text-sm"></i>
@@ -430,7 +430,7 @@
                                 <span class="text-gray-300 group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">{{ site_settings.address }}</span>
                             </div>
                         {% endif %}
-                        {% if site_settings.whatsapp_number %}
+                        {% if site_settings and site_settings.whatsapp_number %}
                             <div class="contact-item group flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300">
                                 <div class="p-2 bg-gradient-to-r from-green-500 to-green-600 rounded-full">
                                     <i class="fab fa-whatsapp text-white text-sm"></i>
@@ -446,7 +446,7 @@
             <div class="border-t border-white/20 mt-12 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <p class="text-gray-400 text-sm">
-                        &copy; {% now "Y" %} {{ site_settings.site_name|default:"Mediwell Care" }}. All rights reserved.
+                        &copy; {% now "Y" %} {% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}. All rights reserved.
                     </p>
                     <div class="flex space-x-6">
                         <a href="{% url 'privacy_policy' %}" class="text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:underline">Privacy Policy</a>
@@ -459,7 +459,7 @@
     </footer>
     
     <!-- WhatsApp Chat Button -->
-    {% if site_settings.whatsapp_number %}
+    {% if site_settings and site_settings.whatsapp_number %}
         <div class="fixed bottom-6 right-6 z-50">
             <a href="https://wa.me/{{ site_settings.whatsapp_number }}" 
                class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import HeroSection, FeatureCard, Counter, TeamMember, HomePageSection
+from .models import HeroSection, FeatureCard, Counter, TeamMember, HomePageSection, Testimonial
 
 from services.models import Service, ServiceCategory
 from blog.models import BlogPost, BlogCategory
@@ -44,6 +44,9 @@ class AboutView(TemplateView):
         
         # Counters - optimized query
         context['counters'] = Counter.objects.filter(is_active=True).order_by('order').only('title', 'number', 'suffix', 'icon', 'order')
+        
+        # Testimonials - optimized query
+        context['testimonials'] = Testimonial.objects.filter(is_active=True, is_featured=True).order_by('order')[:6].only('name', 'title', 'clinic_name', 'content', 'image', 'rating', 'order')
         
         return context
 

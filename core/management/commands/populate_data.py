@@ -86,13 +86,13 @@ class Command(BaseCommand):
     def create_hero_section(self):
         if not HeroSection.objects.exists():
             HeroSection.objects.create(
-                title="Empowering Doctors Digitally with Mediwell Care",
-                subtitle="Your digital partner for websites, CRM, SEO & patient growth",
-                description="We specialize in creating powerful digital solutions exclusively for doctors and healthcare professionals. From custom websites to comprehensive CRM systems, we help you grow your practice and serve more patients.",
-                primary_cta_text="Get Free Consultation",
+                title="We Help Doctors Get 20–50 Extra Appointments Every Month Using AI-Powered Clinic Automation.",
+                subtitle="While You Sleep, Our AI Systems Book Appointments, Reduce No-Shows by 40%, and Grow Your Google Reviews Automatically.",
+                description="Stop wasting money on individual services. One complete Clinic Growth OS. 9 AI-powered systems. Real results. No monthly limits.",
+                primary_cta_text="Get Free Demo",
                 primary_cta_url="#contact",
-                secondary_cta_text="View Our Work",
-                secondary_cta_url="#portfolio",
+                secondary_cta_text="See How It Works",
+                secondary_cta_url="#features",
                 is_active=True
             )
             self.stdout.write('Created hero section')
