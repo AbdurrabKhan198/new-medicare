@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{{ site_settings.site_name|default:"Mediwell Care" }} - {% block subtitle %}{{ site_settings.tagline|default:"Clinic Growth OS - AI-Powered Practice Growth System" }}{% endblock %}{% endblock %}</title>
-    <meta name="description" content="{% block description %}{{ site_settings.meta_description|default:"MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically. One system, complete clinic growth." }}{% endblock %}">
-    <meta name="keywords" content="{% block keywords %}{{ site_settings.meta_keywords|default:"doctor website design, healthcare SEO services, medical practice SEO, doctor website development, healthcare digital marketing agency, medical clinic website, doctor CRM system, Google My Business optimization for doctors, healthcare social media marketing, AI WhatsApp for doctors, appointment reminder system, patient management software, medical practice automation, clinic growth system, healthcare lead generation, doctor online presence, medical website builder, healthcare content marketing, local SEO for doctors, medical reputation management, healthcare PPC advertising, doctor appointment booking system, medical practice management software, healthcare website optimization, doctor digital transformation" }}{% endblock %}">
-    <meta name="author" content="{{ site_settings.site_name|default:'Mediwell Care' }}">
+    <title>{% block title %}{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %} - {% block subtitle %}{% if site_settings and site_settings.tagline %}{{ site_settings.tagline }}{% else %}Clinic Growth OS - AI-Powered Practice Growth System{% endif %}{% endblock %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% if site_settings and site_settings.meta_description %}{{ site_settings.meta_description }}{% else %}MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically. One system, complete clinic growth.{% endif %}{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}{% if site_settings and site_settings.meta_keywords %}{{ site_settings.meta_keywords }}{% else %}doctor website design, healthcare SEO services, medical practice SEO, doctor website development, healthcare digital marketing agency, medical clinic website, doctor CRM system, Google My Business optimization for doctors, healthcare social media marketing, AI WhatsApp for doctors, appointment reminder system, patient management software, medical practice automation, clinic growth system, healthcare lead generation, doctor online presence, medical website builder, healthcare content marketing, local SEO for doctors, medical reputation management, healthcare PPC advertising, doctor appointment booking system, medical practice management software, healthcare website optimization, doctor digital transformation{% endif %}{% endblock %}">
+    <meta name="author" content="{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}">
     <meta name="robots" content="{% block robots %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endblock %}">
     <meta name="language" content="English">
     <meta name="revisit-after" content="7 days">
@@ -20,27 +20,27 @@
     <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name|default:"Mediwell Care" }} - {% block og_subtitle %}{{ site_settings.tagline|default:"Clinic Growth OS" }}{% endblock %}{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}{{ site_settings.meta_description|default:"MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically." }}{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{% if site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %} - {% block og_subtitle %}{% if site_settings and site_settings.tagline %}{{ site_settings.tagline }}{% else %}Clinic Growth OS{% endif %}{% endblock %}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% if site_settings and site_settings.meta_description %}{{ site_settings.meta_description }}{% else %}MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically.{% endif %}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% if site_settings and site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}{% endblock %}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="{{ site_settings.site_name|default:'Mediwell Care' }} Logo">
+    <meta property="og:image:alt" content="{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %} Logo">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:site_name" content="{{ site_settings.site_name|default:'Mediwell Care' }}">
+    <meta property="og:site_name" content="{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}">
     <meta property="og:locale" content="en_US">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}{{ site_settings.site_name|default:"Mediwell Care" }} - {% block twitter_subtitle %}{{ site_settings.tagline|default:"Clinic Growth OS" }}{% endblock %}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{{ site_settings.meta_description|default:"MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically." }}{% endblock %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{% if site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}{% endblock %}">
-    <meta name="twitter:image:alt" content="{{ site_settings.site_name|default:'Mediwell Care' }} Logo">
-    {% if site_settings.twitter_url %}<meta name="twitter:site" content="{{ site_settings.twitter_url }}">{% endif %}
+    <meta name="twitter:title" content="{% block twitter_title %}{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %} - {% block twitter_subtitle %}{% if site_settings and site_settings.tagline %}{{ site_settings.tagline }}{% else %}Clinic Growth OS{% endif %}{% endblock %}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{% if site_settings and site_settings.meta_description %}{{ site_settings.meta_description }}{% else %}MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically.{% endif %}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% if site_settings and site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}{% endblock %}">
+    <meta name="twitter:image:alt" content="{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %} Logo">
+    {% if site_settings and site_settings.twitter_url %}<meta name="twitter:site" content="{{ site_settings.twitter_url }}">{% endif %}
     
     <!-- Favicon -->
-    {% if site_settings.favicon %}
+    {% if site_settings and site_settings.favicon %}
         <link rel="icon" type="image/png" href="{{ site_settings.favicon.url }}">
         <link rel="shortcut icon" href="{{ site_settings.favicon.url }}">
         <link rel="apple-touch-icon" href="{{ site_settings.favicon.url }}">
@@ -55,19 +55,19 @@
     <meta name="msapplication-TileColor" content="#1e40af">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="{{ site_settings.site_name|default:'Mediwell Care' }}">
+    <meta name="apple-mobile-web-app-title" content="{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}">
     
     <!-- Structured Data (JSON-LD) - Organization -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "{% block schema_type %}ProfessionalService{% endblock %}",
-        "name": "{{ site_settings.site_name|default:'Mediwell Care' }}",
+        "name": "{% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}",
         "alternateName": "MediWellCare",
-        "description": "{{ site_settings.meta_description|default:'MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically. One system, complete clinic growth.' }}",
+        "description": "{% if site_settings and site_settings.meta_description %}{{ site_settings.meta_description }}{% else %}MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically. One system, complete clinic growth.{% endif %}",
         "url": "{{ request.scheme }}://{{ request.get_host }}",
-        "logo": "{% if site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}",
-        "image": "{% if site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}",
+        "logo": "{% if site_settings and site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}",
+        "image": "{% if site_settings and site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}",
         "serviceType": [
             "Healthcare Digital Marketing",
             "Doctor Website Development",
@@ -117,8 +117,8 @@
                     }
                 }
             ]
-        }{% if site_settings.email %},
-        "email": "{{ site_settings.email }}"{% endif %}{% if site_settings.phone %},
+        }{% if site_settings and site_settings.email %},
+        "email": "{{ site_settings.email }}"{% endif %}{% if site_settings and site_settings.phone %},
         "telephone": "{{ site_settings.phone }}",
         "contactPoint": {
             "@type": "ContactPoint",
@@ -126,28 +126,28 @@
             "contactType": "Customer Service",
             "areaServed": "IN",
             "availableLanguage": ["English", "Hindi"]
-        }{% endif %}{% if site_settings.address %},
+        }{% endif %}{% if site_settings and site_settings.address %},
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "{{ site_settings.address }}",
             "addressCountry": "IN"
-        }{% endif %}{% if site_settings.facebook_url or site_settings.twitter_url or site_settings.linkedin_url or site_settings.instagram_url %},
+        }{% endif %}{% if site_settings and site_settings.facebook_url or site_settings and site_settings.twitter_url or site_settings and site_settings.linkedin_url or site_settings and site_settings.instagram_url %},
         "sameAs": [
-            {% if site_settings.facebook_url %}"{{ site_settings.facebook_url }}"{% if site_settings.twitter_url or site_settings.linkedin_url or site_settings.instagram_url %},{% endif %}{% endif %}
-            {% if site_settings.twitter_url %}"{{ site_settings.twitter_url }}"{% if site_settings.linkedin_url or site_settings.instagram_url %},{% endif %}{% endif %}
-            {% if site_settings.linkedin_url %}"{{ site_settings.linkedin_url }}"{% if site_settings.instagram_url %},{% endif %}{% endif %}
-            {% if site_settings.instagram_url %}"{{ site_settings.instagram_url }}"{% endif %}
+            {% if site_settings and site_settings.facebook_url %}"{{ site_settings.facebook_url }}"{% if site_settings.twitter_url or site_settings.linkedin_url or site_settings.instagram_url %},{% endif %}{% endif %}
+            {% if site_settings and site_settings.twitter_url %}"{{ site_settings.twitter_url }}"{% if site_settings.linkedin_url or site_settings.instagram_url %},{% endif %}{% endif %}
+            {% if site_settings and site_settings.linkedin_url %}"{{ site_settings.linkedin_url }}"{% if site_settings.instagram_url %},{% endif %}{% endif %}
+            {% if site_settings and site_settings.instagram_url %}"{{ site_settings.instagram_url }}"{% endif %}
         ]{% endif %}
     }
     </script>
     
     <!-- Structured Data - LocalBusiness (if address exists) -->
-    {% if site_settings.address %}
+    {% if site_settings and site_settings.address %}
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "{{ site_settings.site_name|default:'Mediwell Care' }}",
+        "name": "{% if site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}",
         "description": "Healthcare digital marketing and clinic growth solutions for doctors",
         "url": "{{ request.scheme }}://{{ request.get_host }}",
         "logo": "{% if site_settings.logo %}{{ request.scheme }}://{{ request.get_host }}{{ site_settings.logo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endif %}",
