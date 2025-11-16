@@ -40,13 +40,19 @@ class AboutView(TemplateView):
         context = super().get_context_data(**kwargs)
         
         # Team members - optimized query
-        context['team_members'] = TeamMember.objects.filter(is_active=True).order_by('order').only('name', 'role', 'bio', 'image', 'order')
+        context['team_members'] = TeamMember.objects.filter(is_active=True).order_by('order').only('name', 'position', 'specialization', 'bio', 'image', 'order')
         
-        # Counters - optimized query
-        context['counters'] = Counter.objects.filter(is_active=True).order_by('order').only('title', 'number', 'suffix', 'icon', 'order')
+        # Counters - optimized query (handle empty queryset gracefully)
+        try:
+            context['counters'] = Counter.objects.filter(is_active=True).order_by('order').only('title', 'number', 'suffix', 'icon', 'order')
+        except Exception:
+            context['counters'] = Counter.objects.none()
         
-        # Testimonials - optimized query
-        context['testimonials'] = Testimonial.objects.filter(is_active=True, is_featured=True).order_by('order')[:6].only('name', 'title', 'clinic_name', 'content', 'image', 'rating', 'order')
+        # Testimonials - optimized query (handle empty queryset gracefully)
+        try:
+            context['testimonials'] = Testimonial.objects.filter(is_active=True, is_featured=True).order_by('order')[:6].only('name', 'title', 'clinic_name', 'content', 'image', 'rating', 'order')
+        except Exception:
+            context['testimonials'] = Testimonial.objects.none()
         
         return context
 

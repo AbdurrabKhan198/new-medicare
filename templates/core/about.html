@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Why Doctors Choose Clinic Growth OS | {{ site_settings.site_name|default:"Mediwell Care" }}{% endblock %}
+{% block title %}Why Doctors Choose Clinic Growth OS | {% if site_settings and site_settings.site_name %}{{ site_settings.site_name }}{% else %}Mediwell Care{% endif %}{% endblock %}
 {% block description %}We're not website builders. We're clinic growth partners. See why doctors trust Clinic Growth OS to automate their practice growth.{% endblock %}
 
 {% block content %}
