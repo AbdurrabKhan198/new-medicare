@@ -15,11 +15,11 @@ class MediwellCareAdminSite(AdminSite):
     
     def index(self, request, extra_context=None):
         """
-        Display the main admin index page with analytics
+        Display the main admin index page with statistics
         """
         extra_context = extra_context or {}
         
-        # Get analytics data
+        # Get statistics data
         total_inquiries = ContactInquiry.objects.count()
         total_quotes = QuoteRequest.objects.count()
         total_subscribers = NewsletterSubscriber.objects.count()

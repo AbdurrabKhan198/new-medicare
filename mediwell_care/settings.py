@@ -51,7 +51,6 @@ LOCAL_APPS = [
     'blog',
     'contact',
     'crm',
-    'analytics',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -66,7 +65,6 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'analytics.middleware.AnalyticsMiddleware',
 ]
 
 ROOT_URLCONF = 'mediwell_care.urls'

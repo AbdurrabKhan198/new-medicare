@@ -17,7 +17,6 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('contact/', include('contact.urls')),
     path('crm/', include('crm.urls')),
-    path('analytics/', include('analytics.urls')),
 ]
 
 # Serve media files in development

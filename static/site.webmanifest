@@ -1,0 +1,18 @@
+{
+    "name": "Mediwell Care - Clinic Growth OS",
+    "short_name": "Mediwell Care",
+    "description": "Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically.",
+    "icons": [
+        {
+            "src": "/static/images/fav-icon.png",
+            "sizes": "any",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#1e40af",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/"
+}
+
