@@ -17,6 +17,8 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('contact/', include('contact.urls')),
     path('crm/', include('crm.urls')),
+    # Redirect favicon.ico to fav-icon.png
+    path('favicon.ico', RedirectView.as_view(url='/static/images/fav-icon.png', permanent=True)),
 ]
 
 # Serve media files in development
