@@ -15,7 +15,7 @@ class Command(BaseCommand):
             defaults={
                 'site_name': 'Mediwell Care',
                 'tagline': 'Empowering Doctors Digitally',
-                'description': 'Your digital partner for websites, CRM, SEO & patient growth',
+                'description': 'MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem that grows your clinic automatically. One system, complete clinic growth.',
                 'meta_description': 'MediWellCare Clinic Growth OS - Complete AI-powered digital ecosystem for doctors. Get more patients, reduce no-shows, grow reviews automatically. One system, complete clinic growth.',
                 'meta_keywords': 'doctor website design, healthcare SEO services, medical practice SEO, doctor website development, healthcare digital marketing agency, medical clinic website, doctor CRM system, Google My Business optimization for doctors, healthcare social media marketing, AI WhatsApp for doctors, appointment reminder system, patient management software, medical practice automation, clinic growth system, healthcare lead generation, doctor online presence, medical website builder, healthcare content marketing, local SEO for doctors, medical reputation management, healthcare PPC advertising, doctor appointment booking system, medical practice management software, healthcare website optimization, doctor digital transformation',
                 'phone': '+91-9250757366',
